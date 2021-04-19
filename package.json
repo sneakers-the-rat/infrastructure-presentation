@@ -1,0 +1,38 @@
+{
+  "name": "infrastructure-presentation",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/sneakers-the-rat/infrastructure-presentation.git",
+  "author": "sneakers-the-rat <JLSaunders987@gmail.com>",
+  "license": "MPL-2.0",
+  "scripts": {
+    "webpack-dev-server": "webpack-dev-server",
+    "dev": "NODE_ENV=development webpack serve --mode=development",
+    "prod": "webpack --mode=production"
+  },
+  "dependencies": {
+    "css-loader": "^5.2.4",
+    "file-loader": "^6.2.0",
+    "raw-loader": "^4.0.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "spectacle": "^8.0.1",
+    "spectacle-mdx-loader": "^0.1.1",
+    "style-loader": "^2.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.13.15",
+    "@babel/plugin-proposal-class-properties": "^7.13.0",
+    "@babel/preset-env": "^7.13.15",
+    "@babel/preset-react": "^7.13.13",
+    "@mdx-js/react": "^1.6.22",
+    "assert": "^2.0.0",
+    "babel-loader": "^8.2.2",
+    "html-webpack-plugin": "^5.3.1",
+    "path": "^0.12.7",
+    "process": "^0.11.10",
+    "webpack": "^5.34.0",
+    "webpack-cli": "^4.6.0",
+    "webpack-dev-server": "^3.11.2"
+  }
+}
