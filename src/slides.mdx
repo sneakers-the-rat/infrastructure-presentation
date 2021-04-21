@@ -1,64 +1,89 @@
-export const testProp = 50;
+import { Heading, Text } from 'spectacle';
 
-# Spectacle Presentation (MDX) 👋
-
-This example uses:
-
-- `mdx`
-- `@babel/preset-react` for the React components we import
-
-Notes: These are presenter notes. This text will be automatically exported as `notes` from either your MDX file (e.g. `import {notes} from './my-file.mdx'`).
-
-If you're editing this project directly, use the first approach. If you're using the CLI, use the second approach.
-
----
-
-## Yellow div from a JSX component
+import Paper from '@material-ui/core/Paper';
+import VerticalLinearStepper from './components/vertical_stepper';
 
 
-Notes: here are some more notes.
+<Heading fontFamily={'titleHeader'}
+         fontSize={'100pt'}
+         textAlign={'left'}
+         lineHeight={1.0}
+         fontWeight={'bold'}
+>
+  Decentralized Infrastructure for Systems Neuroscience
+</Heading>
 
----
+<Paper elevation={3}>
+  <Text>Subtitle</Text>
+</Paper>
 
-# Write your Spectacle Presentations in Markdown
-
-## And seamlessly use React Components
-
-**How sweet is that**
-**(super sweet)**
+<Text>
+  Jonny Saunders, 2021
+</Text>
 
 ---
 
-![datboi](https://pbs.twimg.com/media/CkjFUyTXEAEysBY.jpg)
+# The state of things...
+
+Three collapsible material columns?
 
 ---
 
-###### Typography
+# Infrastructure is the alternative
 
-# Heading 1
-
-## Heading 2
-
-### Heading 3
-
-#### Heading 4
-
-##### Heading 5
-
-###### Heading 6
-
-Standard Text
+We don't have to accept this as the "normal" state of affairs...
 
 ---
 
-> Example Quote
+# Three Interlocking Systems
 
----
+Give us three colors for each of them.
 
-```javascript
-class SuperCoolComponent extends React.Component {
-  render() {
-    return <p>code slide works in markdown too whaaaaat</p>;
+<VerticalLinearStepper steps={[
+  {
+    title: 'Shared Data',
+    body: "shared data to save the freakin planet yall"
+  },
+  {
+    title: 'Shared Tools',
+    body: "same thing here lmao"
+  },
+  {
+    title: 'Shared Knowledge',
+    body: 'shared knowledge is the real deal yall!'
   }
-}
-```
+]}/>
+
+---
+
+# Why is it like this
+
+But first... the field of infra proposals is littered with the corpses of previous attempts
+So what is it exactly that we propose to do differently?
+
+The first thing is *consider the reasons for the problem* -- weirdly
+almost always overlooked
+
+Then *consider the ethics of the possible solutions*
+
+Then *articulate the design philosophy of the proposed solution*
+
+Then *articulate the solution itself*
+
+---
+
+# Shared Data
+
+---
+
+# Shared Tools
+
+---
+
+# Shared Knowledge
+
+---
+
+
+
+

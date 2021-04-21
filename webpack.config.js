@@ -37,6 +37,10 @@ module.exports = {
         use: [babelLoader, 'spectacle-mdx-loader']
       },
       {
+        test: /\.(scss|css)$/,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+      {
         test: /\.(png|j?g|svg|gif)?$/,
         use: [require.resolve('file-loader')]
       }
