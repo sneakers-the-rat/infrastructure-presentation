@@ -17,11 +17,12 @@ const spectacle_theme = {
   },
   colors: {
     primary: '#ebe5da',
-    secondary: '#FFEB3B',
+    // secondary: '#FFEB3B',
+    secondary: "#111111",
     tertiary: '#1e2852',
     quaternary: '#ffc951',
     quinary: '#8bddfd',
-    background: "#111111"
+    background: "#EEEEEE"
   },
   fonts: {
     header: '"Helvetica Neue", Helvetica, Arial, sans-serif',

@@ -2,6 +2,7 @@ import { Heading, Text } from 'spectacle';
 
 import Paper from '@material-ui/core/Paper';
 import VerticalLinearStepper from './components/vertical_stepper';
+import Dataset from './components/dataset';
 
 
 <Heading fontFamily={'titleHeader'}
@@ -19,6 +20,7 @@ import VerticalLinearStepper from './components/vertical_stepper';
 
 <Text>
   Jonny Saunders, 2021
+  Make this lighter and airier and put a spindlier, continuously generating version of the kate site piece
 </Text>
 
 ---
@@ -72,7 +74,23 @@ Then *articulate the solution itself*
 
 ---
 
-# Shared Data
+<Heading textAlign={'left'}>Shared Data</Heading>
+
+<svg width={1920} height={1080} className={'svg-fill'}>
+<Dataset
+    name="apple"
+    cols={[
+      {name:'apple', size:3},
+      {name:'banana', size:5},
+      {name: 'peanut', size:8},
+      {name: 'walrus', size:2},
+      {name:'fear', size:4}
+    ]}
+    position={[1700, 200]}
+    orientation={90}
+    scatter={[0,10,0,10]}
+/>
+</svg>
 
 ---
 

@@ -29,6 +29,12 @@ module.exports = {
         use: [babelLoader],
       },
       {
+        test: /\.m?js/,
+        resolve: {
+          fullySpecified: false
+        }
+      },
+      {
         test: /\.md$/,
         use: [require.resolve('raw-loader')]
       },
@@ -37,7 +43,7 @@ module.exports = {
         use: [babelLoader, 'spectacle-mdx-loader']
       },
       {
-        test: /\.(scss|css)$/,
+        test: /\.(s[ac]ss)$/i,
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
