@@ -1,3 +1,7 @@
+// const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+// const CopyWebpackPlugin = require('copy-webpack-plugin')
+// const PrettierPlugin = require('prettier-webpack-plugin')
+// const ESLintPlugin = require('eslint-webpack-plugin')
 const HtmlWebPackPlugin = require( 'html-webpack-plugin' );
 const path = require( 'path' );
 const webpack = require('webpack');
@@ -13,15 +17,15 @@ const babelLoader = {
 };
 
 module.exports = {
-  mode: "development",
+  // mode: "development",
   context: __dirname,
-  entry: './src/index.js',
+  entry: path.resolve(__dirname, '../src/index.js'),
   output: {
-    path: path.resolve( __dirname, 'dist' ),
-    filename: 'main.js',
-    publicPath: '/',
+    path: path.resolve( __dirname, '../dist' ),
+    filename: '[name].bundle.js',
+    publicPath: '/infrastructure',
   },
-  devtool: 'source-map',
+  // devtool: 'source-map',
   module: {
     rules: [
       {
@@ -53,15 +57,19 @@ module.exports = {
     ]
   },
   plugins: [
+    // new CleanWebpackPlugin(),
     new HtmlWebPackPlugin({
-      template: path.resolve( __dirname, 'public/index.html' ),
+      template: path.resolve( __dirname, '../public/index.html' ),
       title: "Hey what up"
     }),
     new webpack.ProvidePlugin({
       process: 'process/browser',
     })
+    // new PrettierPlugin()
   ],
   resolve: {
+    // modules: [path.resolve(__dirname, '../node_modules'),
+    //   path.resolve(__dirname, '../src')],
     alias: {
       // Add helper aliases needed when `yarn link spectacle` development
       // is enabled to avoid duplicate libs that require singletons.

@@ -1,16 +1,17 @@
-import { Heading, Text, CodePane, Box, Appear, Link } from 'spectacle';
+import { Heading, Text, CodePane, Box, Appear, Link } from 'spectacle'
 
-import Paper from '@material-ui/core/Paper';
-import VerticalLinearStepper from './components/vertical_stepper';
-import Dataset from './components/dataset';
+import Paper from '@material-ui/core/Paper'
+import VerticalLinearStepper from './components/vertical_stepper'
+import Dataset from './components/dataset'
 
 import funky from 'react-syntax-highlighter/dist/cjs/styles/prism/funky'
 
-<Heading fontFamily={'titleHeader'}
-         fontSize={'100pt'}
-         textAlign={'left'}
-         lineHeight={1.0}
-         fontWeight={'bold'}
+<Heading
+  fontFamily={'titleHeader'}
+  fontSize={'100pt'}
+  textAlign={'left'}
+  lineHeight={1.0}
+  fontWeight={'bold'}
 >
   Decentralized Infrastructure for Systems Neuroscience
 </Heading>
@@ -20,8 +21,8 @@ import funky from 'react-syntax-highlighter/dist/cjs/styles/prism/funky'
 </Paper>
 
 <Text>
-  Jonny Saunders, 2021
-  Make this lighter and airier and put a spindlier, continuously generating version of the kate site piece
+  Jonny Saunders, 2021 Make this lighter and airier and put a spindlier,
+  continuously generating version of the kate site piece
 </Text>
 
 ---
@@ -42,20 +43,22 @@ We don't have to accept this as the "normal" state of affairs...
 
 Give us three colors for each of them.
 
-<VerticalLinearStepper steps={[
-  {
-    title: 'Shared Data',
-    body: "shared data to save the freakin planet yall"
-  },
-  {
-    title: 'Shared Tools',
-    body: "same thing here lmao"
-  },
-  {
-    title: 'Shared Knowledge',
-    body: 'shared knowledge is the real deal yall!'
-  }
-]}/>
+<VerticalLinearStepper
+  steps={[
+    {
+      title: 'Shared Data',
+      body: 'shared data to save the freakin planet yall',
+    },
+    {
+      title: 'Shared Tools',
+      body: 'same thing here lmao',
+    },
+    {
+      title: 'Shared Knowledge',
+      body: 'shared knowledge is the real deal yall!',
+    },
+  ]}
+/>
 
 ---
 
@@ -64,88 +67,100 @@ Give us three colors for each of them.
 But first... the field of infra proposals is littered with the corpses of previous attempts
 So what is it exactly that we propose to do differently?
 
-The first thing is *consider the reasons for the problem* -- weirdly
+The first thing is _consider the reasons for the problem_ -- weirdly
 almost always overlooked
 
-Then *consider the ethics of the possible solutions*
+Then _consider the ethics of the possible solutions_
 
-Then *articulate the design philosophy of the proposed solution*
+Then _articulate the design philosophy of the proposed solution_
 
-Then *articulate the solution itself*
+Then _articulate the solution itself_
 
 ---
 
-<Heading marginLeft={"0px"} textAlign={'left'}>Decentralized Data</Heading>
-<Text fontSize={30} fontFamily={'monospace'} style={{marginBottom:"12px"}}>
+<Heading marginLeft={'0px'} textAlign={'left'}>
+  Decentralized Data
+</Heading>
+<Text fontSize={30} fontFamily={'monospace'} style={{ marginBottom: '12px' }}>
   To start, we need our data to be...
 </Text>
-<Box width={4/9}>
-<VerticalLinearStepper steps={[
-  {
-    title: 'Interoperable',
-    body: "Usable across experimental, analytical, and storage tools"
-  },
-  {
-    title: 'Annotated',
-    body: 'Self-documented, requiring no additional information to understand'
-  },
-  {
-    title: 'Portable',
-    body: 'All the pieces of a dataset are contained within! No "external files" loose\
+<Box width={4 / 9}>
+  <VerticalLinearStepper
+    steps={[
+      {
+        title: 'Interoperable',
+        body: 'Usable across experimental, analytical, and storage tools',
+      },
+      {
+        title: 'Annotated',
+        body:
+          'Self-documented, requiring no additional information to understand',
+      },
+      {
+        title: 'Portable',
+        body:
+          'All the pieces of a dataset are contained within! No "external files" loose\
       in our data directory. Large data like video, high-density electrophysiology \
-      are supported by native, domain-specific compression.'
-  },
-  {
-    title: 'Streamable',
-    body: 'Relatedly, the sub-pieces of a dataset need to be separable such that \
-      someone doesn\'t need to download your massive exabyte dataset just to look \
-      at the date it was collected'
-  },
-  {
-    title: 'Discoverable',
-    body: "Two kinds: findable by people who know what they're looking for (and what \
+      are supported by native, domain-specific compression.',
+      },
+      {
+        title: 'Streamable',
+        body:
+          "Relatedly, the sub-pieces of a dataset need to be separable such that \
+      someone doesn't need to download your massive exabyte dataset just to look \
+      at the date it was collected",
+      },
+      {
+        title: 'Discoverable',
+        body:
+          "Two kinds: findable by people who know what they're looking for (and what \
       they're looking for is your data, of course!), ie. searchable, and also as part \
       of a structured knowledge repository among other data of its type. More on this \
-      in the federated p2p section..."
-  },
-]}
-finalText={""}/>
-<Appear>
-<Paper style={{backgroundColor:"#F5F5F5", marginTop:"24px", padding:"12px"}}>
-  <Text fontSize={30} fontFamily={'monospace'} textAlign={"center"} marginTop={"1em"}>
-    In other words, we need some kind of
-  </Text>
-  <Heading>~standardized format~</Heading>
-  <Text fontSize={20} fontFamily={'monospace'} textAlign={"center"}>
-    (who me? oh no who left all my data all over the floor)
-  </Text>
-</Paper>
-</Appear>
+      in the federated p2p section...",
+      },
+    ]}
+    finalText={''}
+  />
+  <Appear>
+    <Paper
+      style={{ backgroundColor: '#F5F5F5', marginTop: '24px', padding: '12px' }}
+    >
+      <Text
+        fontSize={30}
+        fontFamily={'monospace'}
+        textAlign={'center'}
+        marginTop={'1em'}
+      >
+        In other words, we need some kind of
+      </Text>
+      <Heading>~standardized format~</Heading>
+      <Text fontSize={20} fontFamily={'monospace'} textAlign={'center'}>
+        (who me? oh no who left all my data all over the floor)
+      </Text>
+    </Paper>
+  </Appear>
 </Box>
 
-
-
-
 <svg width={1920} height={1080} className={'svg-fill'}>
-<Dataset
+  <Dataset
     name="data.exe"
     cols={[
-      {name:'apple', size:3},
-      {name:'banana', size:5},
-      {name: 'peanut', size:6},
-      {name: 'walrus', size:2},
-      {name:'fear', size:4}
+      { name: 'apple', size: 3 },
+      { name: 'banana', size: 5 },
+      { name: 'peanut', size: 6 },
+      { name: 'walrus', size: 2 },
+      { name: 'fear', size: 4 },
     ]}
     position={[1750, 200]}
     orientation={90}
     scatter={{
-      x: {scale:50, lambda:0.2, offset: 0},
-      y: {scale:30, lambda:0.5, offset: 50},
-      rotate: true
+      x: { scale: 50, lambda: 0.2, offset: 0 },
+      y: { scale: 30, lambda: 0.5, offset: 50 },
+      rotate: true,
     }}
     scale={2}
     outlines={true}
-/>
+  />
 </svg>
 
 ---
@@ -201,13 +216,8 @@ converter.add_container(\'Position\', \n\
 
 </Box>
 
-
 ---
 
 # Shared Knowledge
 
 ---
-
-
-
-

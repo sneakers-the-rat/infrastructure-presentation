@@ -1,99 +1,99 @@
-import React from 'react';
-import { MDXProvider } from '@mdx-js/react';
-import { Deck, Slide, Notes, mdxComponentMap } from 'spectacle';
+import React from 'react'
+import { MDXProvider } from '@mdx-js/react'
+import { Deck, Slide, Notes, mdxComponentMap } from 'spectacle'
 
-import { ThemeProvider } from '@material-ui/core';
-import { createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/core'
+import { createMuiTheme } from '@material-ui/core/styles'
 
-import slides, { notes } from './slides.mdx';
-
+import slides, { notes } from './slides.mdx'
 
 // https://github.com/FormidableLabs/spectacle/blob/main/src/theme/default-theme.js
 const spectacle_theme = {
   size: {
-    width:1920,
-    height:1080,
+    width: 1920,
+    height: 1080,
     // maxCodePaneHeight: 200
   },
   colors: {
     primary: '#111111',
     // secondary: '#FFEB3B',
-    secondary: "#111111",
+    secondary: '#111111',
     tertiary: '#1e2852',
     quaternary: '#ff3333',
     quinary: '#8bddfd',
-    background: "#EEEEEE"
+    background: '#EEEEEE',
   },
   fonts: {
     header: '"Helvetica Neue", Helvetica, Arial, sans-serif',
     text: '"Helvetica Neue", Helvetica, Arial, sans-serif',
     monospace: '"Consolas", "Menlo", monospace',
-    titleHeader: '"Fira Code", "Helvetica Neue", Helvetica, Arial, sans-serif'
+    titleHeader: '"Fira Code", "Helvetica Neue", Helvetica, Arial, sans-serif',
   },
   fontSizes: {
     h1: '72px',
     h2: '64px',
     h3: '56px',
     text: '44px',
-    monospace: '20px'
+    monospace: '20px',
   },
-  space: [0, 0, 32]
-};
+  space: [0, 0, 32],
+}
 
 const material_theme = createMuiTheme({
   palette: {
     type: 'light',
     primary: {
-      main: spectacle_theme['colors']['secondary']
+      main: spectacle_theme['colors']['secondary'],
     },
     secondary: {
-      main: spectacle_theme['colors']['tertiary']
+      main: spectacle_theme['colors']['tertiary'],
     },
     background: {
-      main: spectacle_theme.colors.background
-    }
+      main: spectacle_theme.colors.background,
+    },
   },
   typography: {
-    fontFamily: ["Helvetica Neue", "Helvetica", "Arial", 'sans-serif'],
+    fontFamily: ['Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
     h1: {
-      fontSize: 72
+      fontSize: 72,
     },
     h2: {
-      fontSize: 64
+      fontSize: 64,
     },
     h3: {
-      fontSize: 56
+      fontSize: 56,
     },
-    body1:{
-      fontSize: 44
+    body1: {
+      fontSize: 44,
     },
-    body2:{
-      fontSize:40
-    }
-
-  }
+    body2: {
+      fontSize: 40,
+    },
+  },
 })
 
-
 const Presentation = () => (
-    <MDXProvider components={mdxComponentMap}>
-      <Deck theme={spectacle_theme}>
-        {slides.map((MDXSlide, i) => [MDXSlide, notes[i]]).
-            map(([MDXSlide, MDXNote], i) => (
-              <ThemeProvider theme={material_theme}>
-                <Slide key={`slide-${i}`} slideNum={i}
-                       backgroundColor={'background'}>
-                  <MDXSlide/>
-                  <Notes>
-                    <MDXNote/>
-                  </Notes>
-                </Slide>
-              </ThemeProvider>
-            )
-        )}
-      </Deck>
-    </MDXProvider>
-);
+  <MDXProvider components={mdxComponentMap}>
+    <Deck theme={spectacle_theme}>
+      {slides
+        .map((MDXSlide, i) => [MDXSlide, notes[i]])
+        .map(([MDXSlide, MDXNote], i) => (
+          <ThemeProvider theme={material_theme}>
+            <Slide
+              key={`slide-${i}`}
+              slideNum={i}
+              backgroundColor={'background'}
+            >
+              <MDXSlide />
+              <Notes>
+                <MDXNote />
+              </Notes>
+            </Slide>
+          </ThemeProvider>
+        ))}
+    </Deck>
+  </MDXProvider>
+)
 
 export default Presentation
 //

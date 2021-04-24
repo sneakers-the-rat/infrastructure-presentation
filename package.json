@@ -7,14 +7,15 @@
   "license": "MPL-2.0",
   "scripts": {
     "webpack-dev-server": "webpack-dev-server",
-    "dev": "NODE_ENV=development webpack serve --mode=development",
-    "prod": "webpack --mode=production"
+    "start": "cross-env NODE_ENV=development webpack serve --config config/webpack.dev.js",
+    "build": "cross-env NODE_ENV=production webpack --config config/webpack.prod.js"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "animejs": "^3.2.1",
     "css-loader": "^5.2.4",
     "file-loader": "^6.2.0",
+    "merge-anything": "2.2.4",
     "random": "^3.0.5",
     "raw-loader": "^4.0.2",
     "react": "^17.0.2",
@@ -31,7 +32,10 @@
     "@mdx-js/react": "^1.6.22",
     "assert": "^2.0.0",
     "babel-loader": "^8.2.2",
+    "cross-env": "^7.0.3",
+    "css-minimizer-webpack-plugin": "^2.0.0",
     "html-webpack-plugin": "^5.3.1",
+    "mini-css-extract-plugin": "^1.5.0",
     "node-sass": "^5.0.0",
     "path": "^0.12.7",
     "process": "^0.11.10",
