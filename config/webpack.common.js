@@ -23,7 +23,7 @@ module.exports = {
   output: {
     path: path.resolve( __dirname, '../dist' ),
     filename: '[name].bundle.js',
-    publicPath: '/infrastructure',
+    publicPath: '/infrastructure-presentation',
   },
   // devtool: 'source-map',
   module: {
