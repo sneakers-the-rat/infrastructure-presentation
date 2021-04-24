@@ -16,11 +16,11 @@ const spectacle_theme = {
     // maxCodePaneHeight: 200
   },
   colors: {
-    primary: '#ebe5da',
+    primary: '#111111',
     // secondary: '#FFEB3B',
     secondary: "#111111",
     tertiary: '#1e2852',
-    quaternary: '#ffc951',
+    quaternary: '#ff3333',
     quinary: '#8bddfd',
     background: "#EEEEEE"
   },
@@ -37,17 +37,20 @@ const spectacle_theme = {
     text: '44px',
     monospace: '20px'
   },
-  space: [16, 24, 32]
+  space: [0, 0, 32]
 };
 
 const material_theme = createMuiTheme({
   palette: {
-    type: 'dark',
+    type: 'light',
     primary: {
       main: spectacle_theme['colors']['secondary']
     },
     secondary: {
       main: spectacle_theme['colors']['tertiary']
+    },
+    background: {
+      main: spectacle_theme.colors.background
     }
   },
   typography: {
@@ -63,6 +66,9 @@ const material_theme = createMuiTheme({
     },
     body1:{
       fontSize: 44
+    },
+    body2:{
+      fontSize:40
     }
 
   }

@@ -11,6 +11,17 @@ import Typography from '@material-ui/core/Typography';
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
+    background: "#EEEEEE"
+  },
+  stepper: {
+    background: "#F5F5F5"
+  },
+  label: {
+    fontSize: 30
+  },
+  bodytext: {
+    fontSize:30,
+    fontWeight: 200
   },
   button: {
     marginTop: theme.spacing(1),
@@ -26,24 +37,6 @@ const useStyles = makeStyles((theme) => ({
 
 function getSteps() {
   return ['Select campaign settings', 'Create an ad group', 'Create an ad'];
-}
-
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return `For each ad campaign that you create, you can control how much
-              you're willing to spend on clicks and conversions, which networks
-              and geographical locations you want your ads to show on, and more.`;
-    case 1:
-      return 'An ad group contains one or more ads which target a shared set of keywords.';
-    case 2:
-      return `Try out different ad text to see what brings in the most customers,
-              and learn how to enhance your ads using features like ad extensions.
-              If you run into any problems with your ads, find out how to tell if
-              they're running and how to resolve approval issues.`;
-    default:
-      return 'Unknown step';
-  }
 }
 
 export default function VerticalLinearStepper(props) {
@@ -69,13 +62,13 @@ export default function VerticalLinearStepper(props) {
   };
 
   return (
-      <div className={classes.root}>
-        <Stepper activeStep={activeStep} orientation="vertical">
+      <div className={classes.root + " vertical-stepper"}>
+        <Stepper className={classes.stepper} activeStep={activeStep} orientation="vertical" elevation={2}>
           {steps.map((label, index) => (
               <Step key={label}>
-                <StepLabel>{label}</StepLabel>
+                <StepLabel className={classes.label}>{label}</StepLabel>
                 <StepContent>
-                  <Typography>{step_text[index]}</Typography>
+                  <Typography className={classes.bodytext}>{step_text[index]}</Typography>
                   <div className={classes.actionsContainer}>
                     <div>
                       <Button
@@ -99,9 +92,9 @@ export default function VerticalLinearStepper(props) {
               </Step>
           ))}
         </Stepper>
-        {activeStep === steps.length && (
+        {activeStep === steps.length && props.finalText.length>0 && (
              <Paper square elevation={0} className={classes.resetContainer}>
-               <Typography>All steps completed - you&apos;re finished</Typography>
+               <Typography>{props.finalText}</Typography>
                <Button onClick={handleReset} >
                  Reset
                </Button>
