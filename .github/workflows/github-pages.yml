@@ -1,4 +1,4 @@
-name: Build and deploy lab website to github pages
+name: Build and deploy lab website to github pages 2
 
 on:
   push:
