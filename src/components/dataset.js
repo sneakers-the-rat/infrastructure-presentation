@@ -11,6 +11,8 @@ function gauss(mean = 0, variance = 1) {
   )
 }
 
+
+
 export default class Dataset extends React.Component {
   // props
   // --------------------------------------
@@ -41,12 +43,16 @@ export default class Dataset extends React.Component {
       scattered: scattered,
     }
 
-    // console.log('constructor state', svgs);
   }
 
   componentDidMount() {}
 
   componentDidUpdate() {}
+
+  translate_str(x, y, rotation){
+    return('translateX(' + x + 'px) translateY(' + y + 'px) rotate(' +
+        rotation + 'deg)')
+  }
 
   generate_svg() {
     let n_cols = this.props.cols.length
@@ -56,7 +62,6 @@ export default class Dataset extends React.Component {
 
     let blocks = {}
     let labels = {}
-    let header = {}
 
     // --------------------------------------
     // header
@@ -66,29 +71,34 @@ export default class Dataset extends React.Component {
       params.block_size * n_cols + params.padding * (n_cols - 1)
     // the center of the header is the centerpoint of the svg
     // let center = {x: header_width/2, y: params.header_height/2};
-    header = {
+    let header = {
       x: 0,
       y: 0,
-      width: header_width * scale,
-      height: params.header_height * scale,
+      rotation: 0,
+      attrs: {
+        width: header_width * scale,
+        height: params.header_height * scale
+      }
     }
 
     labels['header'] = {
       x: 0,
       y: -padding / 2,
-      textAnchor: 'start',
-      id: 'dataset-label-header-' + this.props.name,
-      className: 'dataset-label header-label',
+      rotation: 0,
       text: this.props.name.toUpperCase(),
+      attrs: {
+        textAnchor: 'start',
+        id: 'dataset-label-header-' + this.props.name,
+        className: 'dataset-label header-label',
+      }
     }
 
     // --------------------------------------
     // blocks
     // iterate through cols and make the blocks
-    let top = { x: 0, y: header.height + padding }
+    let top = { x: 0, y: header.attrs.height + padding }
 
     let col_n = 0
-    // console.log('col iter', this.props.cols);
     for (let col in this.props.cols) {
       col = this.props.cols[col]
       blocks[col.name] = []
@@ -97,22 +107,27 @@ export default class Dataset extends React.Component {
         blocks[col.name].push({
           x: col_x,
           y: top.y + i * block_size + i * padding,
-          width: block_size,
-          height: block_size,
-          id: 'dataset-block-' + this.props.name + '-' + col.name + '-' + i,
+          rotation: 0,
+          attrs: {
+            width: block_size,
+            height: block_size,
+            id: 'dataset-block-' + this.props.name + '-' + col.name + '-' + i,
+            className: 'dataset-block'
+          }
         })
-        // console.log(blocks);
       }
 
       // make label for column
       labels[col.name] = {
         x: col_x + block_size / 2,
         y: top.y + padding * 2,
-        textAnchor: 'end',
-        style: { transform: 'rotate(-90deg)' },
-        text: col.name,
-        className: 'dataset-label',
-        id: 'dataset-label-' + this.props.name + '-' + col.name,
+        rotation: 90,
+        attrs: {
+          textAnchor: 'end',
+          text: col.name,
+          className: 'dataset-label',
+          id: 'dataset-label-' + this.props.name + '-' + col.name,
+        }
       }
 
       col_n += 1
@@ -128,8 +143,13 @@ export default class Dataset extends React.Component {
           outlines[col.name].push({
             x: top.x + col_n * block_size + col_n * padding,
             y: top.y + i * block_size + i * padding,
-            width: block_size,
-            height: block_size,
+            rotation: 0,
+            attrs:{
+              width: block_size,
+              height: block_size,
+              className:'dataset-outline',
+              id:'dataset-outline-' + this.props.name + '-' + i
+            }
           })
         }
         col_n += 1
@@ -158,7 +178,6 @@ export default class Dataset extends React.Component {
   }
 
   moveBlocks(blocks) {
-    // console.log('unscattering', this.state.originals, this.state.blocks);
     let tl = anime.timeline({
       easing: 'easeOutElastic',
       delay: 0,
@@ -181,13 +200,13 @@ export default class Dataset extends React.Component {
             y: block.y,
           }
         )
-
+        console.log(block.attrs.id, block.x, block.y, params.unscatter_delay_scale, dist)
         tl.add(
           {
-            targets: document.getElementById(block.id),
-            x: { value: block.x, duration: 1000 },
-            y: { value: block.y, duration: 1000 },
-            rotate: { value: 0, duration: 100 },
+            targets: document.getElementById(block.attrs.id),
+            translateX: { value: block.x, duration: 1000 },
+            translateY: { value: block.y, duration: 1000 },
+            rotate: { value: block.rotation, duration: 100 },
           },
           params.unscatter_delay_scale * dist
         )
@@ -217,16 +236,13 @@ export default class Dataset extends React.Component {
           let y_trans =
             y_generator() * this.props.scatter.y.scale +
             this.props.scatter.y.offset
-          // console.log(x_trans, y_trans);
 
           scatterme[colname][i]['x'] += x_trans
           scatterme[colname][i]['y'] += y_trans
 
           if (this.props.scatter.rotate === true) {
             // random rotation
-            let rotation = Math.random() * 360
-            let tfm_str = 'rotate(' + rotation + 'deg)'
-            scatterme[colname][i]['style'] = { transform: tfm_str }
+            scatterme[colname][i]['rotation'] = Math.random() * 360
           }
         }
       }
@@ -240,29 +256,29 @@ export default class Dataset extends React.Component {
     let labels_svg = []
     for (let labname in this.state.labels) {
       let label = this.state.labels[labname]
-      labels_svg.push(<text {...label}>{label.text}</text>)
+      let translate_str = this.translate_str(label.x, label.y, label.rotation)
+      labels_svg.push(
+          <text
+              {...label.attrs}
+              style={{transform: translate_str}}
+          >{label.text}</text>)
     }
 
     // --------------------------------------
     // blocks
     let blocks_svg = []
     for (let col in this.state.blocks) {
-      // console.log('col', col);
-      let i = 0
       for (let block in this.state.blocks[col]) {
+
         block = this.state.blocks[col][block]
-        // console.log('block', {...block});
-        // console.log(block.style)
         blocks_svg.push(
           <rect
-            {...block}
-            className={'dataset-block'}
-            // id={'dataset-block-'+this.props.name+'-'+i}
+            {...block.attrs}
+            style={{transform: this.translate_str(block.x, block.y, block.rotation)}}
             onMouseEnter={enterHover}
             onMouseLeave={exitHover}
-          ></rect>
+          />
         )
-        i += 1
       }
     }
 
@@ -271,42 +287,36 @@ export default class Dataset extends React.Component {
     let outlines_svg = []
     if (this.props.outlines === true) {
       for (let col in this.state.outlines) {
-        let i = 0
         for (let outline in this.state.outlines[col]) {
           outline = this.state.outlines[col][outline]
           outlines_svg.push(
             <rect
-              {...outline}
-              className={'dataset-outline'}
-              id={'dataset-outline-' + this.props.name + '-' + i}
-            ></rect>
+              {...outline.attrs}
+              style={{ transform: this.translate_str(outline.x, outline.y, outline.rotation) }}
+            />
           )
-          i += 1
-        }
       }
+    }
     }
 
     // --------------------------------------
-    // rotation
-    let translate_str =
-      'translate(' + this.state.position[0] + ',' + this.state.position[1] + ')'
-    let rotate_str = 'rotate(' + this.state.orientation + ')'
-    let transform_str = translate_str + ' ' + rotate_str
+    // rotations
 
     return (
       <g
-        transform={transform_str}
+        style={{ transform: this.translate_str(this.state.position[0], this.state.position[1], this.state.orientation) }}
         id={'dataset-' + this.props.name}
         className={'dataset'}
       >
         <rect
-          {...this.state.header}
+          {...this.state.header.attrs}
+          style={{ transform: this.translate_str(this.state.header.x, this.state.header.y, this.state.header.rotation) }}
           className={'dataset-header'}
           id={'dataset-header-' + this.props.name}
           onClick={() => this.toggle_scatter()}
           onMouseEnter={enterHover}
           onMouseLeave={exitHover}
-        ></rect>
+        />
         {outlines_svg}
         {blocks_svg}
         {labels_svg}
@@ -343,7 +353,7 @@ const params = {
   header_hover: {
     scale: 1,
   },
-  unscatter_delay_scale: 2,
+  unscatter_delay_scale: 1,
 }
 
 const styles = {
@@ -379,14 +389,13 @@ function hoverScale(button, scale, duration) {
 
 function enterHover(event) {
   let button = event.target
-  // console.log('enter', button);
-  if (button.className.baseVal == 'dataset-block') {
+  if (button.className.baseVal === 'dataset-block') {
     hoverScale(
       button,
       params.block_hover.scale,
       params.block_hover.duration_enter
     )
-  } else if (button.className.baseVal == 'dataset-header') {
+  } else if (button.className.baseVal === 'dataset-header') {
     hoverScale(
       button,
       params.header_hover.scale,
@@ -397,10 +406,9 @@ function enterHover(event) {
 
 function exitHover(event) {
   let button = event.target
-  // console.log('exit', button);
-  if (button.className.baseVal == 'dataset-block') {
+  if (button.className.baseVal === 'dataset-block') {
     hoverScale(button, 1, params.block_hover.duration_exit)
-  } else if (button.className.baseVal == 'dataset-header') {
+  } else if (button.className.baseVal === 'dataset-header') {
     hoverScale(button, 1, params.block_hover.duration_enter)
   }
 }
