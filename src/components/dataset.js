@@ -329,6 +329,7 @@ export default class Dataset extends React.Component {
 // component params
 
 Dataset.defaultProps = {
+  name:'',
   position: [0, 0],
   orientation: 0,
   scatter: {

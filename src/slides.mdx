@@ -3,6 +3,7 @@ import { Heading, Text, CodePane, Box, Appear, Link } from 'spectacle'
 import Paper from '@material-ui/core/Paper'
 import VerticalLinearStepper from './components/vertical_stepper'
 import Dataset from './components/dataset'
+import Peer from './components/peer'
 
 import funky from 'react-syntax-highlighter/dist/cjs/styles/prism/funky'
 
@@ -164,6 +165,16 @@ Then _articulate the solution itself_
 </svg>
 
 ---
+# p2p
+
+<svg width={1920} height={1080} className={'svg-fill'}>
+<Peer
+    name="jonny"
+    position={[800, 500]}
+/>
+</svg>
+
+---
 
 <Heading>Make It Easy!</Heading>
 <Box width={2/3} marginLeft={'auto'} marginRight={'auto'}>
@@ -216,6 +227,7 @@ converter.add_container(\'Position\', \n\
     And ya and also rewarding, what do people get out of their labor? we'll get there.</Text>
 
 </Box>
+
 
 ---
 
