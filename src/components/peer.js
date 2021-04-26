@@ -1,8 +1,10 @@
 import React from 'react';
 
+var MADE_PEERS = {};
+
 import {Dataset,makeDataset} from './dataset';
 import {dataset_params, peer_params} from './params';
-import {toRadians, randint} from './utils';
+import {toRadians, randint, isin, whereis} from './utils';
 import anime from 'animejs';
 import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
@@ -18,6 +20,10 @@ export class Peer extends React.Component {
 
     this.peersRefs = React.createRef({});
     this.toggleRef = React.createRef();
+    this.requestedBlocks = React.createRef([]);
+    this.haveBlocks = React.createRef([]);
+
+
     let originalstate = this.generate(this.props.datasets);
     // console.log('peers originalstate', originalstate)
     this.state = {
@@ -25,27 +31,32 @@ export class Peer extends React.Component {
       position: this.props.position,
       orientation: this.props.orientation,
       peers: this.props.peers,
-      requests: [],
       showPeers: false,
       peerWindow: {
         scale: 0,
         position: [0,0]
       }
     }
+
     this.togglePeers = this.togglePeers.bind(this)
     this.requestDataset = this.requestDataset.bind(this)
+    this.updateHaveBlocks = this.updateHaveBlocks.bind(this)
+    this.uploadLoop = this.uploadLoop.bind(this)
+    this.receiveBlock = this.receiveBlock.bind(this)
   }
 
-  // componentDidMount() {
-  //   let peers = this.props.getPeers()
-  //   this.setState(() => {peers:peers})
-  // }
+  componentDidMount() {
+    this.updateHaveBlocks();
+    MADE_PEERS[this.props.name] = this;
+  //   start polling for uploads
+    setTimeout(this.uploadLoop, 1000/this.props.upload);
+  }
 
   generate(datasets){
     let n_datasets;
     let dataset_names;
     let generate_new;
-    console.log('peer datasets', datasets)
+    // console.log('peer datasets', datasets)
     if (Number.isInteger(datasets.n)){
       n_datasets = datasets.n;
       generate_new = true;
@@ -89,6 +100,102 @@ export class Peer extends React.Component {
     return({dataset_out})
   }
 
+  flattenDataset(dataset){
+    let have_blocks = [];
+    for (const col of dataset.cols){
+      for (const block of col.blocks){
+        have_blocks.push([dataset.name, col.name, block])
+      }
+    }
+    return(have_blocks);
+  }
+
+  updateHaveBlocks(){
+    let have_blocks = []
+    let datasets = this.state.datasets;
+    // console.log(datasets);
+    for (const [dataset_name, dataset] of Object.entries(datasets)){
+      for (const col of dataset.cols){
+        for (const block of col.blocks){
+          have_blocks.push([dataset_name, col.name, block])
+        }
+      }
+    }
+    this.haveBlocks = have_blocks
+    // console.log(have_blocks);
+  }
+
+  uploadLoop(){
+    // check if an array is in another array
+    try {
+      let peersRefs
+      try {
+        let peers_obj = this.props.getPeers();
+        let peers = peers_obj.peers
+        peersRefs = peers_obj.peersRefs
+      } catch (e){
+        peersRefs = MADE_PEERS;
+        // console.log('made peers', this.props.name, peersRefs)
+      }
+
+
+
+      // iter randomly
+      let peer_names = Object.keys(peersRefs);
+      let peer_inds = [...Array(peer_names.length).keys()];
+
+      for (let i=0; i<peer_names.length; i++){
+        let try_ind = peer_inds.pop(randint(0,peer_inds.length))
+        let peer_name = peer_names[try_ind];
+        if (peer_name === this.props.name){
+          continue
+        }
+        let peer = peersRefs[peer_name];
+        // console.log(peer)
+        if ((peer.requestedBlocks !== undefined) && (peer.requestedBlocks.length>0)){
+          //  also random iter here
+          console.log(peer.requestedBlocks)
+          let wanted_inds = [...Array(peer.requestedBlocks.length).keys()];
+          for (let j=0; j<peer.requestedBlocks.length; i++){
+            let wanted_ind = wanted_inds.pop(randint(0,wanted_inds.length));
+            let wanted = peer.requestedBlocks[wanted_ind];
+            if (wanted === undefined){
+              continue
+            }
+            console.log(wanted)
+            if (isin(this.haveBlocks, wanted)){
+              peer.receiveBlock(wanted,
+                  'dataset-block-' + this.props.name + '-' + wanted[0] + '-' + wanted[1] + '-' + wanted[2])
+              break
+            }
+          }
+        }
+
+      }
+
+    } catch (e){
+      console.log('upload error', this.props.name, e)
+    } finally{
+      setTimeout(this.uploadLoop, 1000/this.props.upload)
+    }
+
+
+    // arrofarrs.map(subarr => subarr.every((arr_elem, ind) => arr_elem == anarr[ind]))
+  }
+
+  receiveBlock(sent_block, block_id){
+    console.log('receive block', this.props.name, sent_block, block_id)
+    // remove from wanted pieces
+    // get block element by id
+    // find location of element id in our translational reference frame
+    // https://stackoverflow.com/a/26053262
+  //   find location of the outline rectangle in our dataset & the expected location
+  //   create dom element and svg path between them
+  //   remove from
+  //   animate
+  //  add to our state?
+  }
+
   translate_str(x, y, rotation){
     return('translateX(' + x + 'px) translateY(' + y + 'px) rotate(' +
         rotation + 'deg)')
@@ -102,9 +209,9 @@ export class Peer extends React.Component {
     let peersRefs = peers_obj.peersRefs
     // let peers = peer_obj.current.peers
     // let peerRefs = peer_obj.current.peers
-    console.log(peers, peersRefs)
+    // console.log(peers, peersRefs)
     this.peersRefs.current = peersRefs
-    console.log(this.peersRefs)
+    // console.log(this.peersRefs)
     // filter ourselves
     delete peers[this.props.name]
     // console.log(peers)
@@ -145,6 +252,7 @@ export class Peer extends React.Component {
         break
       }
     }
+    let wanted = this.flattenDataset(ds)
     // clear blocks
     for (let col in ds.cols){
       ds.cols[col].blocks = []
@@ -154,12 +262,21 @@ export class Peer extends React.Component {
     let regen_datasets = this.generate(new_datasets)
 
     this.setState({datasets:regen_datasets.dataset_out})
+    if (this.requestedBlocks === undefined || this.requestedBlocks.current === null){
+      this.requestedBlocks = wanted
+    } else {
+      for (let wanted_block of wanted){
+        if (!isin(this.requestedBlocks, wanted_block)){
+          this.requestedBlocks.push(wanted_block)
+        }
+      }
+    }
     this.togglePeers()
   }
 
 
   render(){
-    console.log('peer render', this.state.datasets)
+    // console.log('peer render', this.state.datasets)
     let dataset_svgs = []
     for (let dataset_name in this.state.datasets){
       let dataset = this.state.datasets[dataset_name]
@@ -204,7 +321,7 @@ Peer.defaultProps = {
   orientation: 0,
   scale: 1,
   dataset_angle: 90,
-  upload:1,
+  upload:.2,
   download:1,
   peers: {}
 }
@@ -231,12 +348,12 @@ export function makePeer(n_range, col_range, size_range){
 
 class PeerWindow extends React.Component {
   render(){
-    console.log('peer window', this.props.peers)
+    // console.log('peer window', this.props.peers)
     return(
         <foreignObject className={'peer-window-container'}
         width={peer_params.window.width}
         height={peer_params.window.height}
-         ref={this.props.ref}
+         // ref={this.props.ref}
          style={this.props.stylestr}
          id={this.props.id}>
           <Paper>

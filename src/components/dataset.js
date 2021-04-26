@@ -120,8 +120,8 @@ export class Dataset extends React.Component {
           attrs: {
             width: block_size,
             height: block_size,
-            id: 'dataset-block-' + this.props.name + '-' + col.name + '-' + i,
-            key: 'dataset-block-' + this.props.name + '-' + col.name + '-' + i,
+            id: 'dataset-block-' + this.props.peerName + '-' + this.props.name + '-' + col.name + '-' + i,
+            key: 'dataset-block-' + this.props.peerName + '-' + this.props.name + '-' + col.name + '-' + i,
             className: 'dataset-block',
             blocknumber:i
           }
@@ -137,8 +137,8 @@ export class Dataset extends React.Component {
           textAnchor: 'end',
           text: col.name,
           className: 'dataset-label',
-          id: 'dataset-label-' + this.props.name + '-' + col.name,
-          key: 'dataset-label-' + this.props.name + '-' + col.name
+          id: 'dataset-label-' + this.props.peerName + '-' +  this.props.name + '-' + col.name,
+          key: 'dataset-label-' + this.props.peerName + '-' + this.props.name + '-' + col.name
         }
       }
 
@@ -160,8 +160,8 @@ export class Dataset extends React.Component {
               width: block_size,
               height: block_size,
               className:'dataset-outline',
-              id:'dataset-outline-' + this.props.name + '-' + col.name + '-'+ i,
-              key: 'dataset-outline-' + this.props.name + '-' + col.name + '-' + i
+              id:'dataset-outline-' +this.props.peerName + '-' +  this.props.name + '-' + col.name + '-'+ i,
+              key: 'dataset-outline-' +this.props.peerName + '-' +  this.props.name + '-' + col.name + '-' + i
             }
           })
         }
@@ -213,7 +213,7 @@ export class Dataset extends React.Component {
             y: block.y,
           }
         )
-        console.log(block.attrs.id, block.x, block.y, dataset_params.unscatter_delay_scale, dist)
+        // console.log(block.attrs.id, block.x, block.y, dataset_params.unscatter_delay_scale, dist)
         tl.add(
           {
             targets: document.getElementById(block.attrs.id),
@@ -284,7 +284,7 @@ export class Dataset extends React.Component {
       for (let block in this.state.blocks[col]) {
 
         block = this.state.blocks[col][block]
-        console.log(block)
+        // console.log(block)
         if (!block === false){
           blocks_svg.push(
             <rect
@@ -345,6 +345,7 @@ export class Dataset extends React.Component {
 
 Dataset.defaultProps = {
   name:'',
+  peerName:'',
   position: [0, 0],
   orientation: 0,
   scatter: {
