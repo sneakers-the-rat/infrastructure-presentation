@@ -1,8 +1,8 @@
-import React from 'react'
-import random from 'random'
-import anime from 'animejs/lib/anime.es.js'
+import React from 'react';
 
-import Dataset from './dataset'
+import Dataset from './dataset';
+import {peer_params} from './params';
+import {toRadians} from './utils';
 
 export default class Peer extends React.Component {
   constructor(props){
@@ -13,26 +13,39 @@ export default class Peer extends React.Component {
     this.state = {
       datasets:originalstate.datasets,
       position: this.props.position,
-      orientation: this.props.orientation
+      orientation: this.props.orientation,
+      peers: this.props.peers,
+      requests: []
     }
 
   }
 
   generate(){
-    let n_datasets = this.props.datasets.names.length;
+    let n_datasets;
+    let dataset_names;
+    if (Number.isInteger(this.props.datasets.n)){
+      n_datasets = this.props.datasets.n;
+      dataset_names = [];
+      for (let i=0;i<n_datasets;i++){
+        dataset_names.push(String.fromCharCode(97+i))
+      }
+    } else {
+      n_datasets = this.props.datasets.names.length;
+      dataset_names = this.props.datasets.names;
+    }
     let datasets = {};
 
     for (let i=0; i<n_datasets; i++){
       // space evenly in dataset_angle
-      let ds_name = this.props.datasets.names[i];
+      let ds_name = dataset_names[i];
       let position_angle = (this.props.dataset_angle/(n_datasets-1))*i+((180-this.props.dataset_angle)/2);
       // rotate to be at the bottom
 
       let display_angle = position_angle- 90;
       console.log(position_angle, display_angle);
       let position = [
-          params.outer_radius * Math.cos(toRadians(position_angle)),
-          params.outer_radius * Math.sin(toRadians(position_angle))
+          peer_params.outer_radius_scale*this.props.upload * Math.cos(toRadians(position_angle)),
+          peer_params.outer_radius*this.props.upload * Math.sin(toRadians(position_angle))
           ]
 
       // make some fake columns
@@ -50,7 +63,7 @@ export default class Peer extends React.Component {
         cols: cols,
         position: position,
         orientation: display_angle,
-        scale:params.ds_scale
+        scale:peer_params.ds_scale
       }
 
 
@@ -76,9 +89,9 @@ export default class Peer extends React.Component {
            id={'peer-'+this.props.name}
            className={'peer'}
         >
-          <circle cx={0} cy={0} r={params.inner_radius}
+          <circle cx={0} cy={0} r={peer_params.inner_radius_scale*this.props.upload}
                   className={'peer-circle-inner'}/>
-          <circle cx={0} cy={0} r={params.outer_radius}
+          <circle cx={0} cy={0} r={peer_params.outer_radius_scale*this.props.upload}
                   className={'peer-circle-outer'}/>
           {dataset_svgs}
         </g>
@@ -96,23 +109,11 @@ Peer.defaultProps = {
   position: [0, 0],
   orientation: 0,
   scale: 1,
-  dataset_angle: 90
+  dataset_angle: 90,
+  upload:1,
+  download:1,
+  peers: {}
 }
 
-function toRadians(angle){
-  return angle * (Math.PI / 180);
-}
 
 
-const params = {
-  inner_radius: 100,
-  outer_radius: 150,
-  padding: 10,
-  inner_hover: {
-    scale: 1.4,
-    duration_enter: 300,
-    duration_exit: 500,
-    elasticity: 400,
-  },
-  ds_scale:0.3
-}

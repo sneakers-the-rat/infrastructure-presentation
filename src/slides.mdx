@@ -4,6 +4,7 @@ import Paper from '@material-ui/core/Paper'
 import VerticalLinearStepper from './components/vertical_stepper'
 import Dataset from './components/dataset'
 import Peer from './components/peer'
+import Swarm from './components/swarm'
 
 import funky from 'react-syntax-highlighter/dist/cjs/styles/prism/funky'
 
@@ -176,6 +177,16 @@ Then _articulate the solution itself_
 
 ---
 
+  <svg width={1920} height={1080} className={'svg-fill'}>
+    <Swarm
+        position={[1000,500]}
+        radius={500}
+      name={'swarm'}
+    />
+  </svg>
+
+---
+
 <Heading>Make It Easy!</Heading>
 <Box width={2/3} marginLeft={'auto'} marginRight={'auto'}>
 <Text fontSize={30} fontFamily={'monospace'} style={{marginBottom:"12px"}} textAlign={"center"}>
@@ -205,7 +216,7 @@ converter.add_metadata(\n\
   spec.Path(\'my-favorite-file_{subject_id}_{start_date}.dat\')\n\
   )\n\
   \n\
-# use the nwb-conversion-tools package to grab common formats!\n\
+# use the nwb-conversion-tools package to grab utils.js formats!\n\
 # say our open ephys data is always in a subfolder with our subject ID in it:\n\
 # eg. \'./oe_data_SUB1012/\'\n\
 # no problem, reuse previous metadata to find more!\n\

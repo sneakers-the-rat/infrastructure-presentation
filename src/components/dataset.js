@@ -1,6 +1,7 @@
-import React from 'react'
-import random from 'random'
-import anime from 'animejs/lib/anime.es.js'
+import React from 'react';
+import random from 'random';
+import anime from 'animejs/lib/anime.es.js';
+import {dataset_params} from './params';
 
 function gauss(mean = 0, variance = 1) {
   return (
@@ -57,8 +58,8 @@ export default class Dataset extends React.Component {
   generate_svg() {
     let n_cols = this.props.cols.length
     const scale = this.props.scale
-    const padding = params.padding * scale
-    const block_size = params.block_size * scale
+    const padding = dataset_params.padding * scale
+    const block_size = dataset_params.block_size * scale
 
     let blocks = {}
     let labels = {}
@@ -68,7 +69,7 @@ export default class Dataset extends React.Component {
     // --------------------------------------
     // compute main rect width
     let header_width =
-      params.block_size * n_cols + params.padding * (n_cols - 1)
+      dataset_params.block_size * n_cols + dataset_params.padding * (n_cols - 1)
     // the center of the header is the centerpoint of the svg
     // let center = {x: header_width/2, y: params.header_height/2};
     let header = {
@@ -77,7 +78,7 @@ export default class Dataset extends React.Component {
       rotation: 0,
       attrs: {
         width: header_width * scale,
-        height: params.header_height * scale
+        height: dataset_params.header_height * scale
       }
     }
 
@@ -200,7 +201,7 @@ export default class Dataset extends React.Component {
             y: block.y,
           }
         )
-        console.log(block.attrs.id, block.x, block.y, params.unscatter_delay_scale, dist)
+        console.log(block.attrs.id, block.x, block.y, dataset_params.unscatter_delay_scale, dist)
         tl.add(
           {
             targets: document.getElementById(block.attrs.id),
@@ -208,7 +209,7 @@ export default class Dataset extends React.Component {
             translateY: { value: block.y, duration: 1000 },
             rotate: { value: block.rotation, duration: 100 },
           },
-          params.unscatter_delay_scale * dist
+          dataset_params.unscatter_delay_scale * dist
         )
       }
     }
@@ -341,26 +342,10 @@ Dataset.defaultProps = {
   scale: 1,
 }
 
-const params = {
-  block_size: 50,
-  header_height: 50,
-  padding: 10,
-  block_hover: {
-    scale: 1.4,
-    duration_enter: 300,
-    duration_exit: 500,
-    elasticity: 400,
-  },
-  header_hover: {
-    scale: 1,
-  },
-  unscatter_delay_scale: 1,
-}
-
 const styles = {
   block: {
-    width: params.block_size,
-    height: params.block_size,
+    width: dataset_params.block_size,
+    height: dataset_params.block_size,
   },
   header: {
     fill: 'blue',
@@ -393,14 +378,14 @@ function enterHover(event) {
   if (button.className.baseVal === 'dataset-block') {
     hoverScale(
       button,
-      params.block_hover.scale,
-      params.block_hover.duration_enter
+      dataset_params.block_hover.scale,
+      dataset_params.block_hover.duration_enter
     )
   } else if (button.className.baseVal === 'dataset-header') {
     hoverScale(
       button,
-      params.header_hover.scale,
-      params.block_hover.duration_enter
+      dataset_params.header_hover.scale,
+      dataset_params.block_hover.duration_enter
     )
   }
 }
@@ -408,9 +393,9 @@ function enterHover(event) {
 function exitHover(event) {
   let button = event.target
   if (button.className.baseVal === 'dataset-block') {
-    hoverScale(button, 1, params.block_hover.duration_exit)
+    hoverScale(button, 1, dataset_params.block_hover.duration_exit)
   } else if (button.className.baseVal === 'dataset-header') {
-    hoverScale(button, 1, params.block_hover.duration_enter)
+    hoverScale(button, 1, dataset_params.block_hover.duration_enter)
   }
 }
 
