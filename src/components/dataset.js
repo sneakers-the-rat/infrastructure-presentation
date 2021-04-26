@@ -121,7 +121,7 @@ export class Dataset extends React.Component {
             width: block_size,
             height: block_size,
             id: 'dataset-block-' + this.props.name + '-' + col.name + '-' + i,
-            // key: 'dataset-block-' + this.props.name + '-' + col.name + '-' + i,
+            key: 'dataset-block-' + this.props.name + '-' + col.name + '-' + i,
             className: 'dataset-block',
             blocknumber:i
           }
@@ -138,7 +138,7 @@ export class Dataset extends React.Component {
           text: col.name,
           className: 'dataset-label',
           id: 'dataset-label-' + this.props.name + '-' + col.name,
-          // key: 'dataset-label-' + this.props.name + '-' + col.name
+          key: 'dataset-label-' + this.props.name + '-' + col.name
         }
       }
 
@@ -161,7 +161,7 @@ export class Dataset extends React.Component {
               height: block_size,
               className:'dataset-outline',
               id:'dataset-outline-' + this.props.name + '-' + col.name + '-'+ i,
-              // key: 'dataset-outline-' + this.props.name + '-' + col.name + '-' + i
+              key: 'dataset-outline-' + this.props.name + '-' + col.name + '-' + i
             }
           })
         }

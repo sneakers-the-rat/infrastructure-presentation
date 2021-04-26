@@ -8,16 +8,33 @@ export default class Swarm extends React.Component{
   constructor(props) {
     super(props);
 
+
+    // this.req_fns = React.createRef({});
+
     let originalstate = this.generate();
+
+    // this.peersRefs = React.createRef(Object.fromEntries(
+    //     Object.entries(originalstate.peers).map(
+    //         ([peer_name, val]) => [peer_name, React.createRef()])
+    //     )
+    // );
+
+    this.peersRefs = {}
+
     this.state = {
       peers: originalstate.peers,
       position: this.props.position,
       orientation: this.props.orientation,
     }
 
-
+    // Array.from({length: 2}, a => useRef(null));
+    //
+    // Object.keys(originalstate.peers).map(peer_name => )
 
     this.getPeers = this.getPeers.bind(this);
+  }
+  getRef(peer_nameelement){
+    // this.peersRefs[]
   }
 
   generate(){
@@ -45,6 +62,8 @@ export default class Swarm extends React.Component{
           this.props.radius*Math.cos(toRadians(position_angle)),
           this.props.radius*Math.sin(toRadians(position_angle))
       ]
+      this.peer
+      // this.peersRefs.current[peer.name] = React.createRef();
       peers[peer.name] = peer
       console.log(peer)
 
@@ -55,14 +74,19 @@ export default class Swarm extends React.Component{
 
   getPeers(){
     //  give a peer the list of other peers!
-    return(JSON.parse(JSON.stringify(this.state.peers)))
+    return({peers:JSON.parse(JSON.stringify(this.state.peers)),
+    peersRefs:this.peersRefs})
   }
 
   render(){
     let peer_svgs = []
     for (let peer_name in this.state.peers){
       let peer = this.state.peers[peer_name]
-      peer_svgs.push(<Peer {...peer} getPeers={this.getPeers}/>);
+      peer_svgs.push(
+          <Peer {...peer}
+                getPeers={this.getPeers}
+                key={peer.name}
+                ref={(element) => this.peersRefs[peer.name] = element}/>);
     }
     return(
         <g style={{transform: translate_str(this.state.position[0], this.state.position[1], this.state.orientation)}}

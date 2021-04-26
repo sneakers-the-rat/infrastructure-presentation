@@ -16,6 +16,8 @@ export class Peer extends React.Component {
   constructor(props){
     super(props)
 
+    this.peersRefs = React.createRef({});
+    this.toggleRef = React.createRef();
     let originalstate = this.generate(this.props.datasets);
     // console.log('peers originalstate', originalstate)
     this.state = {
@@ -30,7 +32,6 @@ export class Peer extends React.Component {
         position: [0,0]
       }
     }
-    this.toggleRef = React.createRef();
     this.togglePeers = this.togglePeers.bind(this)
     this.requestDataset = this.requestDataset.bind(this)
   }
@@ -96,7 +97,14 @@ export class Peer extends React.Component {
   togglePeers(){
     let peerWindow;
     let showPeers;
-    let peers = this.props.getPeers()
+    let peers_obj = this.props.getPeers()
+    let peers = peers_obj.peers
+    let peersRefs = peers_obj.peersRefs
+    // let peers = peer_obj.current.peers
+    // let peerRefs = peer_obj.current.peers
+    console.log(peers, peersRefs)
+    this.peersRefs.current = peersRefs
+    console.log(this.peersRefs)
     // filter ourselves
     delete peers[this.props.name]
     // console.log(peers)
