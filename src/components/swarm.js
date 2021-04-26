@@ -1,5 +1,5 @@
 import React from 'react';
-import Peer from './peer';
+import { Peer, makePeer } from './peer';
 
 import {toRadians, translate_str} from './utils';
 import {swarm_params} from './params';
@@ -15,6 +15,8 @@ export default class Swarm extends React.Component{
       orientation: this.props.orientation,
     }
 
+
+
     this.getPeers = this.getPeers.bind(this);
   }
 
@@ -22,36 +24,29 @@ export default class Swarm extends React.Component{
     let n_peers, peer_names;
     if (Number.isInteger(this.props.peers.n)){
       n_peers = this.props.peers.n;
-      peer_names = [];
-      for (let i=0;i<n_peers;i++){
-        peer_names.push(String.fromCharCode(97+i))
-      }
+      peer_names = false
     } else {
       n_peers = this.props.peers.names.length;
       peer_names = this.props.peers.names;
     }
 
-    let peers = [];
+    let peers = {};
     let n_range = this.props.peers.datasets.n_range;
     for (let i=0; i<n_peers; i++){
-      let peer_name = peer_names[i];
+      let peer = makePeer(n_range,
+          this.props.peers.datasets.col_range,
+          this.props.peers.datasets.size_range)
+      if (Array.isArray(peer_names) ){
+        peer.name = peer_names[i]
+      }
       let position_angle = (360/n_peers)*i;
-      let display_angle = position_angle-90;
-      let position = [
+      peer.orientation = position_angle-90;
+      peer.position = [
           this.props.radius*Math.cos(toRadians(position_angle)),
           this.props.radius*Math.sin(toRadians(position_angle))
       ]
-      let datasets = {
-        n: Math.floor(Math.random()*(n_range[1]-n_range[0])+n_range[0]),
-        col_range: this.props.peers.datasets.col_range,
-        size_range: this.props.peers.datasets.size_range
-      }
-      peers.push({
-        name:peer_name,
-        orientation:display_angle,
-        position,
-        datasets
-      })
+      peers[peer.name] = peer
+      console.log(peer)
 
     }
     return({peers})
@@ -84,7 +79,7 @@ export default class Swarm extends React.Component{
 
 Swarm.defaultProps = {
   name:'',
-  radius:1000,
+  radius:500,
   peers: {
     names: ['jonny', 'rumbly'],
     datasets:{

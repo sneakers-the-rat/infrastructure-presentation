@@ -21,12 +21,16 @@ export const peer_params = {
   outer_radius_scale: 150,
   padding: 10,
   inner_hover: {
-    scale: 1.4,
+    scale: 1.1,
     duration_enter: 300,
     duration_exit: 500,
     elasticity: 400,
   },
   ds_scale: 0.3,
+  window:{
+    width:200,
+    height:400,
+  }
 };
 
 export const swarm_params = {

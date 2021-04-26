@@ -2,6 +2,7 @@ import React from 'react';
 import random from 'random';
 import anime from 'animejs/lib/anime.es.js';
 import {dataset_params} from './params';
+import {randint} from './utils';
 
 function gauss(mean = 0, variance = 1) {
   return (
@@ -14,7 +15,7 @@ function gauss(mean = 0, variance = 1) {
 
 
 
-export default class Dataset extends React.Component {
+export class Dataset extends React.Component {
   // props
   // --------------------------------------
   // cols: [{name: "name_of_col", size:int},...]
@@ -100,11 +101,18 @@ export default class Dataset extends React.Component {
     let top = { x: 0, y: header.attrs.height + padding }
 
     let col_n = 0
-    for (let col in this.props.cols) {
-      col = this.props.cols[col]
+
+    for (let col_name in this.props.cols) {
+      let col = this.props.cols[col_name]
       blocks[col.name] = []
       let col_x = top.x + col_n * block_size + col_n * padding
       for (let i = 0; i < col.size; i++) {
+        if (Array.isArray(col.blocks)){
+          if (!col.blocks.includes(i)){
+            blocks[col.name].push(false)
+            continue
+          }
+        }
         blocks[col.name].push({
           x: col_x,
           y: top.y + i * block_size + i * padding,
@@ -113,7 +121,9 @@ export default class Dataset extends React.Component {
             width: block_size,
             height: block_size,
             id: 'dataset-block-' + this.props.name + '-' + col.name + '-' + i,
-            className: 'dataset-block'
+            // key: 'dataset-block-' + this.props.name + '-' + col.name + '-' + i,
+            className: 'dataset-block',
+            blocknumber:i
           }
         })
       }
@@ -128,6 +138,7 @@ export default class Dataset extends React.Component {
           text: col.name,
           className: 'dataset-label',
           id: 'dataset-label-' + this.props.name + '-' + col.name,
+          // key: 'dataset-label-' + this.props.name + '-' + col.name
         }
       }
 
@@ -149,7 +160,8 @@ export default class Dataset extends React.Component {
               width: block_size,
               height: block_size,
               className:'dataset-outline',
-              id:'dataset-outline-' + this.props.name + '-' + i
+              id:'dataset-outline-' + this.props.name + '-' + col.name + '-'+ i,
+              // key: 'dataset-outline-' + this.props.name + '-' + col.name + '-' + i
             }
           })
         }
@@ -272,14 +284,16 @@ export default class Dataset extends React.Component {
       for (let block in this.state.blocks[col]) {
 
         block = this.state.blocks[col][block]
-        blocks_svg.push(
-          <rect
-            {...block.attrs}
-            style={{transform: this.translate_str(block.x, block.y, block.rotation)}}
-            onMouseEnter={enterHover}
-            onMouseLeave={exitHover}
-          />
-        )
+        console.log(block)
+        if (!block === false){
+          blocks_svg.push(
+            <rect
+              {...block.attrs}
+              style={{transform: this.translate_str(block.x, block.y, block.rotation)}}
+              onMouseEnter={enterHover}
+              onMouseLeave={exitHover}
+            />
+        )}
       }
     }
 
@@ -305,7 +319,7 @@ export default class Dataset extends React.Component {
 
     return (
       <g
-        style={{ transform: this.translate_str(this.state.position[0], this.state.position[1], this.state.orientation) }}
+        style={{ transform: this.translate_str(this.props.position[0], this.props.position[1], this.props.orientation) }}
         id={'dataset-' + this.props.name}
         className={'dataset'}
       >
@@ -338,8 +352,40 @@ Dataset.defaultProps = {
     y: { scale: 0, lambda: 0.5, offset: 0 },
     rotate: false,
   },
-  outlines: false,
+  pieces: true,
+  outlines: true,
   scale: 1,
+}
+
+
+let current_name = 97;
+export function makeDataset(col_range, size_range, full=true){
+  let n_cols = randint(col_range[0], col_range[1]);
+  let cols = [];
+  for (let j=0; j<n_cols; j++){
+    let col_size = randint(size_range[0], size_range[1]);
+    let blocks;
+    if (full === true){
+      blocks= [...Array(col_size).keys()]
+    } else {
+      blocks= []
+    }
+    cols.push({
+      name:j,
+      size: col_size,
+      blocks:blocks
+    })
+  }
+  let dataset = {
+    name: String.fromCharCode(current_name),
+    cols: cols,
+    position: [0,0],
+    orientation: 0,
+    scale:1
+  }
+  current_name += 1;
+
+  return(dataset)
 }
 
 const styles = {

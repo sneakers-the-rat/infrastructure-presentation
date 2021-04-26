@@ -8,3 +8,7 @@ export function translate_str(x, y, rotation){
   return('translateX(' + x + 'px) translateY(' + y + 'px) rotate(' +
       rotation + 'deg)')
 }
+
+export function randint(min, max){
+  return(Math.floor(Math.random()*(max-min))+min)
+}
