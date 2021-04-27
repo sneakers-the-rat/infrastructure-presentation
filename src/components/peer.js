@@ -138,7 +138,7 @@ export class Peer extends React.Component {
         // console.log('made peers', this.props.name, peersRefs)
       }
 
-
+      let haveBlocks = JSON.parse(JSON.stringify(this.haveBlocks))
 
       // iter randomly
       let peer_names = Object.keys(peersRefs);
@@ -151,19 +151,19 @@ export class Peer extends React.Component {
           continue
         }
         let peer = peersRefs[peer_name];
+        let requestedBlocks = JSON.parse(JSON.stringify(peer.requestedBlocks))
         // console.log(peer)
-        if ((peer.requestedBlocks !== undefined) && (peer.requestedBlocks.length>0)){
+        if ((requestedBlocks !== undefined) && (requestedBlocks.length>0)){
           //  also random iter here
-          console.log(peer.requestedBlocks)
-          let wanted_inds = [...Array(peer.requestedBlocks.length).keys()];
-          for (let j=0; j<peer.requestedBlocks.length; i++){
-            let wanted_ind = wanted_inds.pop(randint(0,wanted_inds.length));
-            let wanted = peer.requestedBlocks[wanted_ind];
+          console.log(requestedBlocks)
+          // let wanted_inds = [...Array(requestedBlocks.length).keys()];
+          for (let j=0; j<requestedBlocks.length; i++){
+            // let wanted_ind = wanted_inds.pop(randint(0,wanted_inds.length));
+            let wanted = requestedBlocks.pop();
             if (wanted === undefined){
               continue
             }
-            console.log(wanted)
-            if (isin(this.haveBlocks, wanted)){
+            if (isin(haveBlocks, wanted)){
               peer.receiveBlock(wanted,
                   'dataset-block-' + this.props.name + '-' + wanted[0] + '-' + wanted[1] + '-' + wanted[2])
               break
@@ -185,6 +185,10 @@ export class Peer extends React.Component {
 
   receiveBlock(sent_block, block_id){
     console.log('receive block', this.props.name, sent_block, block_id)
+    // let wanted = whereis(this.requestedBlocks, sent_block)
+    // let wanted_ind = [...wanted.keys()].filter(i => arr[i])
+    // this.requestedBlocks.splice(wanted_ind,1)
+
     // remove from wanted pieces
     // get block element by id
     // find location of element id in our translational reference frame
