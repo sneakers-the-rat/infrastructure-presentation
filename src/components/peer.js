@@ -13,6 +13,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
+import { parse, stringify } from 'transform-parser';
 
 export class Peer extends React.Component {
   constructor(props){
@@ -74,7 +75,7 @@ export class Peer extends React.Component {
       let display_angle = position_angle- 90;
       let position = [
           peer_params.outer_radius_scale*this.props.upload * Math.cos(toRadians(position_angle)),
-          peer_params.outer_radius*this.props.upload * Math.sin(toRadians(position_angle))
+          peer_params.outer_radius_scale*this.props.upload * Math.sin(toRadians(position_angle))
           ]
 
       let ds_name;
@@ -164,7 +165,7 @@ export class Peer extends React.Component {
               continue
             }
             if (isin(haveBlocks, wanted)){
-              peer.receiveBlock(wanted,
+              peer.receiveBlock(wanted, this.props.name,
                   'dataset-block-' + this.props.name + '-' + wanted[0] + '-' + wanted[1] + '-' + wanted[2])
               break
             }
@@ -183,8 +184,8 @@ export class Peer extends React.Component {
     // arrofarrs.map(subarr => subarr.every((arr_elem, ind) => arr_elem == anarr[ind]))
   }
 
-  receiveBlock(sent_block, block_id){
-    console.log('receive block', this.props.name, sent_block, block_id)
+  receiveBlock(sent_block, sender, block_id){
+    // console.log('receive block', this.props.name, sent_block, block_id)
     //
     // // remove from wanted pieces
     let wanted = whereis(this.requestedBlocks, sent_block)
@@ -194,11 +195,54 @@ export class Peer extends React.Component {
     // // get block element by id
     let source = document.getElementById(block_id);
     let outline_id = block_id.replace('block', 'outline');
+    outline_id = outline_id.replace(sender, this.props.name)
     // // cheat a lil and get the outline to extract coords and make the svg
-    let outline = document.getElementById(outline_id)
+    let target = document.getElementById(outline_id)
+    console.log(block_id, outline_id)
 
     // find location of element id in our translational reference frame
-    // target_mat = target.getCTM()
+    let tm = target.getCTM()
+    let tms = source.getCTM()
+    let tfm_str_target = "matrix("+tm.a+","+tm.b+","+tm.c+","+tm.d+","+tm.e+","+tm.f+")"
+    let tfm_str_source = "matrix("+tms.a+","+tms.b+","+tms.c+","+tms.d+","+tms.e+","+tms.f+")"
+
+    // let target_tfm = parse(target.style.transform);
+    // let target_parent_tfm
+
+    let tfm_dommat_source = new DOMMatrix(tfm_str_source)
+    let tfm_dommat_target = new DOMMatrix(tfm_str_target)
+      //
+    let source_tfm_parsed = parse(source.parentElement.style.transform)
+
+    let clone = source.cloneNode();
+    clone.style.fill="#ff0000"
+    let clone_str =  "translateX("+(source_tfm_parsed.translateX*-1)+"px) translateY("+(source_tfm_parsed.translateY*-1)+"px) rotate("+source_tfm_parsed.rotate*-1+"deg)"
+    console.log(clone_str)
+    clone.style.transform = clone_str
+    clone.id = clone.id.replace(sender, this.props.name)
+    // clone.style.transform = null
+    // clone.style.transform = tfm_dommat_target.inverse().multiplySelf(tfm_dommat_source).toString()
+    // let parsed_mat = parse(apply_mat.toString())
+
+
+
+    // console.log(anime.get(target, 'transformX'), anime.get(target,'transformY'))
+    target.parentElement.appendChild(clone)
+    let parsed_tfm = parse(target.style.transform);
+    console.log(parsed_tfm, clone)
+    console.log(target.style.transform)
+
+    anime({
+      targets: clone,
+      translateX: parsed_tfm.translateX,
+      translateY: parsed_tfm.translateY,
+      rotate: parsed_tfm.rotate,
+      duration: 1000,
+      easint: 'easeOutElastic',
+      delay: 0,
+      // elasticity:params.block_hover.elasticity
+    })
+
     // tfm_str_source = "matrix("+tm.a+","+tm.b+","+tm.c+","+tm.d+","+tm.e+","+tm.f+")"
     // tfm_dommat_source = new DOMMatrix(tfm_str_source)
     // tfm_dommat.inverse().multiplySelf(tfm_dommat_source).toString()
@@ -247,12 +291,13 @@ export class Peer extends React.Component {
       }
       showPeers = true
     }
+    console.log('peer menu name', 'peer-'+this.props.name+'-peerWindow')
     anime({
       targets:document.getElementById('peer-'+this.props.name+'-peerWindow'),
       scale:peerWindow.scale,
       translateX:peerWindow.position[0],
       translateY:peerWindow.position[1]
-    }).finished.then(() => (this.setState({peers:peers, peerWindow:peerWindow, showPeers:showPeers})))
+    }).finished.then(() => this.setState({peers:peers, peerWindow:peerWindow, showPeers:showPeers}))
   }
 
   requestDataset(ds_name){
@@ -335,7 +380,7 @@ Peer.defaultProps = {
   orientation: 0,
   scale: 1,
   dataset_angle: 90,
-  upload:.2,
+  upload:5,
   download:1,
   peers: {}
 }
