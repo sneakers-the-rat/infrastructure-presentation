@@ -4,7 +4,7 @@ var MADE_PEERS = {};
 
 import {Dataset,makeDataset} from './dataset';
 import {dataset_params, peer_params} from './params';
-import {toRadians, randint, isin, whereis} from './utils';
+import {toRadians, randint, isin, whereis, translate_str} from './utils';
 import anime from 'animejs';
 import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
@@ -94,7 +94,7 @@ export class Peer extends React.Component {
         cols: cols,
         position: position,
         orientation: display_angle,
-        scale:peer_params.ds_scale
+        scale:peer_params.ds_scale*this.props.scale
       }
 
     }
@@ -198,27 +198,69 @@ export class Peer extends React.Component {
     outline_id = outline_id.replace(sender, this.props.name)
     // // cheat a lil and get the outline to extract coords and make the svg
     let target = document.getElementById(outline_id)
-    console.log(block_id, outline_id)
+    // console.log(block_id, outline_id)
 
     // find location of element id in our translational reference frame
     let tm = target.getCTM()
     let tms = source.getCTM()
+    let target_tm_screen = target.getScreenCTM()
     let tfm_str_target = "matrix("+tm.a+","+tm.b+","+tm.c+","+tm.d+","+tm.e+","+tm.f+")"
     let tfm_str_source = "matrix("+tms.a+","+tms.b+","+tms.c+","+tms.d+","+tms.e+","+tms.f+")"
-
+    // console.log('transform mats', tfm_str_source, tfm_str_target)
     // let target_tfm = parse(target.style.transform);
     // let target_parent_tfm
 
-    let tfm_dommat_source = new DOMMatrix(tfm_str_source)
-    let tfm_dommat_target = new DOMMatrix(tfm_str_target)
+    // the 'target' transform is the correct final transform
+    // since it's already in the target reference frame
+    // the source will be
+    // target local transform - target global transform + source global transform
+    let target_local = {
+      x: target_tm_screen.e,
+      y: target_tm_screen.f,
+      rotation: Math.asin(target_tm_screen.b) * (180/Math.PI)
+    }
+    let target_global = {
+      x: tm.e,
+      y: tm.f,
+      rotation: Math.asin(tm.b) * (180/Math.PI)
+    }
+    let source_global = {
+      x: tms.e,
+      y: tms.f,
+      rotation: Math.asin(tms.b) * (180/Math.PI)
+    }
+
+    let source_tfm = {
+      x: source_global.x-target_global.x,
+      y: source_global.y-target_global.y,
+      rotation: target_global.rotation-source_global.rotation
+    }
+    console.log('transforms', target_local, target_global, source_global, source_tfm)
+
+    // rotate based on the frame of the parent
+    let parent_ctm = target.parentElement.getCTM()
+    let dataset_rad = Math.atan2(parent_ctm.b, parent_ctm.a)
+    source_tfm.x = Math.cos(dataset_rad)*source_tfm.x + Math.sin(dataset_rad)*source_tfm.y
+    source_tfm.y = Math.cos(dataset_rad)*source_tfm.y + Math.sin(dataset_rad)*source_tfm.x
+
+    console.log('rotated', source_tfm, dataset_rad)
+    let peer_tfm = parse(target.parentElement.style.transform)
+
+    let source_tfm_str = translate_str(source_tfm.x, source_tfm.y, source_tfm.rotation)
+
+
+
+
+    // let tfm_dommat_source = new DOMMatrix(tfm_str_source)
+    // let tfm_dommat_target = new DOMMatrix(tfm_str_target)
       //
-    let source_tfm_parsed = parse(source.parentElement.style.transform)
+    // let source_tfm_parsed = parse(source.parentElement.style.transform)
 
     let clone = source.cloneNode();
     clone.style.fill="#ff0000"
-    let clone_str =  "translateX("+(source_tfm_parsed.translateX*-1)+"px) translateY("+(source_tfm_parsed.translateY*-1)+"px) rotate("+source_tfm_parsed.rotate*-1+"deg)"
-    console.log(clone_str)
-    clone.style.transform = clone_str
+    // let clone_str =  "translateX("+(source_tfm_parsed.translateX*-1)+"px) translateY("+(source_tfm_parsed.translateY*-1)+"px) rotate("+source_tfm_parsed.rotate*-1+"deg)"
+    // console.log(clone_str)
+    clone.style.transform = source_tfm_str
     clone.id = clone.id.replace(sender, this.props.name)
     // clone.style.transform = null
     // clone.style.transform = tfm_dommat_target.inverse().multiplySelf(tfm_dommat_source).toString()
@@ -229,8 +271,8 @@ export class Peer extends React.Component {
     // console.log(anime.get(target, 'transformX'), anime.get(target,'transformY'))
     target.parentElement.appendChild(clone)
     let parsed_tfm = parse(target.style.transform);
-    console.log(parsed_tfm, clone)
-    console.log(target.style.transform)
+    // console.log(parsed_tfm, clone)
+    // console.log(target.style.transform)
 
     anime({
       targets: clone,
@@ -242,6 +284,7 @@ export class Peer extends React.Component {
       delay: 0,
       // elasticity:params.block_hover.elasticity
     })
+    this.haveBlocks.push(sent_block)
 
     // tfm_str_source = "matrix("+tm.a+","+tm.b+","+tm.c+","+tm.d+","+tm.e+","+tm.f+")"
     // tfm_dommat_source = new DOMMatrix(tfm_str_source)
@@ -296,7 +339,8 @@ export class Peer extends React.Component {
       targets:document.getElementById('peer-'+this.props.name+'-peerWindow'),
       scale:peerWindow.scale,
       translateX:peerWindow.position[0],
-      translateY:peerWindow.position[1]
+      translateY:peerWindow.position[1],
+      duration: peer_params.send_duration,
     }).finished.then(() => this.setState({peers:peers, peerWindow:peerWindow, showPeers:showPeers}))
   }
 
@@ -349,12 +393,12 @@ export class Peer extends React.Component {
            id={'peer-'+this.props.name}
            className={'peer'}
         >
-          <circle cx={0} cy={0} r={peer_params.inner_radius_scale*this.props.upload}
+          <circle cx={0} cy={0} r={peer_params.inner_radius_scale*this.props.upload*this.props.scale}
                   className={'peer-circle-inner'}
                   onClick={this.togglePeers}
                   onMouseEnter={enterHover}
                   onMouseLeave={exitHover}/>
-          <circle cx={0} cy={0} r={peer_params.outer_radius_scale*this.props.upload}
+          <circle cx={0} cy={0} r={peer_params.outer_radius_scale*this.props.upload*this.props.scale}
                   className={'peer-circle-outer'}/>
           {dataset_svgs}
           <PeerWindow
@@ -374,12 +418,12 @@ Peer.defaultProps = {
   datasets:{
     n: 3,
     col_range: [3,6],
-    size_range: [2,6]
+    size_range: [2,15]
   },
   position: [0, 0],
   orientation: 0,
   scale: 1,
-  dataset_angle: 90,
+  dataset_angle: 120,
   upload:5,
   download:1,
   peers: {}
