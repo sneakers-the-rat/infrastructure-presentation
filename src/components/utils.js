@@ -22,3 +22,14 @@ export function whereis(outer_array, array){
 //  return  bool array of matches of array in outer_array
   return(outer_array.map(subarr => subarr.every((arr_elem, ind) => arr_elem == array[ind])))
 }
+
+export function outersvg(element){
+//  get the svg that's our outermost parent
+//   lazily for now
+  return document.getElementById('svg-root');
+}
+
+export function relative_tfm(source, target){
+  let root_svg = outersvg(target);
+
+}

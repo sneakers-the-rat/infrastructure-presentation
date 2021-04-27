@@ -145,7 +145,7 @@ export class Peer extends React.Component {
       let peer_inds = [...Array(peer_names.length).keys()];
 
       for (let i=0; i<peer_names.length; i++){
-        let try_ind = peer_inds.pop(randint(0,peer_inds.length))
+        let try_ind = peer_inds.pop()
         let peer_name = peer_names[try_ind];
         if (peer_name === this.props.name){
           continue
@@ -185,13 +185,23 @@ export class Peer extends React.Component {
 
   receiveBlock(sent_block, block_id){
     console.log('receive block', this.props.name, sent_block, block_id)
-    // let wanted = whereis(this.requestedBlocks, sent_block)
-    // let wanted_ind = [...wanted.keys()].filter(i => arr[i])
-    // this.requestedBlocks.splice(wanted_ind,1)
+    //
+    // // remove from wanted pieces
+    let wanted = whereis(this.requestedBlocks, sent_block)
+    let wanted_ind = [...wanted.keys()].filter(i => wanted[i])[0]
+    this.requestedBlocks.splice(wanted_ind,1)
+    //
+    // // get block element by id
+    let source = document.getElementById(block_id);
+    let outline_id = block_id.replace('block', 'outline');
+    // // cheat a lil and get the outline to extract coords and make the svg
+    let outline = document.getElementById(outline_id)
 
-    // remove from wanted pieces
-    // get block element by id
     // find location of element id in our translational reference frame
+    // target_mat = target.getCTM()
+    // tfm_str_source = "matrix("+tm.a+","+tm.b+","+tm.c+","+tm.d+","+tm.e+","+tm.f+")"
+    // tfm_dommat_source = new DOMMatrix(tfm_str_source)
+    // tfm_dommat.inverse().multiplySelf(tfm_dommat_source).toString()
     // https://stackoverflow.com/a/26053262
   //   find location of the outline rectangle in our dataset & the expected location
   //   create dom element and svg path between them
@@ -284,7 +294,7 @@ export class Peer extends React.Component {
     let dataset_svgs = []
     for (let dataset_name in this.state.datasets){
       let dataset = this.state.datasets[dataset_name]
-      dataset_svgs.push(<Dataset outlines={true} key={dataset_name} {...dataset}/>)
+      dataset_svgs.push(<Dataset outlines={true} key={dataset_name} peerName={this.props.name} {...dataset}/>)
 
     }
 
@@ -308,7 +318,7 @@ export class Peer extends React.Component {
               id={'peer-'+this.props.name+'-peerWindow'}
               peers={this.state.peers}
               requestDataset={this.requestDataset}
-          ></PeerWindow>
+          />
         </g>
     )
   }
