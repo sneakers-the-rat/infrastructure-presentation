@@ -1,0 +1,174 @@
+import { Dataset } from '../components/dataset'
+import { Peer } from '../components/peer'
+import Swarm from '../components/swarm'
+
+import funky from 'react-syntax-highlighter/dist/cjs/styles/prism/funky'
+
+
+<Heading marginLeft={'0px'} textAlign={'left'}>
+  Decentralized Data
+</Heading>
+<Text fontSize={30} fontFamily={'monospace'} style={{ marginBottom: '12px' }}>
+  To start, we need our data to be...
+</Text>
+<Box width={4 / 9}>
+  <VerticalLinearStepper
+      steps={[
+        {
+          title: 'Interoperable',
+          body: 'Usable across experimental, analytical, and storage tools',
+        },
+        {
+          title: 'Annotated',
+          body:
+              'Self-documented, requiring no additional information to understand',
+        },
+        {
+          title: 'Portable',
+          body:
+              'All the pieces of a dataset are contained within! No "external files" loose\
+          in our data directory. Large data like video, high-density electrophysiology \
+          are supported by native, domain-specific compression.',
+        },
+        {
+          title: 'Streamable',
+          body:
+              "Relatedly, the sub-pieces of a dataset need to be separable such that \
+          someone doesn't need to download your massive exabyte dataset just to look \
+          at the date it was collected",
+        },
+        {
+          title: 'Discoverable',
+          body:
+              "Two kinds: findable by people who know what they're looking for (and what \
+          they're looking for is your data, of course!), ie. searchable, and also as part \
+          of a structured knowledge repository among other data of its type. More on this \
+          in the federated p2p section...",
+        },
+      ]}
+      finalText={''}
+  />
+  <Appear>
+    <Paper
+        style={{ backgroundColor: '#F5F5F5', marginTop: '24px', padding: '12px' }}
+    >
+      <Text
+          fontSize={30}
+          fontFamily={'monospace'}
+          textAlign={'center'}
+          marginTop={'1em'}
+      >
+        In other words, we need some kind of
+      </Text>
+      <Heading>~standardized format~</Heading>
+      <Text fontSize={20} fontFamily={'monospace'} textAlign={'center'}>
+        (who me? oh no who left all my data all over the floor)
+      </Text>
+    </Paper>
+  </Appear>
+</Box>
+
+<svg width={1920} height={1080} className={'svg-fill'}>
+  <Dataset
+      name="data.exe"
+      cols={[
+        { name: 'apple', size: 3 },
+        { name: 'banana', size: 5 },
+        { name: 'peanut', size: 6 },
+        { name: 'walrus', size: 2 },
+        { name: 'fear', size: 4 },
+      ]}
+      position={[1750, 200]}
+      orientation={90}
+      scatter={{
+        x: { scale: 30, lambda: 0.2, offset: 0 },
+        y: { scale: 50, lambda: 0.5, offset: 50 },
+        rotate: true,
+      }}
+      scale={2}
+      outlines={true}
+  />
+</svg>
+
+---
+# p2p
+
+<svg width={1920} height={1080} className={'svg-fill'} id={"svg-root"}>
+  <Peer
+      name="jonny"
+      position={[800, 500]}
+  />
+</svg>
+
+---
+
+<svg width={1920} height={1080} className={'svg-fill'} id={"svg-root"}>
+  <Swarm
+      position={[1000,500]}
+      radius={300}
+      name={'swarm'}
+      peers={{
+        names: ['jonny', 'rumbly', 'santi','tito','timothy'],
+        datasets:{
+          n_range: [2,5],
+          col_range:[3,6],
+          size_range:[2,6],
+          scale:0.1
+        }}}
+  />
+</svg>
+
+---
+
+<Heading>Make It Easy!</Heading>
+<Box width={2/3} marginLeft={'auto'} marginRight={'auto'}>
+  <Text fontSize={30} fontFamily={'monospace'} style={{marginBottom:"12px"}} textAlign={"center"}>
+    Standardizing data is *hard* and there are very few professional incentives to do it.
+    Rather than just getting *mad* at people and *bullying* them into open science,
+    it needs to be *easy*</Text>
+  <Text fontSize={30} fontFamily={'monospace'} style={{marginBottom:"12px"}} textAlign={"center"}>
+    Here's my take:
+  </Text>
+  <Link fontSize={20} href={"https://onice-conversion.readthedocs.org"} textAlign={"center"} fontFamily={'monospace'}>Docs at https://onice-conversion.readthedocs.org</Link>
+
+</Box>
+<Box width={2/3} marginLeft={'auto'} marginRight={'auto'}>
+  <CodePane language={"python"} theme={funky} marginLeft={'auto'}
+            highlightRanges={[
+              [4,9], 6, [7, 9],
+              [11, 16], [12, 13], [15, 16],
+              [18, 23], [20, 23]
+            ]}>
+    {'from onice-conversion import NWBConverter, spec \n\
+converter = NWBConverter()\n\
+\n\
+# specify your data and metadata as you would in plain English!\n\
+# eg. I have my subject id embedded in one of my file names:\n\
+# \'my-favorite-file_SUB1012_2021-04-20.dat\'\n\
+converter.add_metadata(\n\
+  spec.Path(\'my-favorite-file_{subject_id}_{start_date}.dat\')\n\
+  )\n\
+  \n\
+# use the nwb-conversion-tools package to grab utils.js formats!\n\
+# say our open ephys data is always in a subfolder with our subject ID in it:\n\
+# eg. \'./oe_data_SUB1012/\'\n\
+# no problem, reuse previous metadata to find more!\n\
+converter.add_interface(\'recording\',\'open_ephys\',\n\
+   file_path = spec.Glob(\'oe_data_{subject_id}\'))\n\
+\n\
+# Easy access to the pyNWB containers! Have some position data in a .mat file?\n\
+# No problem, just tell me out to get it!\n\
+converter.add_container(\'Position\', \n\
+  spec.Mat(\'positions.mat\', \'data\', \n\
+    (\'wherever\', \'they\', \'are\', [\'x\', \'y\', \'z\']))\n\
+  )\n\
+  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
+'}
+  </CodePane>
+</Box>
+<Box width={2/3} marginLeft={'auto'} marginRight={'auto'}>
+  <Text fontSize={20} fontFamily={'monospace'} style={{marginBottom:"12px"}} textAlign={"center"}>
+    And ya and also rewarding, what do people get out of their labor? we'll get there.</Text>
+
+</Box>
+

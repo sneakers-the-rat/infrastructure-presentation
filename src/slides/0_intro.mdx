@@ -1,0 +1,191 @@
+import { Heading, Text, CodePane, Box, Appear, Link } from 'spectacle'
+
+import Paper from '@material-ui/core/Paper'
+import VerticalLinearStepper from '../components/vertical_stepper'
+
+<Heading
+  fontFamily={'titleHeader'}
+  fontSize={'100pt'}
+  textAlign={'left'}
+  lineHeight={1.0}
+  fontWeight={'bold'}
+>
+  Decentralized Infrastructure for Systems Neuroscience
+</Heading>
+
+<Paper elevation={3}>
+  <Text>Subtitle</Text>
+</Paper>
+
+<Text>
+  Jonny Saunders, 2021
+
+  put a big animated version of The System here why dontcha
+</Text>
+
+---
+
+# The State of things...
+
+---
+
+# What do scientists use computers for all day?
+
+- got our data on there
+- analyze it there too
+- use it to do our experiments
+- read (& discover) other people's stuff sometimes
+- write & communicate
+
+so a lot of stuff! computers must be our friends or something
+
+one might expect us to have
+
+~~ diigital infrasssttructure ~~
+
+Notes: (comic-book texture diagram of these different uses of a computer, or like a where's waldo tableau?)
+
+---
+
+# So what kinda stuff do we have for that then?
+
+this much shorter, much blippier than a full explanation.
+want to get 'computers are impt, actually we're missing some stuff,
+it's more serious than just not caring, introducing the components
+in like <4-5m
+
+* data
+  - some standards are emerging, but mostly everyone does their own thing!!!
+  - some public stores of data, some of them even used!!!
+  - largely non-interoperable, we're lucky if we have data standardized, but standards don't talk to one another
+* tools
+  - in the recent past, tons of dope, underfunded, open-source tools
+  - analysis libraries enabling the future, but reproducibility is still sorta hard!
+  - still very hard! have to basically write a library to do an experiment!
+* communication
+  - pdfs and ppts baby!
+  - conferences
+  - godforsaken science twitter
+  - private slacks...
+
+---
+
+# Not just a nerd problem thing though
+
+* labor devaluing
+  - prodigious waste of labor!
+  - little means for credit assignment outside of published papers
+  - much data and labor is lost or wasted either completely hard-drived or not taken advantage of
+* effects on ecrs
+  - most extra labor pushed onto ecrs -- open science is mostly assigning extra work to extremely poorly paid workers.
+  - everyone has to be a programmer now to make up for ther undone labor of infrastructure
+  - catastrophic data loss being a part of being a scientist is *traumatic* and *unnecessary*
+* resource concentration
+  - resources are concentrated at relatively few institutes & labs
+  - some have access to eperts & core facilities & well stocked labs but many dont
+  - so much *contextual* knowledge is lost because there isn't a means of preserving it,
+    which is disproportionately worse for non-elite labs.
+* scientific health
+  - it's hard to publish data so it's rare
+  - it's hard to replicate analyses so it's rare
+  - it's hard to reproduce experiments so it's rare
+  - it's hard to express scientific ideas outside your subdiscipline so it's rare
+  - it might actually be impossible to understand the brain by looking at only the datasets
+    we collect in our lab/small groups of lab/the allen institute
+
+---
+
+# The forking paths forward
+
+open science is fraught af rn. many are starting to get turned off of the entire
+endeavor of 'scientific reform' or 'making things slightly less bad'
+
+platformatization model is rampant where little slices of the problem are divided among
+for-profit companies
+
+increasing reliance on eg. amazon for data storage,
+becoming complicit in an extractive monopoly
+
+This isn't as simple as "need more funding" or
+"need more development time." We need to restructure
+our approach to developing infrastructure in a way
+that a) holistically solves the problem and
+b) is not ignorant of, but driven by the ethical
+implications of the plan
+
+---
+
+Not utopian, not cataclysmic, but a practical plan for how to learn from decades
+of knowledge from decentralized knowledge communities, pirates, hackers,
+information scientists, librarians, and so on.
+
+Notes: like a heaven and hell diptich or something being like i'm not selling u a bunch
+of bull honkey here i'm also considering the practical path forwrad.
+
+
+---
+
+# Decentralized infrastructure
+
+(title slide)
+
+---
+
+# Three Interlocking Systems
+
+Give us three colors for each of them.
+
+<VerticalLinearStepper
+  steps={[
+    {
+      title: 'Shared Data',
+      body: 'A federated peer-to-peer data sharing system',
+    },
+    {
+      title: 'Shared Tools',
+      body: 'modular frameworks for analysis and experimentation',
+    },
+    {
+      title: 'Shared Knowledge',
+      body: 'semantic communication and knowledge preservation systems',
+    },
+  ]}
+/>
+
+but it's not just about them individually,
+it's about the way they interact dog, just wait.
+
+---
+
+# Why is it like this
+
+But first... the field of infra proposals is littered with the corpses of previous attempts
+So what is it exactly that we propose to do differently?
+
+The first thing is _consider the reasons for the problem_ -- weirdly
+almost always overlooked
+
+* diversity of measurements
+* diversity of preps
+* hacker spirit and celebration of heroism
+* focus on the science
+* combinatorics of recent technology
+
+---
+
+# Ivies, Consortia, and "Most of Us"
+
+* shits truly different with core facilities, and they can displace the development of infrastructure
+* consortia are great, but they dont' intrinsically produce infrastructure c.f. ibl
+* institutions are also great but they also don't necessarily produce infrastructure and can be big boondoggles like bluebrain
+* BRAIN grant is working on this but it's unfocused and without a development plan to speak of, instead a private grant dissemination process like usual
+* most of us experience the wash described at the top. the general wild west scramble of opsn source shit and hot glue
+
+like these are all centralized answers or uncoordinated answers
+
+
+---
+
+# Design principles of decentralized infrastructure
+
+it gettin late

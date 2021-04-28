@@ -60,7 +60,7 @@ module.exports = {
     // new CleanWebpackPlugin(),
     new HtmlWebPackPlugin({
       template: path.resolve( __dirname, '../public/index.html' ),
-      title: "Hey what up"
+      title: "Decentralized Infrastructure for Neuroscience"
     }),
     new webpack.ProvidePlugin({
       process: 'process/browser',
