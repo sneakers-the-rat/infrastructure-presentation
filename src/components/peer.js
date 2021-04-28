@@ -201,78 +201,29 @@ export class Peer extends React.Component {
     // console.log(block_id, outline_id)
 
     // find location of element id in our translational reference frame
-    let tm = target.getCTM()
     let tms = source.getCTM()
-    let target_tm_screen = target.getScreenCTM()
-    let tfm_str_target = "matrix("+tm.a+","+tm.b+","+tm.c+","+tm.d+","+tm.e+","+tm.f+")"
-    let tfm_str_source = "matrix("+tms.a+","+tms.b+","+tms.c+","+tms.d+","+tms.e+","+tms.f+")"
-    // console.log('transform mats', tfm_str_source, tfm_str_target)
-    // let target_tfm = parse(target.style.transform);
-    // let target_parent_tfm
 
-    // the 'target' transform is the correct final transform
-    // since it's already in the target reference frame
-    // the source will be
-    // target local transform - target global transform + source global transform
-    let target_local = {
-      x: target_tm_screen.e,
-      y: target_tm_screen.f,
-      rotation: Math.asin(target_tm_screen.b) * (180/Math.PI)
-    }
-    let target_global = {
-      x: tm.e,
-      y: tm.f,
-      rotation: Math.asin(tm.b) * (180/Math.PI)
-    }
-    let source_global = {
-      x: tms.e,
-      y: tms.f,
-      rotation: Math.asin(tms.b) * (180/Math.PI)
+
+    let svgroot = document.getElementById("svg-root");
+    let pt = svgroot.createSVGPoint();
+    pt.x = tms.e;
+    pt.y = tms.f;
+
+    pt = pt.matrixTransform(target.getScreenCTM().inverse());
+    let rotated_tfm = {
+      x:pt.x, y:pt.y, rotation:0
     }
 
-    let source_tfm = {
-      x: source_global.x-target_global.x,
-      y: source_global.y-target_global.y,
-      rotation: target_global.rotation-source_global.rotation
-    }
-    console.log('transforms', target_local, target_global, source_global, source_tfm)
-
-    // rotate based on the frame of the parent
-    let parent_ctm = target.parentElement.getCTM()
-    let dataset_rad = Math.atan2(parent_ctm.b, parent_ctm.a)
-    source_tfm.x = Math.cos(dataset_rad)*source_tfm.x + Math.sin(dataset_rad)*source_tfm.y
-    source_tfm.y = Math.cos(dataset_rad)*source_tfm.y + Math.sin(dataset_rad)*source_tfm.x
-
-    console.log('rotated', source_tfm, dataset_rad)
-    let peer_tfm = parse(target.parentElement.style.transform)
-
-    let source_tfm_str = translate_str(source_tfm.x, source_tfm.y, source_tfm.rotation)
-
-
-
-
-    // let tfm_dommat_source = new DOMMatrix(tfm_str_source)
-    // let tfm_dommat_target = new DOMMatrix(tfm_str_target)
-      //
-    // let source_tfm_parsed = parse(source.parentElement.style.transform)
+    let source_tfm_str = translate_str(rotated_tfm.x, rotated_tfm.y, rotated_tfm.rotation)
 
     let clone = source.cloneNode();
     clone.style.fill="#ff0000"
-    // let clone_str =  "translateX("+(source_tfm_parsed.translateX*-1)+"px) translateY("+(source_tfm_parsed.translateY*-1)+"px) rotate("+source_tfm_parsed.rotate*-1+"deg)"
-    // console.log(clone_str)
     clone.style.transform = source_tfm_str
     clone.id = clone.id.replace(sender, this.props.name)
-    // clone.style.transform = null
-    // clone.style.transform = tfm_dommat_target.inverse().multiplySelf(tfm_dommat_source).toString()
-    // let parsed_mat = parse(apply_mat.toString())
 
-
-
-    // console.log(anime.get(target, 'transformX'), anime.get(target,'transformY'))
     target.parentElement.appendChild(clone)
     let parsed_tfm = parse(target.style.transform);
-    // console.log(parsed_tfm, clone)
-    // console.log(target.style.transform)
+
 
     anime({
       targets: clone,
@@ -280,7 +231,7 @@ export class Peer extends React.Component {
       translateY: parsed_tfm.translateY,
       rotate: parsed_tfm.rotate,
       duration: 1000,
-      easint: 'easeOutElastic',
+      easing: 'easeInOutCirc',
       delay: 0,
       // elasticity:params.block_hover.elasticity
     })
