@@ -73,9 +73,12 @@ export default function VerticalLinearStepper(props) {
           <Step key={label}>
             <StepLabel className={classes.label}>{label}</StepLabel>
             <StepContent>
-              <Typography className={classes.bodytext}>
-                {step_text[index]}
-              </Typography>
+              {typeof step_text[index] === 'string' ? (
+                <Typography className={classes.bodytext}>
+              {step_text[index]}
+                </Typography>) :
+                step_text[index]
+              }
               <div className={classes.actionsContainer}>
                 <div>
                   <Button

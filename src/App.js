@@ -59,6 +59,18 @@ const spectacle_theme = {
   space: [0, 0, 32],
 }
 
+const transition = {
+  from: {
+    opacity: 0
+  },
+  enter: {
+    opacity: 1
+  },
+  leave: {
+    opacity: 0
+  }
+}
+
 const material_theme = createMuiTheme({
   palette: {
     type: 'light',
@@ -92,31 +104,35 @@ const material_theme = createMuiTheme({
   },
 })
 let slide_num = 0;
-const Presentation = () => (
+function Presentation(){
+  // iterate through slides here.
+  // MDXSlide elements should have exported
+  // variables as props (or at least
+  // MDXCreateElement does in the debugger)
+  return(
   <MDXProvider components={mdxComponentMap}>
     <Deck theme={spectacle_theme}>
       {all_slides.map((slides, j) =>
-        slides
-          .map((MDXSlide, i) => [MDXSlide, all_notes[j][i]])
-          .map(([MDXSlide, MDXNote], i) => (
-            <ThemeProvider theme={material_theme}>
-              <Slide
-                key={`slide-${slide_num}`}
-                slideNum={slide_num}
-                backgroundColor={'background'}
-              >
-                <MDXSlide />
-                <Notes>
-                  <MDXNote />
-                </Notes>
-              </Slide>
-              {slide_num +=1}
-            </ThemeProvider>
-      ))
+          slides.map((MDXSlide, i) => [MDXSlide, all_notes[j][i]]).
+              map(([MDXSlide, MDXNote], i) => (
+                  <ThemeProvider theme={material_theme}>
+                    <Slide
+                        key={`slide-${slide_num}`}
+                        slideNum={slide_num}
+                        backgroundColor={'background'}
+                    >
+                      <MDXSlide/>
+                      <Notes>
+                        <MDXNote/>
+                      </Notes>
+                    </Slide>
+                    {slide_num += 1}
+                  </ThemeProvider>
+              ))
       )}
     </Deck>
-  </MDXProvider>
-)
+  </MDXProvider>)
+}
 
 export default Presentation
 //

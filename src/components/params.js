@@ -31,6 +31,23 @@ export const peer_params = {
   window:{
     width:200,
     height:400,
+  },
+  pulse:{
+    in:{
+      duration: 1000,
+      color: "#ff0000",
+      opacity: 0.5
+    },
+    fade:{
+      duration: 500,
+      color: "#000000",
+      opacity: 0.2
+    },
+    out:{
+      duration:10000,
+      color: "#000000",
+      opacity: 0
+    },
   }
 };
 

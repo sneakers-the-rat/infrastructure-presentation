@@ -317,11 +317,13 @@ export class Dataset extends React.Component {
     // --------------------------------------
     // rotations
 
+    let rootname = this.props.fast ? "dataset fast" : "dataset"
+
     return (
       <g
         style={{ transform: this.translate_str(this.props.position[0], this.props.position[1], this.props.orientation) }}
         id={'dataset-' + this.props.name}
-        className={'dataset'}
+        className={rootname}
       >
         <rect
           {...this.state.header.attrs}
@@ -356,6 +358,7 @@ Dataset.defaultProps = {
   pieces: true,
   outlines: true,
   scale: 1,
+  fast: false
 }
 
 

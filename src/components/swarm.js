@@ -87,6 +87,7 @@ export default class Swarm extends React.Component{
                 getPeers={this.getPeers}
                 key={peer.name}
                 scale={this.props.peers.scale}
+                fast={true}
                 ref={(element) => this.peersRefs[peer.name] = element}/>);
     }
     return(
@@ -112,7 +113,7 @@ Swarm.defaultProps = {
       col_range:[3,6],
       size_range:[2,6]
     },
-    scale:0.1
+    scale:0.01
   },
   position: [0, 0],
   orientation: 0,

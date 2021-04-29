@@ -4,7 +4,7 @@ var MADE_PEERS = {};
 
 import {Dataset,makeDataset} from './dataset';
 import {dataset_params, peer_params} from './params';
-import {toRadians, randint, isin, whereis, translate_str} from './utils';
+import {toRadians, randint, isin, whereis, translate_str, drawline} from './utils';
 import anime from 'animejs';
 import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'
@@ -156,7 +156,7 @@ export class Peer extends React.Component {
         // console.log(peer)
         if ((requestedBlocks !== undefined) && (requestedBlocks.length>0)){
           //  also random iter here
-          console.log(requestedBlocks)
+          // console.log(requestedBlocks)
           // let wanted_inds = [...Array(requestedBlocks.length).keys()];
           for (let j=0; j<requestedBlocks.length; i++){
             // let wanted_ind = wanted_inds.pop(randint(0,wanted_inds.length));
@@ -209,7 +209,7 @@ export class Peer extends React.Component {
     pt.x = tms.e;
     pt.y = tms.f;
 
-    pt = pt.matrixTransform(target.getScreenCTM().inverse());
+    pt = pt.matrixTransform(target.getCTM().inverse());
     let rotated_tfm = {
       x:pt.x, y:pt.y, rotation:0
     }
@@ -221,8 +221,21 @@ export class Peer extends React.Component {
     clone.style.transform = source_tfm_str
     clone.id = clone.id.replace(sender, this.props.name)
 
-    target.parentElement.appendChild(clone)
     let parsed_tfm = parse(target.style.transform);
+
+    // make two lines, gray and red
+    let dimline = drawline(rotated_tfm.x, rotated_tfm.y, parsed_tfm.translateX, parsed_tfm.translateY)
+    let brightline = drawline(rotated_tfm.x, rotated_tfm.y, parsed_tfm.translateX, parsed_tfm.translateY)
+    // dimline.setAttribute('stroke', '#000000')
+    // dimline.setAttribute('opacity','0')
+
+    brightline.setAttribute('stroke', peer_params.pulse.in.color)
+    brightline.setAttribute('opacity', '0')
+    brightline.setAttribute('class', 'transfer-line')
+    // console.log('lines',svgroot, dimline, brightline)
+    // target.parentElement.appendChild(dimline)
+    target.parentElement.appendChild(brightline)
+    target.parentElement.appendChild(clone)
 
 
     anime({
@@ -235,6 +248,29 @@ export class Peer extends React.Component {
       delay: 0,
       // elasticity:params.block_hover.elasticity
     })
+    let line_tl = anime.timeline()
+    line_tl.add({
+      targets: brightline,
+      easing: 'easeInOutCirc',
+      opacity: peer_params.pulse.in.opacity,
+      stroke: peer_params.pulse.in.color,
+      duration: peer_params.pulse.in.duration
+    },0)
+    line_tl.add({
+      targets: brightline,
+      opacity: peer_params.pulse.fade.opacity,
+      stroke: peer_params.pulse.fade.color,
+      duration: peer_params.pulse.fade.duration
+    }, peer_params.pulse.in.duration)
+    line_tl.add({
+      targets: brightline,
+      opacity: peer_params.pulse.out.opacity,
+      stroke: peer_params.pulse.out.color,
+      duration: peer_params.pulse.out.duration
+    }, peer_params.pulse.in.duration+peer_params.pulse.fade.duration)
+    line_tl.finished.then(() => brightline.remove())
+
+
     this.haveBlocks.push(sent_block)
 
     // tfm_str_source = "matrix("+tm.a+","+tm.b+","+tm.c+","+tm.d+","+tm.e+","+tm.f+")"
@@ -285,7 +321,7 @@ export class Peer extends React.Component {
       }
       showPeers = true
     }
-    console.log('peer menu name', 'peer-'+this.props.name+'-peerWindow')
+    // console.log('peer menu name', 'peer-'+this.props.name+'-peerWindow')
     anime({
       targets:document.getElementById('peer-'+this.props.name+'-peerWindow'),
       scale:peerWindow.scale,
@@ -296,7 +332,7 @@ export class Peer extends React.Component {
   }
 
   requestDataset(ds_name){
-    console.log('requested', ds_name)
+    // console.log('requested', ds_name)
 
   //  find it
     let ds
@@ -334,7 +370,13 @@ export class Peer extends React.Component {
     let dataset_svgs = []
     for (let dataset_name in this.state.datasets){
       let dataset = this.state.datasets[dataset_name]
-      dataset_svgs.push(<Dataset outlines={true} key={dataset_name} peerName={this.props.name} {...dataset}/>)
+      dataset_svgs.push(
+          <Dataset
+              outlines={true}
+              key={dataset_name}
+              peerName={this.props.name}
+              fast={this.props.fast}
+              {...dataset}/>)
 
     }
 
@@ -377,7 +419,8 @@ Peer.defaultProps = {
   dataset_angle: 120,
   upload:5,
   download:1,
-  peers: {}
+  peers: {},
+  fast: false
 }
 
 let last_name = 97;
