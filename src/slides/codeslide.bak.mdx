@@ -1,0 +1,34 @@
+<Box width={2/3} marginLeft={'auto'} marginRight={'auto'}>
+  <CodePane language={"python"} theme={funky} marginLeft={'auto'}
+            highlightRanges={[
+              [4,9], 6, [7, 9],
+              [11, 16], [12, 13], [15, 16],
+              [18, 23], [20, 23]
+            ]}>
+    {'from onice-conversion import NWBConverter, spec \n\
+converter = NWBConverter()\n\
+\n\
+# specify your data and metadata as you would in plain English!\n\
+# eg. I have my subject id embedded in one of my file names:\n\
+# \'my-favorite-file_SUB1012_2021-04-20.dat\'\n\
+converter.add_metadata(\n\
+  spec.Path(\'my-favorite-file_{subject_id}_{start_date}.dat\')\n\
+  )\n\
+  \n\
+# use the nwb-conversion-tools package to grab utils.js formats!\n\
+# say our open ephys data is always in a subfolder with our subject ID in it:\n\
+# eg. \'./oe_data_SUB1012/\'\n\
+# no problem, reuse previous metadata to find more!\n\
+converter.add_interface(\'recording\',\'open_ephys\',\n\
+   file_path = spec.Glob(\'oe_data_{subject_id}\'))\n\
+\n\
+# Easy access to the pyNWB containers! Have some position data in a .mat file?\n\
+# No problem, just tell me out to get it!\n\
+converter.add_container(\'Position\', \n\
+  spec.Mat(\'positions.mat\', \'data\', \n\
+    (\'wherever\', \'they\', \'are\', [\'x\', \'y\', \'z\']))\n\
+  )\n\
+  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
+'}
+  </CodePane>
+</Box>

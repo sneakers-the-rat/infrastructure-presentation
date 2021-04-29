@@ -108,9 +108,27 @@ Whats nwb
 
 ---
 
-# Make it ez
 
-(code example slide)
+<Heading>Make It Easy!</Heading>
+<Box width={2/3} marginLeft={'auto'} marginRight={'auto'}>
+  <Text fontSize={30} fontFamily={'monospace'} style={{marginBottom:"12px"}} textAlign={"center"}>
+    Standardizing data is *hard* and there are very few professional incentives to do it.
+    Rather than just getting *mad* at people and *bullying* them into open science,
+    it needs to be *easy*</Text>
+  <Text fontSize={30} fontFamily={'monospace'} style={{marginBottom:"12px"}} textAlign={"center"}>
+    Here's my take:
+  </Text>
+  <Link fontSize={20} href={"https://onice-conversion.readthedocs.org"} textAlign={"center"} fontFamily={'monospace'}>Docs at https://onice-conversion.readthedocs.org</Link>
+
+</Box>
+
+<Box width={2/3} marginLeft={'auto'} marginRight={'auto'}>
+  <Text fontSize={20} fontFamily={'monospace'} style={{marginBottom:"12px"}} textAlign={"center"}>
+    And ya and also rewarding, what do people get out of their labor? we'll get there.</Text>
+
+</Box>
+
+
 
 ---
 # p2p
@@ -133,10 +151,12 @@ ppl who want to download)
 
 # P2p
 
-What about p2p?
+What if i told u the answer was to focus more on the sharing than the storage?
 in a p2p system, everyone is the server.
 Say i'm in a net with 5 of my buds, we all
 tell each other what data we have.
+
+sharing with my buds makes us all cooler
 
 <svg width={1920} height={1080} className={'svg-fill'} id={"svg-root"}>
   <Swarm
@@ -157,55 +177,66 @@ tell each other what data we have.
 
 ---
 
-<Heading>Make It Easy!</Heading>
-<Box width={2/3} marginLeft={'auto'} marginRight={'auto'}>
-  <Text fontSize={30} fontFamily={'monospace'} style={{marginBottom:"12px"}} textAlign={"center"}>
-    Standardizing data is *hard* and there are very few professional incentives to do it.
-    Rather than just getting *mad* at people and *bullying* them into open science,
-    it needs to be *easy*</Text>
-  <Text fontSize={30} fontFamily={'monospace'} style={{marginBottom:"12px"}} textAlign={"center"}>
-    Here's my take:
-  </Text>
-  <Link fontSize={20} href={"https://onice-conversion.readthedocs.org"} textAlign={"center"} fontFamily={'monospace'}>Docs at https://onice-conversion.readthedocs.org</Link>
+# p2p vs servers
 
-</Box>
-<Box width={2/3} marginLeft={'auto'} marginRight={'auto'}>
-  <CodePane language={"python"} theme={funky} marginLeft={'auto'}
-            highlightRanges={[
-              [4,9], 6, [7, 9],
-              [11, 16], [12, 13], [15, 16],
-              [18, 23], [20, 23]
-            ]}>
-    {'from onice-conversion import NWBConverter, spec \n\
-converter = NWBConverter()\n\
-\n\
-# specify your data and metadata as you would in plain English!\n\
-# eg. I have my subject id embedded in one of my file names:\n\
-# \'my-favorite-file_SUB1012_2021-04-20.dat\'\n\
-converter.add_metadata(\n\
-  spec.Path(\'my-favorite-file_{subject_id}_{start_date}.dat\')\n\
-  )\n\
-  \n\
-# use the nwb-conversion-tools package to grab utils.js formats!\n\
-# say our open ephys data is always in a subfolder with our subject ID in it:\n\
-# eg. \'./oe_data_SUB1012/\'\n\
-# no problem, reuse previous metadata to find more!\n\
-converter.add_interface(\'recording\',\'open_ephys\',\n\
-   file_path = spec.Glob(\'oe_data_{subject_id}\'))\n\
-\n\
-# Easy access to the pyNWB containers! Have some position data in a .mat file?\n\
-# No problem, just tell me out to get it!\n\
-converter.add_container(\'Position\', \n\
-  spec.Mat(\'positions.mat\', \'data\', \n\
-    (\'wherever\', \'they\', \'are\', [\'x\', \'y\', \'z\']))\n\
-  )\n\
-  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
-'}
-  </CodePane>
-</Box>
-<Box width={2/3} marginLeft={'auto'} marginRight={'auto'}>
-  <Text fontSize={20} fontFamily={'monospace'} style={{marginBottom:"12px"}} textAlign={"center"}>
-    And ya and also rewarding, what do people get out of their labor? we'll get there.</Text>
+comparison of server architecture and p2p quantitatively.
 
-</Box>
+Notes: popup with more info
+
+That p2p system is literally the most basic one. extend it in a bunch of ways
+
+* Versioning
+* Obligate Peers - making it always at least as fast as
+
+---
+
+# problems with p2p systems
+
+* ppl freaking drop out!
+* rare material can get lost if only one peer has it!
+* make networks sad! (this one is just a QoS one so we can ignore that)
+
+but what if i told u that there have been hundreds of thousands of people experimenting
+with the culture of how to make a peer-to-peer data archival system
+sustainable for decades? and those ppl are pirates?
+
+here's a hint the answer is that *archives need communities* and
+we will return to that later
+
+---
+
+# Federated systems
+
+ok all fata abstractly floating computers, how do i get my dang mouse on it?
+
+no shortage of scientific darabases, but basic tradeoff between generality and specificity
+eg. embed IBL data site that's extremely specific, vs. fighsare which is v general but nonindexable
+
+stuff from bietz et al
+
+so let's try federated systems
+
+---
+
+# Federated systems
+
+basic idea here is that we
+a) conceptualize our data storage system as a *sharing* system first
+b) choose who we share with and are *federated* with
+c) allow different frontends to access our data in different ways and design tools around what they need
+
+---
+
+# federated databases
+
+amit sheth and james larsen
+
+
+---
+
+fediverse and early wiki example
+
+---
+
+
 
