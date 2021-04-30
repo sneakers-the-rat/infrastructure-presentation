@@ -1,7 +1,9 @@
 import { Heading, Box, Text, Image, Grid } from 'spectacle'
 import Paper from '@material-ui/core/Paper'
 import CanvasDraw from "react-canvas-draw";
-
+import VerticalLinearStepper from '../components/vertical_stepper'
+import ExptRequirements from '../img/task_requirements_2.png'
+import Parallax from '../img/plax.png'
 
 # Shared Tools
 
@@ -19,24 +21,69 @@ unify the idea of data transformation, have analysis tools be wrench points btw 
 
 We need something that's
 
-* **modular** - Rather than implementing an entire analysis pipeline as a monolith, the system should be broken into minimal, composable modules. The threshold of what constitutes “minimal” is of course to some degree a matter of taste, but the overriding design principle should be to minimize the amount of duplicated labor. Rather than implementing a “peri-stimulus time-histogram” module, we should implement a “binning” module for counting spikes, connect it to an “alignment” module that splits the recording into chunks aligned at the stimulus onset, and so on. Higher-order analysis methods are relatively trivially composed from component parts, but extracting component parts from a frankenstein do-everything script is not. I expect this point to be relatively uncontroversial as it is a general principle of program design.
-* **deployable** - For wide use, the framework needs to be easy to install and deploy locally and on computing clusters. The primary obstacle is dependency management, or making sure that the computer has everything needed to run the program. Anecdotally, more than the complexity of using the package itself, the primary barrier for nonprogrammer scientists using a particular software package is managing to get it installed. Luckily containerization and package management is a widespread and increasingly streamlined practice, so I expect this too to be uncontroversial.
-* **pluggable** - The framework needs to provide a clear way of incorporating external analysis packages, handling their dependencies, and exposing their parameters to the user.
-* **reproducible** - The framework should separate the parameterization of a pipeline, the specific options set by the user, and its implementation, the code that constitutes it. Implicit in a modularly constructed analysis framework is the notion of a “pipeline,” or a specification of a tree (or, specifically, a DAG) of successive stages that process, merge, or split the data from the previous stage. The parameterization of a pipeline should be portable such that it, for example, can be published in the supplementary materials of a paper and reproduced exactly by anyone using the system.
-
-Something that gives *developers* a set of basic tools to design their tools with,
-that gives *users* an easy way to manipulate links in a processing pipeline,
-and *share* their work and be *credited* for it.
+<Box >
+  <VerticalLinearStepper
+      steps={[
+        {
+          title: 'Modular',
+          body: 'Rather than implementing an entire analysis pipeline as a monolith, the system should be broken into minimal, composable modules. The threshold of what constitutes “minimal” is of course to some degree a matter of taste, but the overriding design principle should be to minimize the amount of duplicated labor. Rather than implementing a “peri-stimulus time-histogram” module, we should implement a “binning” module for counting spikes, connect it to an “alignment” module that splits the recording into chunks aligned at the stimulus onset, and so on. Higher-order analysis methods are relatively trivially composed from component parts, but extracting component parts from a frankenstein do-everything script is not. I expect this point to be relatively uncontroversial as it is a general principle of program design',
+        },
+        {
+          title: 'Deployable',
+          body:
+              'For wide use, the framework needs to be easy to install and deploy locally and on computing clusters. The primary obstacle is dependency management, or making sure that the computer has everything needed to run the program. Anecdotally, more than the complexity of using the package itself, the primary barrier for nonprogrammer scientists using a particular software package is managing to get it installed. Luckily containerization and package management is a widespread and increasingly streamlined practice, so I expect this too to be uncontroversial',
+        },
+        {
+          title: 'Pluggable',
+          body:
+              'The framework needs to provide a clear way of incorporating external analysis packages, handling their dependencies, and exposing their parameters to the user',
+        },
+        {
+          title: 'Reproducible',
+          body:
+              "The framework should separate the parameterization of a pipeline, the specific options set by the user, and its implementation, the code that constitutes it. Implicit in a modularly constructed analysis framework is the notion of a “pipeline,” or a specification of a tree (or, specifically, a DAG) of successive stages that process, merge, or split the data from the previous stage. The parameterization of a pipeline should be portable such that it, for example, can be published in the supplementary materials of a paper and reproduced exactly by anyone using the system.",
+        },
+        {
+          title: 'Discoverable',
+          body:
+              "Two kinds: findable by people who know what they're looking for (and what \
+          they're looking for is your data, of course!), ie. searchable, and also as part \
+          of a structured knowledge repository among other data of its type. More on this \
+          in the federated p2p section...",
+        },
+      ]}
+  />
+</Box>
 
 ---
 
-# BIDS Apps & DataJoint Element
+# BIDS Apps
 
 Thankfully there are some examples of this
 
 Bids apps - https://bids-apps.neuroimaging.io/tutorial/
 
-datajoint elements - https://github.com/datajoint/datajoint-elements
+<Box width={"80%"} height={"80%"} margin={"auto"}>
+  <Paper elevation={1} style={{width:"100%", height:"100%"}}>
+    <iframe width={"100%"} height={"100%"} loading={"lazy"}
+            src={"https://bids-apps.neuroimaging.io/apps/"}
+    />
+  </Paper>
+</Box>
+
+---
+
+# DataJoint Elements
+
+https://github.com/datajoint/datajoint-elements
+
+<Box width={"80%"} height={"80%"} margin={"auto"}>
+  <Paper elevation={1} style={{width:"100%", height:"100%"}}>
+    <iframe width={"100%"} height={"100%"}  loading={"lazy"}
+            src={"https://github.com/datajoint/workflow-array-ephys"}
+    />
+  </Paper>
+</Box>
 
 ---
 
@@ -58,22 +105,14 @@ datajoint elements - https://github.com/datajoint/datajoint-elements
   build a global folding@home with idle computing time datajoint
   elements says as much in their paper (screenshot)
 
----
-
-What's missing:
-
-Community structure --
-
-* need to have better interface for
-browsing and visualizing the relationships between elements
-* negotiating best practices
-* comparing many similar pipelines
 
 ---
 
 # Experimental Framework
 
-What do the next 10 years of neuroscience experiments look like?
+What do the next 10 years of neuroscience
+
+experiments look like?
 
 * **Infinitely variable** naturalistic experimental structure
 * Complex, **multi-stage** and **continuous** tasks
@@ -86,25 +125,17 @@ What do the next 10 years of neuroscience experiments look like?
 * **High-Bandwidth** data collection
 * **Multimodal** data collection
 
-What do we need to make that possible for everyone?
-**Less about discussing a specific technology here and more
-how a technology like this would fit into the holistic pic of infrastructure**
+
+<Image src={ExptRequirements} style={{right:0, bottom:0,height:"80%", position:"absolute"}}></Image>
 
 ---
 
-( basically copy the NMC slide )
 
-* Flexible - Use any hardware, write any task.
-A framework, not a program.
-* Distributed - To scale complexity, coordinate more computers.
-* Reproducible - Data that is clean, complete, and annotated at the time of acquisition. Experiments that can be replicated on more than exactly one rig
-* Deployable - easy 2 use and as inexpensive as possible, taking advantage of existing & commonly available parts
+<Image src={Parallax} maxWidth={"100%"} maxHeight={"100%"}></Image>
 
----
 
-# What does it look like?
 
-Examples from Parallax task
+Notes: Examples from Parallax task
 
 * Describe the task (from nmc)
 * IMU transformation example - lots of people need to do this, why is it so hard?
@@ -114,6 +145,20 @@ Examples from Parallax task
 * Manipulating custom hardware is possible - video of platform
 * Connecting separate components is possible
 * Finish with DLC example
+
+---
+
+# Integrate with custom components
+
+<div style={{"z-index":-1}}>
+  <iframe src="https://player.vimeo.com/video/543747956?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style={{position:"absolute",top:0,left:0,width:"100%",height:"100%"}} title="hell_naw.mp4"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+
+---
+
+# Link in RT
+
+<div style={{"z-index":-1}}>
+  <iframe src="https://player.vimeo.com/video/543748950?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style={{position:"absolute",top:0,left:0,width:"100%",height:"100%"}} title="Motion Control"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
 
 
 ---
@@ -151,10 +196,6 @@ system where their contribution ould be integrated with others?
 
 ---
 
-<div width={"100%"} height={"100%"}>
-<CanvasDraw
-  canvasWidth={400}
-  canvasHeight={400}
-  lazyRadius={15}
-/>
-</div>
+What's missing:
+
+Community structure

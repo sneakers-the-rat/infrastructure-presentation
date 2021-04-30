@@ -10,6 +10,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import VerticalLinearStepper from '../components/vertical_stepper'
+import FederatedStack from '../img/federated_db_stack.png'
+import FederatedLinks from '../img/federated_db_links.png'
 
 import funky from 'react-syntax-highlighter/dist/cjs/styles/prism/funky'
 
@@ -225,7 +227,7 @@ We're familiar with extremely sick, domain-specific databases like this one from
 
 <Box width={"80%"} height={"80%"} margin={"auto"}>
 <Paper elevation={1} style={{width:"100%", height:"100%"}}>
-<iframe width={"100%"} height={"100%"}
+<iframe width={"100%"} height={"100%"}  loading={"lazy"}
         src={"https://data.internationalbrainlab.org/mouse/00778394-c956-408d-8a6c-ca3b05a611d5"}
   />
 </Paper>
@@ -328,9 +330,17 @@ Built on W3C's "ActivityPub" protocol, an interconnected network of autonomous s
 
 # Federated database systems
 
+Not a new idea!
+
+<Grid gridTemplateColumns={"1fr 1fr"} height={"80%"}>
+  <Image maxWidth={"80%"} maxHeight={"80%"} src={FederatedStack}/>
+  <Image maxWidth={"80%"} maxHeight={"80%"} src={FederatedLinks}/>
+  <Box>
+    <Text>Sima AC et al,</Text>
+  <Link href={"https://doi.org/10.1093/database/baz106"}>Enabling semantic queries across federated bioinformatics databases</Link></Box>
+</Grid>
 
 
----
 
 ---
 
@@ -345,5 +355,7 @@ could be
 * Hypercore
 
 ---
+
+
 
 
