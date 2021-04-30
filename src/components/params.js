@@ -15,10 +15,8 @@ export const dataset_params = {
 };
 
 export const peer_params = {
-  inner_radius: 100,
-  outer_radius: 150,
   inner_radius_scale: 10,
-  outer_radius_scale: 15,
+  outer_radius_scale: 30,
   padding: 10,
   send_duration:500,
   inner_hover: {
@@ -27,7 +25,7 @@ export const peer_params = {
     duration_exit: 500,
     elasticity: 400,
   },
-  ds_scale: 0.3,
+  ds_scale: 0.08,
   window:{
     width:200,
     height:400,

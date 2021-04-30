@@ -1,5 +1,160 @@
-have the tools representation be a wrench around two peers with datasets on either side, zoom in to reveal systems diagram like the one from nmc presentation, but zoom out to just be tangles in a wrench. 
+import { Heading, Box, Text, Image, Grid } from 'spectacle'
+import Paper from '@material-ui/core/Paper'
+import CanvasDraw from "react-canvas-draw";
+
+
+# Shared Tools
+
+Notes: have the tools representation be a wrench around two peers with datasets on either side, zoom in to reveal systems diagram like the one from nmc presentation, but zoom out to just be tangles in a wrench.
 
 unify the idea of data transformation, have analysis tools be wrench points btw source and output dataset.
 
 ---
+
+# Analysis tools
+
+* Most widely used tools are either atomic level packages like pandas or dplyr
+* Open source packages each with their own parameterization style & difficulty of use, etc
+* Many papers don't ever get implementations
+
+We need something that's
+
+* **modular** - Rather than implementing an entire analysis pipeline as a monolith, the system should be broken into minimal, composable modules. The threshold of what constitutes “minimal” is of course to some degree a matter of taste, but the overriding design principle should be to minimize the amount of duplicated labor. Rather than implementing a “peri-stimulus time-histogram” module, we should implement a “binning” module for counting spikes, connect it to an “alignment” module that splits the recording into chunks aligned at the stimulus onset, and so on. Higher-order analysis methods are relatively trivially composed from component parts, but extracting component parts from a frankenstein do-everything script is not. I expect this point to be relatively uncontroversial as it is a general principle of program design.
+* **deployable** - For wide use, the framework needs to be easy to install and deploy locally and on computing clusters. The primary obstacle is dependency management, or making sure that the computer has everything needed to run the program. Anecdotally, more than the complexity of using the package itself, the primary barrier for nonprogrammer scientists using a particular software package is managing to get it installed. Luckily containerization and package management is a widespread and increasingly streamlined practice, so I expect this too to be uncontroversial.
+* **pluggable** - The framework needs to provide a clear way of incorporating external analysis packages, handling their dependencies, and exposing their parameters to the user.
+* **reproducible** - The framework should separate the parameterization of a pipeline, the specific options set by the user, and its implementation, the code that constitutes it. Implicit in a modularly constructed analysis framework is the notion of a “pipeline,” or a specification of a tree (or, specifically, a DAG) of successive stages that process, merge, or split the data from the previous stage. The parameterization of a pipeline should be portable such that it, for example, can be published in the supplementary materials of a paper and reproduced exactly by anyone using the system.
+
+Something that gives *developers* a set of basic tools to design their tools with,
+that gives *users* an easy way to manipulate links in a processing pipeline,
+and *share* their work and be *credited* for it.
+
+---
+
+# BIDS Apps & DataJoint Element
+
+Thankfully there are some examples of this
+
+Bids apps - https://bids-apps.neuroimaging.io/tutorial/
+
+datajoint elements - https://github.com/datajoint/datajoint-elements
+
+---
+
+# Federated P2P & Modular Analysis
+
+* Replicability -- having a clearly reproducible analysis pipline is good
+  in itself, but when the data sharing system is also designed
+  such that someone doesn't need to set up a whole ass database,
+  figure out how to get queries, it's even more dope.
+* Inspectability - "never roll yr own crypto" but ppl roll their own
+  analysis all day long. examples of bugs
+* Scientific Consensus - giving a language to ongoing comparisons and
+  debates in the field literally in their implementation allows
+  us to more plainly see the diversity of opinion and results --
+  what if you could apply an analysis method to an entire body of
+  previously collected data? or two? This could decouple a paper from its analysis
+* A Global F@H - At the point when everyone is connected
+  and volunteering a million tiny servers, it would be possible to
+  build a global folding@home with idle computing time datajoint
+  elements says as much in their paper (screenshot)
+
+---
+
+What's missing:
+
+Community structure --
+
+* need to have better interface for
+browsing and visualizing the relationships between elements
+* negotiating best practices
+* comparing many similar pipelines
+
+---
+
+# Experimental Framework
+
+What do the next 10 years of neuroscience experiments look like?
+
+* **Infinitely variable** naturalistic experimental structure
+* Complex, **multi-stage** and **continuous** tasks
+* **Lots** of hardware
+* Lots of **heterogeneous** hardware
+* **Custom** and **off-the-shelf** hardware
+* **All-To-All** control
+* **Real-time** data processing
+* **~Microsecond-precise** synchronization
+* **High-Bandwidth** data collection
+* **Multimodal** data collection
+
+What do we need to make that possible for everyone?
+**Less about discussing a specific technology here and more
+how a technology like this would fit into the holistic pic of infrastructure**
+
+---
+
+( basically copy the NMC slide )
+
+* Flexible - Use any hardware, write any task.
+A framework, not a program.
+* Distributed - To scale complexity, coordinate more computers.
+* Reproducible - Data that is clean, complete, and annotated at the time of acquisition. Experiments that can be replicated on more than exactly one rig
+* Deployable - easy 2 use and as inexpensive as possible, taking advantage of existing & commonly available parts
+
+---
+
+# What does it look like?
+
+Examples from Parallax task
+
+* Describe the task (from nmc)
+* IMU transformation example - lots of people need to do this, why is it so hard?
+* Porting code is easy - adapted kalman filter & sensor code
+* Having clear place to expand things
+* Making each part of it separately available.
+* Manipulating custom hardware is possible - video of platform
+* Connecting separate components is possible
+* Finish with DLC example
+
+
+---
+
+# Combinatoric Benefits
+
+* completely obviate the need for conversion
+* Complete replication becomes possible -- circular provenance
+* Making analytical tools
+
+---
+
+# Other projects
+
+* Bonsai - good! we love it!
+* BEADL - interesting! statecharts are cool! it's a big ask to
+get everyone to fundamentally change how they express and
+do their experiments, instead we should focus on the tool side
+of thing rather than the standardization and formalization side
+of things!!
+
+
+---
+
+# Again a design practice, not a product
+
+We need to make our programs easier to interface with one another --
+provide clearer inputs and outputs, points where other programs
+can pull and push information to our programs.
+
+BEADL this is a fundamentally diffrent approach to standardization
+what if we made it unnecessary to standardize terminology and task definitions
+by allowing people to express their task in their terms but in a
+system where their contribution ould be integrated with others?
+
+---
+
+<div width={"100%"} height={"100%"}>
+<CanvasDraw
+  canvasWidth={400}
+  canvasHeight={400}
+  lazyRadius={15}
+/>
+</div>

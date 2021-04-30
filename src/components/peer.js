@@ -417,7 +417,7 @@ Peer.defaultProps = {
   orientation: 0,
   scale: 1,
   dataset_angle: 120,
-  upload:5,
+  upload:2,
   download:1,
   peers: {},
   fast: false

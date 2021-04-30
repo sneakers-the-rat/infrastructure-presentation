@@ -92,6 +92,7 @@ export class Dataset extends React.Component {
         textAnchor: 'start',
         id: 'dataset-label-header-' + this.props.name,
         className: 'dataset-label header-label',
+        fontSize: "3rem"
       }
     }
 
