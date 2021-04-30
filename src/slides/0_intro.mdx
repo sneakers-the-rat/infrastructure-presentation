@@ -1,5 +1,10 @@
 import {Heading, Text, Quote, Appear, Link, Grid, Box} from 'spectacle'
 import Paper from '@material-ui/core/Paper'
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import VerticalLinearStepper from '../components/vertical_stepper'
 
 <Heading
@@ -13,13 +18,9 @@ import VerticalLinearStepper from '../components/vertical_stepper'
 </Heading>
 
 <Paper elevation={3}>
-  <Text>Subtitle</Text>
+  <Text>  Jonny Saunders, 2021</Text>
 </Paper>
 
-<Text>
-  Jonny Saunders, 2021
-
-</Text>
 
 Notes: presenter notes??
   - put a big animated version of The System here why dontcha
@@ -42,7 +43,21 @@ other softwarez to mention:
 ---
 export const testprop = 'hi';
 
-# The State of things...
+# ToC
+
+* The Case for Digital Infrastructure
+* Shared Data
+  - Humane Standardization
+  - P2P Systems
+  - Federated Databases
+* Shared Tools
+  - Modular Analysis Framework
+  - Experimental Framework
+* Shared Knowledge
+  - Archives Need Communities: Wikipedia & What.cd
+  - Semantic Wikis: schema resolution & contextual knowledge
+  - Credit Assignment
+* The Way There...
 
 ---
 
@@ -87,99 +102,88 @@ in like <4-5m
 
 ---
 
-# Not just a nerd problem thing though
+# Not Just Inconvenience...
 
-* labor devaluing
-  - prodigious waste of labor!
-  - little means for credit assignment outside of published papers
-  - much data and labor is lost or wasted either completely hard-drived or not taken advantage of
-* effects on ecrs
-  - most extra labor pushed onto ecrs -- open science is mostly assigning extra work to extremely poorly paid workers.
-  - everyone has to be a programmer now to make up for ther undone labor of infrastructure
-  - catastrophic data loss being a part of being a scientist is *traumatic* and *unnecessary*
-* resource concentration
-  - resources are concentrated at relatively few institutes & labs
-  - some have access to eperts & core facilities & well stocked labs but many dont
-  - so much *contextual* knowledge is lost because there isn't a means of preserving it,
-    which is disproportionately worse for non-elite labs.
-* scientific health
-  - it's hard to publish data so it's rare
-  - it's hard to replicate analyses so it's rare
-  - it's hard to reproduce experiments so it's rare
-  - it's hard to express scientific ideas outside your subdiscipline so it's rare
-  - it might actually be impossible to understand the brain by looking at only the datasets
-    we collect in our lab/small groups of lab/the allen institute
-  - the only thing we have is papers and science twitter which is slow or toxic
+* Labor Devaluation
+  - Prodigious Redundancy
+  - Little means of Credit Assignment
+  - Data Loss is Labor Loss
+* Resource Concentration
+  - Expertise and Resources Siloed in few Institutions
+  - Public resources made private academic capital
+* Disproportionate Effects on ECRs
+  - No Infrastructure is the defining reality
+  - Everyday Redevelopment *and* "Open Science" falls to ECRs
+  - "Everyone Has to be a Programmer Now"
+* Scientific Health
+  - Replication crisis inevitable
+  - Subdisciplinary Silos
+  - Stunted scientific discourse
+  - Solaris-like futility
+
 
 ---
 
 # "Let us now anathemize techno hubris"
 
-v briefly, just making the points that there are lots of ways this could shake out,
-say that we'll get to alternatives as we go
-
-open science is fraught af rn. many are starting to get turned off of the entire
-endeavor of 'scientific reform' or 'making things slightly less bad'
-
-platformatization model is rampant where little slices of the problem are divided among
-for-profit companies
-
-increasing reliance on eg. amazon for data storage,
-becoming complicit in an extractive monopoly
-
-This isn't as simple as "need more funding" or
-"need more development time." We need to restructure
-our approach to developing infrastructure in a way
-that a) holistically solves the problem and
-b) is not ignorant of, but driven by the ethical
-implications of the plan
-
-If you build it they won't necessarily come!
-
-> Let us now anathematize techno hubris.
-Much technological infrastructure development
-has been motivated by the belief that if we build it they will come.
-Little was learned from the experience of supercomputer centers
-(built, they didn’t come) or collaboratories
-(built, they left early). It is not enough to put out a new
-technical infrastructure – it needs to be woven into the daily
-practices of knowledge workers. ... **We are dealing with a massively
-entrenched set of institutioned, built around the last information age and fighting for its life.**
-- https://doi.org/10.1007/978-1-4020-9789-8_5
+<Box  width={2/3} margin={"auto"}>
+<Card elevation={1}>
+  <CardContent>
+    <Quote>
+      Much technological infrastructure development
+      has been motivated by the belief that if we build it they will come. ...<br/><br/>
+      <strong>It is not enough to put out a new
+      technical infrastructure – it needs to be woven into the daily
+        practices of knowledge workers.</strong> <br/><br/> We are dealing with a massively
+      entrenched set of institutions, built around the last information age and
+      fighting for its life.
+    </Quote>
+    <Text fontSize={30}>-Bowker et al (2010) <Link fontSize={30} href={"https://doi.org/10.1007/978-1-4020-9789-8_5"}>"Toward Information Infrastructure Studies"</Link></Text>
+  </CardContent>
+</Card>
+</Box>
 
 ---
 
-> While different platforms aim to apply the concepts of
-social media to some restricted subset of the research process \[...] it does not take much
+# Liberatory Infrastructure is Not Inevitable
+
+<Text textAlign={"center"}>Not just a matter of more funding or more development time...</Text>
+
+<Box width={2/3} marginLeft={"auto"} marginRight={"auto"}>
+  <Card elevation={1}>
+    <CardContent>
+      <Quote fontSize={36}>It does not take much
 imagination to anticipate that once the market shakes itself out,
 and one platform eventually comes to dominate its competitors
 within key segments of certain sciences, Google or some similar
 corporate entity or some state-supported public/private partnership
 will come along with its deep pockets, and
 integrate each segment into one grand proprietary Science 2.0
-platform. Who would not then want to own the obligatory online
-passage point for the bulk of modern scientific research?
-- https://doi.org/10.1177/0306312718772086
+platform. <br/><br/><strong>Who would not then want to own the obligatory online
+passage point for the bulk of modern scientific research?</strong>
+</Quote>
+    <Text fontSize={30}>-Philip Mirowski (2010)
+      <Link fontSize={30} href={"https://doi.org/10.1177/0306312718772086"}>
+        "The Future(s) of Open Science"</Link></Text>
+  </CardContent>
+</Card>
+</Box>
 
----
+<Box width={2/3} marginLeft={'auto'} marginRight={'auto'}>
+  <Text textAlign={"center"}><strong>
+    The loftiest ambitions of scientific infrastructure must not be total dependence on Amazon Web Services
+  </strong></Text>
+  <Text textAlign={"center"} marginTop={"1em"}>Resisting Platform Capitalism Needs A <strong>Technical Plan</strong> with a clear <strong>ethical foundation</strong> to <strong>integrate with the everyday
+    work of science</strong> </Text>
+</Box>
 
-Not utopian, not cataclysmic, but a practical plan for how to learn from decades
-of knowledge from decentralized knowledge communities, pirates, hackers,
-information scientists, librarians, and so on.
 
-Notes: like a heaven and hell diptich or something being like i'm not selling u a bunch
-of bull honkey here i'm also considering the practical path forwrad.
-
+Notes: v briefly, just making the points that there are lots of ways this could shake out,
+say that we'll get to alternatives as we go
 
 ---
 
 # Decentralized infrastructure
-
-(title slide introducing the three broad areas)
-
-Maybe spatially, as a map with a dotted line curving through it?
-where are we now & why
-three interlocking systems & how to get to them.
 
 
 <VerticalLinearStepper
@@ -201,20 +205,51 @@ three interlocking systems & how to get to them.
 
 but it's not just about them individually,
 it's about the way they interact dog, just wait.
-drop the map elements and highlight combinatoric effects
+
+## Listen to the people who do this for a living...
+
+* Librarians & Information Scientists
+* STS researchers and technological ethicists
+* Pirates & Hackers
+
+Notes: Maybe spatially, as a map with a dotted line curving through it?
+where are we now & why
+three interlocking systems & how to get to them.
+
 
 ---
 
 # Why is it like this
 
-But first... the field of infra proposals is littered with the corpses of previous attempts
-So what is it exactly that we propose to do differently?
+the field of infra proposals is littered with the corpses of previous attempts
+why did they fail and what can we do differently?
 
-* diversity of measurements & preps
-* hacker spirit and celebration of heroism (heterogeneity is good, the 'hero' part not so good!)
-* focus on the science
-* combinatorics of recent technology
-* dispersion of structures & incentives
+  <Box margin={"auto"} marginTop={"2em"} width={"65%"}>
+<VerticalLinearStepper
+    steps={[
+      {
+        title: 'Diversity of measurements & preps',
+        body: '',
+      },
+      {
+        title: 'The Hacker Spirit & Celebration of Heroism',
+        body: 'Heterogeneity is good! its just the hero part thats the problem!',
+      },
+      {
+        title: 'Focus on The Science At Hand',
+        body: 'Scientists dont think of themselves as infrastructuralists, they think of themselves as *scientists*',
+      },
+      {
+        title: 'Combinatorics of Recent Technology',
+        body: 'Some of this stuff just started existing!!!',
+      },
+      {
+        title: 'Dispersion of Structural Incentives',
+        body: 'next slide... how does infrastructure get done???',
+      },
+    ]}
+/>
+  </Box>
 
 ---
 
@@ -222,15 +257,33 @@ So what is it exactly that we propose to do differently?
 
 ## Who's working on what?
 
-vertical stack with arrow pointing to effect on infrastructure
 
-* shits truly different with core facilities, and they can displace the development of infrastructure
-* consortia are great, but they dont' intrinsically produce infrastructure c.f. ibl
-* institutions are also great but they also don't necessarily produce infrastructure and can be big boondoggles like bluebrain
-* BRAIN grant is working on this but it's unfocused and without a development plan to speak of, instead a private grant dissemination process like usual
-* Open source world!
-
-like these are all centralized answers or uncoordinated answers
+  <Box margin={"auto"} marginTop={"2em"} width={"65%"}>
+<VerticalLinearStepper
+    steps={[
+      {
+        title: 'Core Facilities',
+        body: 'shits truly different with core facilities, and they can displace the development of infrastructure',
+      },
+      {
+        title: 'Centralized Institutions',
+        body: 'institutions are also great but they also dont necessarily produce infrastructure and can be big boondoggles like bluebrain'
+      },
+      {
+        title: 'Meso-Scale Consortia',
+        body: 'consortia are great, but they dont intrinsically produce infrastructure c.f. ibl',
+      },
+      {
+        title: 'Traditional Funding Mechanisms',
+        body: 'BRAIN grant is working on this but its unfocused and without a development plan to speak of, instead a private grant dissemination process like usual',
+      },
+      {
+        title: 'The Wild West of Open Source',
+        body: '',
+      },
+    ]}
+/>
+  </Box>
 
 ---
 
@@ -243,7 +296,7 @@ like these are all centralized answers or uncoordinated answers
         title: "Frameworks, not Platforms",
         body: [
             <Typography>
-              Right now we need fewer tools, and more tools that can build tools
+              Fewer tools, more tools that can build tools
               (so that we can have more tools later)
             </Typography>,
             <Quote fontSize={"1em"} width={"60%"}>A good analogy for the development of the Internet is that of
@@ -259,18 +312,18 @@ like these are all centralized answers or uncoordinated answers
       {
         title: 'Embrace Heterogeneity, Be Uncoercive',
         body: "Build protocols and systems that let people integrate their labor in a common framework"+
-            "but make as few requirements or restrictions about the particular way they do them as possible."+
-            "Give people expressive tools that harness their individual expertise and"+
-            "experience rather than constrain it."
+            " but make as few requirements or restrictions about the particular way they do them as possible."+
+            " Give people expressive tools that harness their individual expertise and"+
+            " experience rather than constrain it."
       },
       {
         title: 'Empower the End-User',
         body: 'The Internet Protocol was initially designed as a military technology by DARPA,'+
-        'and was constrained by "survivability." Rather than making the *network* powerful,'+
-        'every individual node could sustain the operation of the whole system. We need tools that'+
-        'dont rely on a small group of people to maintain, a central server-farm to pay for, etc.'+
-        'Empowering tools must be *easy and rewarding to use*. Logic or functionality of a system available'+
-        'to only a small number of users breaks the system. If its hard to turn on a faucet, it aint infrastructure.',
+        ' and was constrained by "survivability." Rather than making the *network* powerful,'+
+        ' every individual node could sustain the operation of the whole system. We need tools that'+
+        ' dont rely on a small group of people to maintain, a central server-farm to pay for, etc.'+
+        ' Empowering tools must be *easy and rewarding to use*. Logic or functionality of a system available'+
+        ' to only a small number of users breaks the system. If its hard to turn on a faucet, it aint infrastructure.',
       },
       {
         title: 'Modularity is Flexibility',

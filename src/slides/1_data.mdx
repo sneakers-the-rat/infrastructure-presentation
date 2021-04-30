@@ -1,10 +1,15 @@
 import { Dataset } from '../components/dataset'
 import { Peer } from '../components/peer'
 import Swarm from '../components/swarm'
-import { Heading, Box, Text, Image, Grid } from 'spectacle'
+import { Heading, Box, Text, Image, Grid, Quote, Appear } from 'spectacle'
 import Paper from '@material-ui/core/Paper'
 import PirateBay from '../img/piratebay.png'
-import FediverseImg from '../img/fediverse.png'
+import Federation from '../img/federation-overview.png'
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import VerticalLinearStepper from '../components/vertical_stepper'
 
 import funky from 'react-syntax-highlighter/dist/cjs/styles/prism/funky'
 
@@ -12,6 +17,7 @@ import funky from 'react-syntax-highlighter/dist/cjs/styles/prism/funky'
 
 (title slide)
 
+Notes: notes!
 * simplifying standardization
 * peer to peer systems
 * federated databases
@@ -60,7 +66,6 @@ import funky from 'react-syntax-highlighter/dist/cjs/styles/prism/funky'
           in the federated p2p section...",
         },
       ]}
-      finalText={''}
   />
   <Appear>
     <Paper
@@ -108,10 +113,11 @@ import funky from 'react-syntax-highlighter/dist/cjs/styles/prism/funky'
 
 # NWB
 
-Whats nwb
+NWB, A spec & some tools!
+
+(figure of spec)
 
 ---
-
 
 <Heading>Make It Easy!</Heading>
 <Box width={2/3} marginLeft={'auto'} marginRight={'auto'}>
@@ -122,6 +128,9 @@ Whats nwb
   <Text fontSize={30} fontFamily={'monospace'} style={{marginBottom:"12px"}} textAlign={"center"}>
     Here's my take:
   </Text>
+
+  ** Omitted bc no code walkthroughs 2day**
+
   <Link fontSize={20} href={"https://onice-conversion.readthedocs.org"} textAlign={"center"} fontFamily={'monospace'}>Docs at https://onice-conversion.readthedocs.org</Link>
 
 </Box>
@@ -135,21 +144,11 @@ Whats nwb
 
 
 ---
-# p2p
+# How to share?
 
-Once we have our data standardized, now what?
-Say this dot is u, and u are going to share some data
-Wat do u do
+Once we've got our data standardized, now what?
 
-(start by fading in peer, then bring in server, then add in other
-ppl who want to download)
-
-<svg width={1920} height={1080} className={'svg-fill'} id={"svg-root"}>
-  <Peer
-      name="jonny"
-      position={[800, 500]}
-  />
-</svg>
+Now, we would find some centralized server to upload to...
 
 ---
 
@@ -191,7 +190,7 @@ ppl who want to download)
 
 ---
 
-# p2p vs servers
+# Comparison
 
 comparison of server architecture and p2p quantitatively.
 
@@ -214,16 +213,15 @@ but what if i told u that there have been hundreds of thousands of people experi
 with the culture of how to make a peer-to-peer data archival system
 sustainable for decades? and those ppl are pirates?
 
-here's a hint the answer is that *archives need communities* and
-we will return to that later
+We get one early lesson from the pirates, and thats to divide the
+*database* itself from the *means of accessing it*
+
 
 ---
 
-# ok now how we get the data?
+# Interdependent Frontends Are Cool, But...
 
-another thing we typically do is link a 'database' with its frontend.
-
-eg. this extremely sick thing from the IBL:
+We're familiar with extremely sick, domain-specific databases like this one from the IBL:
 
 <Box width={"80%"} height={"80%"} margin={"auto"}>
 <Paper elevation={1} style={{width:"100%", height:"100%"}}>
@@ -235,112 +233,102 @@ eg. this extremely sick thing from the IBL:
 
 ---
 
-# databases are not neutral
+# Databases Are Political
 
-> Participants describe the individual sequence database
-systems as if they were shadows, poor representations of a
-widely-agreed-upon ideal. We find, however, that by looking
-across the landscape of databases, a different picture emerges.
-Instead, each decision about the implementation of a particular
-database system plants a stake for a community boundary.
-The databases are not so much imperfect copies of an ideal as
-they are arguments about what the ideal Database should be.
-...
-In the end, however, the system was so tailored to a specific
-set of research questions that the collection of data,
-the set of tools, and even the social organization of the
-project had to be significantly changed. New analysis tools
-were developed and old tools were discarded. Not only was the
-database ported to a different technology, the data itself was
-significantly restructured to fit the new tools and approaches.
-While the database development projects had begun by working
-together, in the end they were unable to collaborate. The system
-that was supposed to tie these groups together could not be
-shielded from the controversies that formed the boundaries between
-the communities of practice.
+If we pay attention to the people who study these things...
 
-- 10.1007/978-1-84882-854-4_15
+<Box width={2/3} marginLeft={"auto"} marginRight={"auto"}>
+  <Card elevation={1}>
+    <CardContent>
+      <Quote fontSize={36}>
+        Participants describe the individual sequence database
+        systems as if they were shadows, poor representations of a
+        widely-agreed-upon ideal. [...] Instead, <strong>each decision about the implementation of a particular
+        database system plants a stake for a community boundary.</strong>
+        The databases are not so much imperfect copies of an ideal as
+        they are arguments about what the ideal Database should be.
+        <br/><br/>
+        In the end, however, the system was so tailored to a specific
+        set of research questions that the collection of data,
+        the set of tools, and even the social organization of the
+        project had to be significantly changed. ...
+        <br/><br/>While the database development projects had begun by working
+        together, in the end they were unable to collaborate. <strong>The system
+        that was supposed to tie these groups together could not be
+        shielded from the controversies that formed the boundaries between
+        the communities of practice.</strong>
+      </Quote>
+      <Text fontSize={30}>-Bietz & Lee (2009)
+        <Link fontSize={30} href={"https://doi.org/10.1007/978-1-84882-854-4_15"}>
+          "Collaboration in Metagenomics"</Link></Text>
+    </CardContent>
+  </Card>
+</Box>
+
 
 ---
 
 # Lessons from piracy...
 
 <Grid gridTemplateColumns={"2fr 1fr"} height={"100%"}>
-<Box width={2/3}>
-interesting side effect of the separation of torrent clients
-(things that download the stuff)
-and trackers
-
-bittorrent works by exchanging small .torrent files or magnet links with cryptographic
-hashes but you need some way of finding them!
-
-so there are these trackers, u might be familiar with this 1
+<Box width={"100%"}>
+  <Text>You need some way of finding torrents!</Text>
+  <Text>So there are these trackers, u might be familiar with this 1</Text>
+  <br/><br/>
+  <Appear stepIndex={2}>
+  <Heading fontSize={'h2'}>Enter Private Trackers:</Heading>
+  <Text marginTop={'26px'}>Interview in or invite-only, each tracker has its own culture, rules,
+    history, and specific tools that facilitate it.</Text>
+  <br/><br/>
+  <Text>Separating the interface from the protocol made space for what is now a
+  decadeslong experiment in decentralized archivalism</Text>
+  <Text fontSize={26} fontStyle={"italic"}>(we will return to them later!)</Text></Appear>
 </Box>
-<Image src={PirateBay} maxWidth={"100%"} alignSelf={"center"} />
+<Appear stepIndex={1}><Image src={PirateBay} maxWidth={"100%"} alignSelf={"center"} /></Appear>
 </Grid>
 
-## Private Trackers:
-## a massive decadeslong experiment in decentralized archives
-
-torrent trackers operate like archives, and need some way of
-regulating the quality of uploads and managing the incentives
-to prevent free riders
-
-interview in or invite-only, each tracker has its own culture, rules,
-history, and specific tools that facilitate it.
-
-huge untapped knowledge community that has been experimenting with
-how to manage decentralized archival projects for decades
-
-
----
-
-# Eg. What.cd, briefly
-
-
-
-
-The lesson here is that we should implement a p2p system that
-people can build interfaces on top of to suit their subdisciplinary
-needs.
-
-Problem though: they were still all separated -- you can't browse
-another tracker's torrents. We need to have some way of preserving
-the potential for compelteness of a centralized database
-with the flexibility of separate UIs...
-
-
+<Appear stepIndex={3}>
+  <Card style={{marginBottom:"auto"}} elevation={1}>
+<Heading fontSize={"h2"}>Problem tho:</Heading>
+    <Text style={{padding:"1em"}}>If we have a bunch of different sites, how is that any better than having a zillion centralized databases?</Text></Card></Appear>
 
 ---
 
 # Federated systems
 
-# Eg. the Fediverse
+<Grid gridTemplateColumns={"1fr 1fr"} height={"100%"}>
+  <Card>
+    <Typography>basic idea here is that we</Typography>
+    <Text>a) conceptualize our data storage system as a *sharing* system first</Text>
+    <Text>b) choose the other *users* and *servers* we want to federate with</Text>
+    <Text>c) federations operate on a common protocol that allows communication between instances</Text>
+    <Text>d) but each user/instance/etc. retains <strong>design autonomy</strong> -- share the *data* not the design</Text>
+  </Card>
+
+<Image src={Federation}/>
+</Grid>
+
+---
+
+# Eg. "The Fediverse"
+
+Built on W3C's "ActivityPub" protocol, an interconnected network of autonomous social media networks
+
 
 <Box width={"80%"} height={"80%"} margin={"auto"}>
   <Paper elevation={1} style={{width:"100%", height:"100%"}}>
-    <iframe width={"100%"} height={"100%"}
-            src={"https://data.internationalbrainlab.org/mouse/00778394-c956-408d-8a6c-ca3b05a611d5"}
+    <iframe width={"100%"} height={"100%"} loading={"lazy"}
+            src={"https://kumu.io/wakest/fediverse"}
     />
   </Paper>
 </Box>
 
-image from https://github.com/IQSS/dataverse/issues/5883
-
-basic idea here is that we
-a) conceptualize our data storage system as a *sharing* system first
-b) choose who we share with and are *federated* with
-c) allow different frontends to access our data in different ways and design tools around what they need
-
----
-
-# Fediverse screenshot examples
-
-https://fediverse.party/en/funkwhale
 
 ---
 
 # Federated database systems
+
+
 
 ---
 
