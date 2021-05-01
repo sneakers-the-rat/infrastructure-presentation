@@ -23,6 +23,7 @@ export class Peer extends React.Component {
     this.toggleRef = React.createRef();
     this.requestedBlocks = React.createRef([]);
     this.haveBlocks = React.createRef([]);
+    this.timer = React.createRef();
 
 
     let originalstate = this.generate(this.props.datasets);
@@ -50,8 +51,13 @@ export class Peer extends React.Component {
     this.updateHaveBlocks();
     MADE_PEERS[this.props.name] = this;
   //   start polling for uploads
-    setTimeout(this.uploadLoop, 1000/this.props.upload);
+    this.timer = setTimeout(this.uploadLoop, 1000/this.props.upload);
   }
+
+  componentDidUnmount(){
+    this.timer.current.stop()
+  }
+
 
   generate(datasets){
     let n_datasets;
@@ -175,9 +181,9 @@ export class Peer extends React.Component {
       }
 
     } catch (e){
-      console.log('upload error', this.props.name, e)
+      // console.log('upload error', this.props.name, e)
     } finally{
-      setTimeout(this.uploadLoop, 1000/this.props.upload)
+      this.timer = setTimeout(this.uploadLoop, 1000/this.props.upload)
     }
 
 

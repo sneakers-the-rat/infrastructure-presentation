@@ -6,6 +6,9 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import VerticalLinearStepper from '../components/vertical_stepper'
+import SvgAnimator from '../components/svg_animator';
+import Plax from '../img/plax_3_closed_loop.svg'
+import anime from 'animejs'
 
 <Heading
   fontFamily={'titleHeader'}
@@ -76,6 +79,18 @@ one might expect us to have
 ~~ diigital infrasssttructure ~~
 
 Notes: (comic-book texture diagram of these different uses of a computer, or like a where's waldo tableau?)
+
+---
+# hi
+
+<SvgAnimator svgUrl={Plax}
+             steps={[{targets:'.st6',
+               strokeDashoffset:[anime.setDashoffset, 0],
+               duration:anime.random(0,2000),
+               direction: 'alternate',
+               delay:anime.random(0,2000),
+               loop:true
+             }]} />
 
 ---
 

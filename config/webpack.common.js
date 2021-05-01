@@ -74,7 +74,8 @@ module.exports = {
       // Add helper aliases needed when `yarn link spectacle` development
       // is enabled to avoid duplicate libs that require singletons.
       react: require.resolve('react'),
-      'react-dom': require.resolve('react-dom')
+      'react-dom': require.resolve('react-dom'),
+      '@useSteps': path.resolve(__dirname, '../node_modules/spectacle/lib/hooks/use-steps.js')
     }
   }
 };
