@@ -8,6 +8,7 @@ import Typography from '@material-ui/core/Typography';
 import VerticalLinearStepper from '../components/vertical_stepper'
 import SvgAnimator from '../components/svg_animator';
 import Plax from '../img/plax_3_closed_loop.svg'
+import TitleCard from '../img/cover.svg'
 import anime from 'animejs'
 
 <Heading
@@ -79,6 +80,27 @@ one might expect us to have
 ~~ diigital infrasssttructure ~~
 
 Notes: (comic-book texture diagram of these different uses of a computer, or like a where's waldo tableau?)
+
+---
+
+<SvgAnimator svgUrl={TitleCard}
+             steps={[{targets:'.cls-4',
+               strokeDashoffset:[anime.setDashoffset, 0],
+               duration:anime.random(3000,5000),
+               direction: 'alternate',
+               delay:anime.random(0,1000),
+               easing:'easeInOutCirc',
+               loop:true
+             },
+               {targets:'.cls-5',
+                 strokeDashoffset:[anime.setDashoffset, 0],
+                 strokeDasharray:[100,anime.setDashoffset],
+                 duration:function(el, i){return anime.random(3000,8000)},
+                 direction: 'alternate',
+                 delay:function(el, i) { return  Math.random()*5000},
+                 easing:'linear',
+                 loop:true
+               }]} />
 
 ---
 # hi
