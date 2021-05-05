@@ -1,17 +1,18 @@
-import {Heading, Text, Quote, Appear, Link, Grid, Box} from 'spectacle'
+import {Heading, Text, Quote, Appear, Link, Grid, Box, SlideContext} from 'spectacle'
 import Paper from '@material-ui/core/Paper'
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import VerticalLinearStepper from '../components/vertical_stepper'
 import SvgAnimator from '../components/svg_animator';
 import Plax from '../img/plax_3_closed_loop.svg'
 import TitleCard from '../img/cover.svg'
+import Overview from '../img/overview.svg'
 import anime from 'animejs'
 import BasicCard, { PositionedCard } from '../components/basiccard';
 import {distance} from '../components/utils';
+import Stepper from '../components/stepper';
+import {PositionedHeading} from '../components/basic';
 
 <Heading
   fontFamily={'titleHeader'}
@@ -66,33 +67,12 @@ export const testprop = 'hi';
 * The Way There...
 
 ---
-
-# What do scientists use computers for all day?
-
-- got our data on there
-- analyze it there too
-- use it to do our experiments
-- read (& discover) other people's stuff sometimes
-- write & communicate
-
-so a lot of stuff! computers must be our friends or something
-
-one might expect us to have
-
-~~ diigital infrasssttructure ~~
-
-Notes: (comic-book texture diagram of these different uses of a computer, or like a where's waldo tableau?)
-
----
-
-
-
 <SvgAnimator
     svgUrl={TitleCard}
     steps={[
       [
         {
-          targets: '#Layer_2 *',
+          targets: '#computers-1 '+'#Layer_2 *',
           strokeDashoffset: [anime.setDashoffset, 0],
           duration: anime.random(1000, 2000),
           delay: anime.random(0, 200),
@@ -108,7 +88,7 @@ Notes: (comic-book texture diagram of these different uses of a computer, or lik
       ],
       [
         {
-          targets: '#Layer_5 *',
+          targets: '#computers-1 '+'#Layer_5 *',
           strokeDashoffset: [anime.setDashoffset, 0],
           duration: anime.random(500, 1000),
           delay: function(el){
@@ -120,7 +100,7 @@ Notes: (comic-book texture diagram of these different uses of a computer, or lik
           loop: false
         },
         {
-          targets: '#Layer_4 *',
+          targets: '#computers-1 '+'#Layer_4 *',
           strokeDashoffset: [anime.setDashoffset, 0],
           duration: anime.random(250, 500),
           delay: function(el){
@@ -131,7 +111,7 @@ Notes: (comic-book texture diagram of these different uses of a computer, or lik
           easing: 'easeInOutCirc',
           loop: false
         },{
-        targets: '.cls-4',
+        targets: '#computers-1 '+'.cls-4',
         strokeDashoffset: [anime.setDashoffset, 0],
         duration: anime.random(3000, 5000),
         direction: 'alternate',
@@ -148,7 +128,7 @@ Notes: (comic-book texture diagram of these different uses of a computer, or lik
         }],
       [
         {
-          targets: '#Layer_6 *',
+          targets: '#computers-1 '+'#Layer_6 *',
           strokeDashoffset: [anime.setDashoffset, 0],
           duration: anime.random(500, 1000),
           delay: function(el){
@@ -160,7 +140,7 @@ Notes: (comic-book texture diagram of these different uses of a computer, or lik
           loop: false
         },
         {
-          targets: '.cls-5',
+          targets: '#computers-1 '+'.cls-5',
           strokeDashoffset: [anime.setDashoffset, 0],
           strokeDasharray: [100, anime.setDashoffset],
           duration: anime.random(3000, 8000),
@@ -180,7 +160,7 @@ Notes: (comic-book texture diagram of these different uses of a computer, or lik
         }],
       [
         {
-          targets: '#Layer_3 *',
+          targets: '#computers-1 '+'#Layer_3 *',
           strokeDashoffset: [anime.setDashoffset, 0],
           duration: anime.random(500, 1000),
           delay: function(el){
@@ -198,13 +178,32 @@ Notes: (comic-book texture diagram of these different uses of a computer, or lik
           delay:1000,
           easing: 'easeOutQuint'
         }
-        ]]}
-    id={'computers'}
+        ],
+    [
+      {targets:'#computers-smiley-0',
+        easing:'easeOutBounce',
+      opacity:[0,1],
+      scale:[0,1]}
+    ],
+    [
+      {targets:'#computers-smiley-1',
+      easing:'easeOutBounce',
+        opacity:[0,1],
+        scale:[0,1]}
+    ],
+    [
+      {targets:'#computers-smiley-2',
+      easing:'easeOutBounce',
+        opacity:[0,1],
+        scale:[0,1]}
+    ]]}
+    id={'computers-1'}
 />
+
 
 <Box width={1/4}
      style={{position:'absolute',
-       left:'300px'}}>
+       left:'30px'}}>
   <Heading
     fontFamily={'monospace'}
     fontWeight={'lighter'}
@@ -215,59 +214,85 @@ Notes: (comic-book texture diagram of these different uses of a computer, or lik
   textAlign={'right'}
   id={"computers-heading"}
   width={1/3}
->What<br/>computer<br/>do?</Heading></Box>
+>What<br/>computer<br/>do?</Heading>
+<Grid gridTemplateColumns={"1fr 1fr 1fr"}>
+  <Text fontSize={50} textAlign={'center'} id="computers-smiley-0" fontFamily={'monospace'}>:\</Text>
+  <Text fontSize={50} textAlign={'center'} id="computers-smiley-1" fontFamily={'monospace'}>:(</Text>
+  <Text fontSize={50} textAlign={'center'} id="computers-smiley-2" fontFamily={'monospace'}>:'(</Text>
+</Grid></Box>
 
 
 <PositionedCard
-    id={'experiment-card'} x={300} y={600} width={1/4}
-  title={"Controlling Experiments"}
-  body={"we do it all the time!!! Seriously cant keep us away from it!"}/>
+    id={'experiment-card'} x={40} y={550} width={1/3}
+  title={"Control Experiments"}
+    body={"Programming experiments is hard! A mélange of proprietary, open source, and custom-built tools stitched together with in-lab scripts"}
+    appearStep={5}
+  />
 
 <PositionedCard
-    id={'data-card'} x={1400} y={300} width={1/4}
+    id={'data-card'} x={1300} y={300} width={1/3}
     title={"Store & Analyze Data"}
-    body={"Can you believe it! there's a big hunk of it!"}/>
+    body={"Standardization is hard! Mostly stored in ad-hoc formats. Open source tools for basic elements of analysis, but everyone makes their own workflow."}
+    appearStep={6}
+    />
 
 <PositionedCard
-    id={'share-card'} x={800} y={50} width={1/4}
+    id={'share-card'} x={600} y={30} width={1/3}
     title={"Share & Communicate"}
-    body={"Gotta put everything somewhere!!!"}/>
-
-
----
-# hi
-
-<SvgAnimator svgUrl={Plax}
-             steps={[[{targets:'.st6',
-               strokeDashoffset:[anime.setDashoffset, 0],
-               duration:anime.random(0,2000),
-               direction: 'alternate',
-               delay:anime.random(0,2000),
-               loop:true
-             }]]} />
+    body={"Good sharing practices are hard! 10,000 mutually incompatible centralized databases. PDFs, PPTs, private Slacks, and the godforsaken Science Twitter."}
+    appearStep={7}
+    />
 
 ---
 
-# So what kinda stuff do we have for that then?
+<SvgAnimator
+    svgUrl={Overview}
+    steps={[
+    [
+      {targets:'#rect-data',
+      width:[0,750]},
+      {targets:"#overview-1 #data *",
+        strokeDashoffset: [anime.setDashoffset, 0]
+      }
+    ],
+    [
+      {targets:'#rect-tools',
+        width:[0,750]},
+      {targets:"#overview-1 #tools *",
+        strokeDashoffset: [anime.setDashoffset, 0]
+      }
+    ],
+    [
+      {targets:'#rect-knowledge',
+        width:[0,750]},
+      {targets:"#overview-1 #knowledge *",
+        strokeDashoffset: [anime.setDashoffset, 0]
+      }
+    ]
+    ]}
+    id={'overview-1'}
+/>
 
-this much shorter, much blippier than a full explanation.
-want to get 'computers are impt, actually we're missing some stuff,
-it's more serious than just not caring, introducing the components
-in like <4-5m
+<PositionedHeading light={false}
+                   id={'overview-header'}
+                   y={20} right={20}
+                   headerProps={{fontWeight:700, fontSize:70}}
+align={"right"}>
+  A Case For</PositionedHeading>
+<PositionedHeading light={false}
+                   id={'overview-header'}
+                   y={100} right={20} align={"right"}
+headerProps={{fontSize:80}}>
+  Decentralized<br/>Infrastructure</PositionedHeading>
 
-* data
-  - some standards are emerging, but mostly everyone does their own thing!!!
-  - some public stores of data, some of them even used!!!
-  - largely non-interoperable, we're lucky if we have data standardized, but standards don't talk to one another
-* tools
-  - in the recent past, tons of dope, underfunded, open-source tools
-  - analysis libraries enabling the future, but reproducibility is still sorta hard!
-  - still very hard! have to basically write a library to do an experiment!
-* communication
-  - pdfs and ppts baby!
-  - conferences
-  - godforsaken science twitter
-  - private slacks...
+
+<PositionedHeading id={'overview-knowledge'} y={250} x={20}>Knowledge</PositionedHeading>
+
+<PositionedHeading id={'overview-tools'} y={600} x={20}>Tools</PositionedHeading>
+
+<PositionedHeading id={'overview-data'} y={950} x={20}>Data</PositionedHeading>
+
+
 
 ---
 

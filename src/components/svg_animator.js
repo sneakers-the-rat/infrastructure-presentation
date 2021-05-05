@@ -10,10 +10,11 @@ import * as RA from 'ramda-adjunct';
 export default function SvgAnimator({
   svgUrl,
   steps = [],
+  nSteps,
   id = "animated-svg",
   stepIndex,
 }) {
-  const numberOfSteps = steps.length;
+  const numberOfSteps = nSteps ? nSteps : steps.length
 
   const { activeStepIndex, isSlideActive } = React.useContext(SlideContext);
 
@@ -24,13 +25,14 @@ export default function SvgAnimator({
   let activeStep = React.useRef(null);
 
   useEffect(() => {
-    console.log("calling", id, activeStepIndex, animeSteps, activeStep, stepId);
-
-    try {
-      setStep(activeStepIndex);
-    } catch (e) {
-      console.log(e);
-    }
+    console.log('steps', steps)
+    if (isSlideActive === true && (activeStepIndex-1 in steps || activeStepIndex === 0)){
+      console.log("calling", id, activeStepIndex, animeSteps, activeStep, stepId);
+      try {
+        setStep(activeStepIndex);
+      } catch (e) {
+        console.log(e);
+      }}
   }, [activeStepIndex]);
 
   // componentDidMount/dismount
@@ -99,6 +101,7 @@ export default function SvgAnimator({
             });
             a_step.reverse();
             a_step.seek(a_step.duration);
+            a_step.delay=0;
 
             a_step.play();
           }

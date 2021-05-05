@@ -42,9 +42,13 @@ const spectacle_theme = {
     quaternary: '#ff3333',
     quinary: '#8bddfd',
     background: '#EEEEEE',
+    tools: '#CF005D',
+    knowledge: '#45B6D9',
+    data: '#2F0987'
   },
   fonts: {
     header: '"Helvetica Neue", Helvetica, Arial, sans-serif',
+    headerSerif: '"EB Garamond", serif',
     text: '"Helvetica Neue", Helvetica, Arial, sans-serif',
     monospace: '"Consolas", "Menlo", monospace',
     titleHeader: '"Fira Code", "Helvetica Neue", Helvetica, Arial, sans-serif',
