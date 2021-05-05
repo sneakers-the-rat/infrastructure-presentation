@@ -42,3 +42,9 @@ export function drawline(x1,y1,x2,y2){
   aLine.setAttribute('y2', y2);
   return(aLine)
 }
+
+export function distance(p1, p2) {
+  let a = p1.x - p2.x;
+  let b = p1.y - p2.y;
+  return Math.sqrt(a * a + b * b);
+}

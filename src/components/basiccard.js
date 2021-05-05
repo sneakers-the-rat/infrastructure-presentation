@@ -10,7 +10,10 @@ import { Box } from 'spectacle';
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
-    padding: 20
+    padding: 20,
+    // backdropFilter: "blur(30px)",
+    backgroundColor: "rgba(255, 255, 255, 0.6)",
+
   },
   bullet: {
     display: 'inline-block',
@@ -18,8 +21,9 @@ const useStyles = makeStyles({
     transform: 'scale(0.8)',
   },
   title: {
+    fontFace:"EB Garamond",
+    fontWeight:500,
     fontSize:50,
-    fontWeight:'bold',
     marginBottom:0
   },
   pos: {
@@ -45,8 +49,8 @@ export default function BasicCard({
   const bull = <span className={classes.bullet}>•</span>;
 
   return (
-      <Card id={id} className={classes.root} variant="outlined">
-        <CardContent>
+      <Card id={id} className={[classes.root, 'basic-card-root']} elevation={0}>
+        <CardContent className={'basic-card-content'}>
           {typeof title === 'string' ? <Typography className={classes.title} variant={"h5"} component={"h2"} gutterBottom>
             {title}
           </Typography> : title}

@@ -11,6 +11,7 @@ import Plax from '../img/plax_3_closed_loop.svg'
 import TitleCard from '../img/cover.svg'
 import anime from 'animejs'
 import BasicCard, { PositionedCard } from '../components/basiccard';
+import {distance} from '../components/utils';
 
 <Heading
   fontFamily={'titleHeader'}
@@ -107,50 +108,130 @@ Notes: (comic-book texture diagram of these different uses of a computer, or lik
       ],
       [
         {
-          targets: '.cls-4',
+          targets: '#Layer_5 *',
           strokeDashoffset: [anime.setDashoffset, 0],
-          duration: anime.random(3000, 5000),
-          direction: 'alternate',
-          delay: anime.random(0, 1000),
+          duration: anime.random(500, 1000),
+          delay: function(el){
+            let dist = distance(el.getBBox(), {x:1185, y:715})*3;
+            console.log('dist', dist);
+            return dist;
+          },
           easing: 'easeInOutCirc',
-          loop: true
+          loop: false
         },
         {
-          targets: '#analysis-card',
+          targets: '#Layer_4 *',
+          strokeDashoffset: [anime.setDashoffset, 0],
+          duration: anime.random(250, 500),
+          delay: function(el){
+            let dist = distance(el.getBBox(), {x:1185, y:715})*2;
+            console.log('dist', dist);
+            return dist;
+          },
+          easing: 'easeInOutCirc',
+          loop: false
+        },{
+        targets: '.cls-4',
+        strokeDashoffset: [anime.setDashoffset, 0],
+        duration: anime.random(3000, 5000),
+        direction: 'alternate',
+        delay: anime.random(0, 1000),
+        easing: 'easeInOutCirc',
+        loop: true
+      },
+        {
+          targets: '#experiment-card',
           opacity: [0, 1],
           duration: 1000,
+          delay:1000,
           easing: 'easeOutQuint'
         }],
       [
         {
+          targets: '#Layer_6 *',
+          strokeDashoffset: [anime.setDashoffset, 0],
+          duration: anime.random(500, 1000),
+          delay: function(el){
+            let dist = distance(el.getBBox(), {x:1306, y:716})*5;
+            console.log('dist', dist);
+            return dist;
+          },
+          easing: 'easeInOutCirc',
+          loop: false
+        },
+        {
           targets: '.cls-5',
           strokeDashoffset: [anime.setDashoffset, 0],
           strokeDasharray: [100, anime.setDashoffset],
-          duration: function(el, i) {
-            return anime.random(3000, 8000)
-          },
+          duration: anime.random(3000, 8000),
           direction: 'alternate',
           delay: function(el, i) {
             return Math.random() * 5000
           },
           easing: 'linear',
           loop: true
-        }]]}
+        },
+        {
+          targets: '#data-card',
+          opacity: [0, 1],
+          duration: 1000,
+          delay:1000,
+          easing: 'easeOutQuint'
+        }],
+      [
+        {
+          targets: '#Layer_3 *',
+          strokeDashoffset: [anime.setDashoffset, 0],
+          duration: anime.random(500, 1000),
+          delay: function(el){
+            let dist = distance(el.getBBox(), {x:1257, y:308})*3;
+            console.log('dist', dist);
+            return dist;
+          },
+          easing: 'easeInOutCirc',
+          loop: false
+        },
+        {
+          targets: '#share-card',
+          opacity: [0, 1],
+          duration: 1000,
+          delay:1000,
+          easing: 'easeOutQuint'
+        }
+        ]]}
     id={'computers'}
 />
 
-<Box width={1/3}><Heading
-  textAlign={'left'}
+<Box width={1/4}
+     style={{position:'absolute',
+       left:'300px'}}>
+  <Heading
+    fontFamily={'monospace'}
+    fontWeight={'lighter'}
+    lineHeight={1.1}
+    backgroundColor={"#333333"}
+    color={"#ffffff"}
+    fontSize={"6em"}
+  textAlign={'right'}
   id={"computers-heading"}
   width={1/3}
->What do we use computers for all day?</Heading></Box>
+>What<br/>computer<br/>do?</Heading></Box>
 
 
 <PositionedCard
-    id={'analysis-card'} x={500} y={500} width={1/3}
-  title={"Data Analysis!"}
-  subtitle={'programmin it'}
-  body={"we do it all the time!!!"}/>
+    id={'experiment-card'} x={300} y={600} width={1/4}
+  title={"Controlling Experiments"}
+  body={"we do it all the time!!! Seriously cant keep us away from it!"}/>
+
+<PositionedCard
+    id={'data-card'} x={1400} y={300} width={1/4}
+    title={"Store & Analyze Data"}
+    body={"Can you believe it! there's a big hunk of it!"}/>
+
+<PositionedCard
+    id={'share-card'} x={800} y={50} width={1/4}
+    title={"Share & Communicate"}
+    body={"Gotta put everything somewhere!!!"}/>
 
 
 ---

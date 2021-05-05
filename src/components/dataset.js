@@ -2,7 +2,7 @@ import React from 'react';
 import random from 'random';
 import anime from 'animejs/lib/anime.es.js';
 import {dataset_params} from './params';
-import {randint} from './utils';
+import {distance, randint} from './utils';
 
 function gauss(mean = 0, variance = 1) {
   return (
@@ -450,8 +450,3 @@ function exitHover(event) {
   }
 }
 
-function distance(p1, p2) {
-  let a = p1.x - p2.x
-  let b = p1.y - p2.y
-  return Math.sqrt(a * a + b * b)
-}
