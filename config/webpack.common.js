@@ -75,7 +75,7 @@ module.exports = {
       // is enabled to avoid duplicate libs that require singletons.
       react: require.resolve('react'),
       'react-dom': require.resolve('react-dom'),
-      '@useSteps': path.resolve(__dirname, '../node_modules/spectacle/lib/hooks/use-steps.js')
+      'spectacle': path.resolve(__dirname, '../node_modules/spectacle')
     }
   }
 };
