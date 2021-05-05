@@ -107,7 +107,7 @@ export default function SvgAnimator({
   const setStep = (stepIdx) => {
       console.log('setStep',id, stepIdx, activeStep);
       let tempActiveStep = activeStep.current;
-      if (tempActiveStep === null){
+      if (tempActiveStep === null || (stepIdx === 0 && !(tempActiveStep > 0))){
       //   first step all the way backwards to rewind
         console.log('doing initial reverse', id)
         // animeSteps.current.reverse().forEach((step) => {
@@ -115,11 +115,14 @@ export default function SvgAnimator({
         //   step.pause();
         //   step.seek(0)
         // })
-        steps.reverse().forEach((step) => {
+        steps.reverse().forEach((step_opts) => {
+          for (let step of step_opts){
+            anime.remove(step.targets)
+            let animeStep = anime({...step, autoplay:false});
+            animeStep.seek(0);
 
-          anime.remove(step.targets)
-          let animeStep = anime({...step, autoplay:false});
-          animeStep.seek(0);
+            console.log('reversing', animeStep)
+          }
         })
         steps.reverse()
         tempActiveStep = 0;
@@ -138,38 +141,43 @@ export default function SvgAnimator({
       //  call all the intermediate steps
         for (let i=tempActiveStep; i<stepIdx; i++){
           // a_step = animeSteps.current[i]
-          a_step = anime({...steps[i], autoplay:false})
-          console.log('i_incr', id, i, a_step)
-          // if (a_step.direction === 'reverse'){
-          //   a_step.reverse()
-          // }
-          a_step.play();
-
+          for (let step_opts of steps[i]) {
+            a_step = anime({...step_opts, autoplay: false})
+            // console.log('i_incr', id, i, a_step)
+            // if (a_step.direction === 'reverse'){
+            //   a_step.reverse()
+            // }
+            a_step.play();
+          }
           // animeSteps.current[i] = a_step;
         }
       } else if (stepIdx < tempActiveStep){
         for (let i=tempActiveStep-1; i>=stepIdx; i--){
-          // a_step = animeSteps.current[i];
-          anime.remove(steps[i].targets);
-          if (steps[i].loop !== true) {
-            a_step = anime({...steps[i], autoplay: false})
-            a_step.seek(a_step.duration)
-            a_step.reverse()
-            a_step.play()
-          }
-          console.log('i_decr', id, i, a_step)
-        //   if (a_step.loop === true){
-        //     a_step.pause();
-        //     a_step.seek(0);
-        //     anime.remove(a_step)
-        //   } else {
-        //     if (a_step.direction === 'normal'){
-        //       a_step.reverse()
-        //     }
-        //     a_step.play()
-        // }
+          for (let step_opts of steps[i]) {
+            // a_step = animeSteps.current[i];
+            anime.remove(step_opts.targets);
 
-        animeSteps.current[i] = a_step;
+            if (step_opts.loop !== true){
+              a_step = anime({...step_opts, autoplay: false})
+              a_step.reverse()
+              a_step.seek(a_step.duration)
+
+              a_step.play()
+            }
+            // console.log('i_decr', id, i, a_step)
+            //   if (a_step.loop === true){
+            //     a_step.pause();
+            //     a_step.seek(0);
+            //     anime.remove(a_step)
+            //   } else {
+            //     if (a_step.direction === 'normal'){
+            //       a_step.reverse()
+            //     }
+            //     a_step.play()
+            // }
+
+            // animeSteps.current[i] = a_step;
+          }
       }}
       // setActiveStep(stepIdx);
     activeStep.current = stepIdx;
@@ -186,13 +194,7 @@ export default function SvgAnimator({
           id={id}
           src={svgUrl}
       />
-  <Button
-      key={'onlybutton'}
-      onClick={handleClick}
-      className={classes.button}
-  >
-    Next
-  </Button></div>
+  </div>
       // </svg>
   );
 }
