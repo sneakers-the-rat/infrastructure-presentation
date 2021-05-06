@@ -1,4 +1,4 @@
-import {Heading, Text, Quote, Appear, Link, Grid, Box, SlideContext} from 'spectacle'
+import {Heading, Text, Quote, Appear, Link, Grid, Box, FlexBox, SlideContext} from 'spectacle'
 import Paper from '@material-ui/core/Paper'
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -13,6 +13,10 @@ import BasicCard, { PositionedCard } from '../components/basiccard';
 import {distance} from '../components/utils';
 import Stepper from '../components/stepper';
 import {PositionedHeading, Collapser} from '../components/basic';
+import TextAnimator from '../components/text/TextAnimator';
+import ChatAnimator from '../components/text/ChatAnimator';
+import UsaAvatar from '../img/usaAvatar.png'
+import AmazonLogo from '../img/amazonlogo.png'
 
 <Heading
   fontFamily={'titleHeader'}
@@ -245,78 +249,6 @@ export const testprop = 'hi';
 
 ---
 
-<SvgAnimator
-    svgUrl={TitleCard}
-    steps={[
-      [
-        {targets:'#computers-2 [style*="stroke:#ed1c24"]',
-          strokeDashoffset: [anime.setDashoffset, 0],
-          duration: anime.random(3000, 5000),
-          direction: 'alternate',
-          delay: anime.random(0, 1000),
-          easing: 'easeInOutCirc',
-          loop: true
-        },
-        {
-          targets: '#computers-2 '+'#Layer_6 [style*="stroke-width:0.5px"]',
-          strokeDashoffset: [anime.setDashoffset, 0],
-          duration: anime.random(500, 1000),
-          delay: function(el){
-            let dist = distance(el.getBBox(), {x:1306, y:716})*5;
-            console.log('dist', dist);
-            return dist;
-          },
-          direction:'alternate',
-          easing: 'easeInOutCirc',
-          loop: true
-        },
-        {
-          targets: '#computers-2 '+'#Layer_3 [style*="stroke-width:0.5px"]',
-          strokeDashoffset: [anime.setDashoffset, 0],
-          duration: anime.random(3000, 5000),
-          delay: function(el){
-            let dist = distance(el.getBBox(), {x:1257, y:308})*3;
-            console.log('dist', dist);
-            return dist;
-          },
-          direction: 'alternate',
-          easing: 'easeInOutCirc',
-          loop: true
-        },
-        {
-          targets: '#computers-2 '+'#Layer_3 [style*="stroke-width:2px"]',
-          strokeDashoffset: [anime.setDashoffset, 0],
-          strokeDasharray: [100, 5],
-          duration: anime.random(3000, 5000),
-          delay: function(el){
-            let dist = distance(el.getBBox(), {x:1257, y:308})*3;
-            console.log('dist', dist);
-            return dist;
-          },
-          direction: 'alternate',
-          easing: 'linear',
-          loop: true
-        },
-        {
-          targets: '#computers-2 '+'#Layer_5 *',
-          strokeDashoffset: [anime.setDashoffset, 0],
-          duration: anime.random(3000, 5000),
-          delay: function(el){
-            let dist = distance(el.getBBox(), {x:1185, y:715})*3;
-            console.log('dist', dist);
-            return dist;
-          },
-          easing: 'easeInOutQuad',
-          loop: true,
-          direction: 'alternate'
-        }
-      ]]}
-    id={'computers-2'}
-/>
-
-
----
-
 <Box width={2/3}>
   <Collapser>
     <Heading textAlign={'left'} color={"tools"} fontWeight={200} fontStyle={"italic"}>
@@ -371,56 +303,100 @@ export const testprop = 'hi';
   />
 </Grid>
 
-* Everyone has to be a programmer now
-* Reinventing everything from scratch: from rigs to data management
-* Most can't afford to be "open"
-* Scientific discourse beholden to for-profit platforms
-
-# Not just about convenience...
-
-* Technical knowledge concentration multiplies inequities from resource concentration
-* Little means of credit assignment for huge numbers of scientific workers.
-* Undone labor of infrastructure falls disproportionately on ECRs
-*
-
 ---
 
-# Infrastructure or be infrastructured...
 
-thought experiment:
+<Box width={2 / 3} marginLeft={'auto'} marginRight={'auto'}>
 
-say we upload all scientific data onto AWS...
-what if one day the us was like "hey Amazon pay taxes"
-and Amazon was like "what if i delete all scientific knowledge?"
-
-<Text textAlign={"center"}>
-  Not just a matter of more funding or more development time...
-  <br/>
-  Platformatization is well underway, and there is strong financial incentive
-  to fill these needs
-</Text>
-
-
-
-<Box width={2/3} marginLeft={"auto"} marginRight={"auto"}>
-  <Card elevation={1}>
-    <CardContent>
-      <Quote fontSize={36}>It does not take much
-        imagination to anticipate that once the market shakes itself out,
-        and one platform eventually comes to dominate its competitors
-        within key segments of certain sciences, Google or some similar
-        corporate entity or some state-supported public/private partnership
-        will come along with its deep pockets, and
-        integrate each segment into one grand proprietary Science 2.0
-        platform. <br/><br/><strong>Who would not then want to own the obligatory online
-          passage point for the bulk of modern scientific research?</strong>
-      </Quote>
-      <Text fontSize={30}>-Philip Mirowski (2010)
-        <Link fontSize={30} href={"https://doi.org/10.1177/0306312718772086"}>
-          "The Future(s) of Open Science"</Link></Text>
-    </CardContent>
-  </Card>
+  <Heading fontWeight={200} textAlign={'left'} marginBottom={"2em"}>thought experiment:</Heading>
+  <div style={{height: "20px"}}/>
+  <Appear>
+    <Text>Say we upload all data onto AWS...</Text>
+  </Appear>
+  <div style={{height: "20px"}}/>
 </Box>
+<FlexBox justifyContent={'space-evenly'}>
+  <Appear height={"100%"}>
+    <ChatAnimator
+        stepIndex={3}
+        isOpen={true}
+        agentProfile={{imageUrl: AmazonLogo,
+          teamName:"AWS Support"}}
+        messages={
+          [
+            {
+              author: 'me',
+              type: 'text',
+              data: {
+                text: 'Sign Up for Science Prime! Subscribe to stream exclusive datasets from elite labs!'
+              }
+            },
+            {
+              author: 'me',
+              type: 'text',
+              data: {
+                text: "We're proud to announce a new data sharing agreement with ICE! (Opt-out with Prime only)"
+              }
+            }
+          ]}
+    />
+  </Appear>
+  <Appear height={"100%"}>
+    <ChatAnimator
+        stepIndex={6}
+        isOpen={true}
+        agentProfile={{imageUrl: UsaAvatar,
+        teamName:"Uncle Sam"}}
+        messages={
+          [
+            {
+              author: 'me',
+              type: 'text',
+              data: {
+                text: 'hey amazon, what if you pay taxes?'
+              }
+            },
+            {
+              author: 'them',
+              type: 'text',
+              data: {
+                text: 'what if i deleted all scientific knowledge?'
+              }
+            },
+            {
+              author: 'them',
+              type: 'emoji',
+              data: {
+                emoji: '😘'
+              }
+            }
+          ]}
+    />
+  </Appear>
+
+
+  <Appear stepIndex={9}>
+    <Box width={"400px"}>
+      <Card elevation={1}>
+        <CardContent>
+          <Quote fontSize={36}>Google or some similar
+            corporate entity [...]
+            will come along with its deep pockets, and
+            integrate each segment into one grand proprietary Science 2.0
+            platform. <br/><br/><strong>Who would not then want to own the obligatory online
+              passage point for the bulk of modern scientific research?</strong>
+          </Quote>
+          <Text fontSize={30}>-Philip Mirowski (2010)
+            <Link fontSize={30} href={"https://doi.org/10.1177/0306312718772086"}>
+              "The Future(s) of Open Science"</Link></Text>
+        </CardContent>
+      </Card>
+    </Box>
+  </Appear>
+</FlexBox>
+
+
+
 
 
 Notes: v briefly, just making the points that there are lots of ways this could shake out,

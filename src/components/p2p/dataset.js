@@ -1,8 +1,8 @@
 import React from 'react';
 import random from 'random';
 import anime from 'animejs/lib/anime.es.js';
-import {dataset_params} from './params';
-import {distance, randint} from './utils';
+import {dataset_params} from '../params';
+import {distance, randint} from '../utils';
 
 function gauss(mean = 0, variance = 1) {
   return (

@@ -28,15 +28,17 @@ module.exports = merge(common, {
         test:/\.(s[ac]ss)$/i,
         use: [
           'style-loader',
-          // {
-          //   loader: 'css-loader',
-          //   options: { sourceMap: true },
-          // },
-          // { loader: 'sass-loader', options: { sourceMap: true } },
-            'css-loader',
+           'css-loader',
             'sass-loader'
         ],
       },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader'
+        ]
+      }
     ],
   },
 

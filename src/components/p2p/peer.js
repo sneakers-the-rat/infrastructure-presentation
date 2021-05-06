@@ -3,8 +3,8 @@ import React from 'react';
 var MADE_PEERS = {};
 
 import {Dataset,makeDataset} from './dataset';
-import {dataset_params, peer_params} from './params';
-import {toRadians, randint, isin, whereis, translate_str, drawline} from './utils';
+import {dataset_params, peer_params} from '../params';
+import {toRadians, randint, isin, whereis, translate_str, drawline} from '../utils';
 import anime from 'animejs';
 import Paper from '@material-ui/core/Paper'
 import Button from '@material-ui/core/Button'

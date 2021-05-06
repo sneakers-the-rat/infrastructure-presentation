@@ -51,7 +51,7 @@ module.exports = {
       //   use: ['style-loader', 'css-loader', 'sass-loader'],
       // },
       {
-        test: /\.(png|j?g|svg|gif)?$/,
+        test: /\.(png|j?g|svg|gif|mp3)?$/,
         use: [require.resolve('file-loader')]
       }
     ]

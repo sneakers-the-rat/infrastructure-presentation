@@ -1,8 +1,8 @@
 import React from 'react';
 import { Peer, makePeer } from './peer';
 
-import {toRadians, translate_str} from './utils';
-import {swarm_params} from './params';
+import {toRadians, translate_str} from '../utils';
+import {swarm_params} from '../params';
 
 export default class Swarm extends React.Component{
   constructor(props) {
