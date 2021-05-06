@@ -1,8 +1,8 @@
 import React from 'react';
-import {Text, Heading, SlideContext} from 'spectacle';
+import {Text, Heading, SlideContext, useSteps} from 'spectacle';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-
+import Collapse from '@material-ui/core/Collapse';
 
 
 
@@ -52,4 +52,28 @@ export function PositionedHeading(
       </Typography>
       </div>
   )
+}
+
+export function Collapser({
+    id,
+    children,
+    stepIndex
+}){
+
+  const numberOfSteps = 1
+
+  const { activeStepIndex, isSlideActive } = React.useContext(SlideContext);
+
+  const { stepId, isActive, stepNum, placeholder } = useSteps(numberOfSteps, {
+    id, stepIndex,
+  });
+
+  console.log("renderin");
+  return(
+      <Collapse in={isActive}>
+        {placeholder}
+        {children}
+      </Collapse>
+  )
+
 }

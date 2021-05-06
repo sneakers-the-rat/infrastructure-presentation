@@ -12,7 +12,7 @@ import anime from 'animejs'
 import BasicCard, { PositionedCard } from '../components/basiccard';
 import {distance} from '../components/utils';
 import Stepper from '../components/stepper';
-import {PositionedHeading} from '../components/basic';
+import {PositionedHeading, Collapser} from '../components/basic';
 
 <Heading
   fontFamily={'titleHeader'}
@@ -245,7 +245,59 @@ export const testprop = 'hi';
 
 ---
 
-# The Absence of Digital Infrastructure Defines the Everyday Reality of Science
+<Box width={2/3}>
+  <Collapser>
+    <Heading textAlign={'left'} color={"tools"} fontWeight={200} fontStyle={"italic"}>
+      (The Absence Of)
+    </Heading>
+  </Collapser>
+  <Heading textAlign={'left'} lineHeight={1}>
+    Digital Infrastructure Defines the Everyday Reality of Science
+  </Heading>
+</Box>
+
+<Grid gridTemplateColumns={'1fr 1fr'} gridGap={"20px"}>
+<VerticalLinearStepper
+  steps={[
+    {
+      title: 'Everyone has to be a programmer now',
+      body: 'Because generalized infrastructure hasnt been built, researchers need to learn several additional disciplines to do the one they chose. Why does every biologist need to do a masters degrees worth of work on data engineering?',
+    },
+    {
+      title: 'Reinventing most things from scratch',
+      body: 'Because we dont have a good way of preserving and sharing technical knowledge, we all resolve the same problem over and over again'
+    },
+    {
+      title: "Most cant afford 'openness'",
+      body: 'because it requires so much additional labor, and the professional and personal benefits are so low, many researchers cant afford to use "open" scientific practices --- even if they wanted to.'
+    },
+    {
+      title: 'Scientific discourse at the pleasure of for-profit platforms.',
+      body: 'because the mediums of scientific discourse are driven by ad clicks or by deeply entrenched institutional power, we dont have a good medium for sustained, thoughtful, densely interlinked dialogue that takes advantage of the possibilities of contemporary communication technology.'
+    }
+  ]}
+/>
+  <VerticalLinearStepper
+      steps={[
+        {
+          title: 'Undone labor of infrastructure falls disproportionately on ECRs',
+          body: '',
+        },
+        {
+          title: 'Technical knowledge silos fuel scientific inequity',
+          body: ''
+        },
+        {
+          title: "Little means of credit assignment for large numbers of scientific workers",
+          body: ''
+        },
+        {
+          title: 'Replication crises, potentially futile to study the brain with such brittle tools',
+          body: ''
+        }
+      ]}
+  />
+</Grid>
 
 * Everyone has to be a programmer now
 * Reinventing everything from scratch: from rigs to data management
@@ -257,7 +309,7 @@ export const testprop = 'hi';
 * Technical knowledge concentration multiplies inequities from resource concentration
 * Little means of credit assignment for huge numbers of scientific workers.
 * Undone labor of infrastructure falls disproportionately on ECRs
-* Replication crises, potentially futile to study the brain with such brittle tools
+*
 
 ---
 

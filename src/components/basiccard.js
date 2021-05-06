@@ -10,51 +10,58 @@ import { SlideContext } from "spectacle";
 import Grow from '@material-ui/core/Grow';
 import Collapse from '@material-ui/core/Collapse'
 
-const useStyles = makeStyles({
-  root: {
-    minWidth: 275,
-    padding: 20,
-    // backdropFilter: "blur(30px)",
-    backgroundColor: "rgba(255, 255, 255, 0.6)",
-
-  },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
-  title: {
-    fontFace:"EB Garamond",
-    fontWeight:500,
-    fontSize:50,
-    marginBottom:0
-  },
-  pos: {
-    fontSize:40,
-    marginTop:-12,
-    paddingTop:0,
-    marginBottom: 16,
-  },
-  body: {
-    lineHeight:1.2,
-    fontWeight:200
-  }
-});
 
 export default function BasicCard({
     title="",
     subtitle=null,
     body="",
     id='',
-    appearStep=0
+    appearStep=0,
+    elevation=0,
+    serif=true,
+    fontWeight=500,
+    titleBorder=true
                                   }) {
+
+
+  const useStyles = makeStyles({
+    root: {
+      minWidth: 275,
+      padding: 20,
+      // backdropFilter: "blur(30px)",
+      backgroundColor: "rgba(255, 255, 255, 0.6)",
+
+    },
+    bullet: {
+      display: 'inline-block',
+      margin: '0 2px',
+      transform: 'scale(0.8)',
+    },
+    title: {
+      fontFace: serif ? '"EB Garamond" serif' : '"Helvetica Neue" sans-serif',
+      fontWeight:fontWeight,
+      fontSize:50,
+      marginBottom:0,
+      borderBottom: titleBorder ? "1px solid #111111" : "none"
+    },
+    pos: {
+      fontSize:40,
+      marginTop:-12,
+      paddingTop:0,
+      marginBottom: 16,
+    },
+    body: {
+      lineHeight:1.2,
+      fontWeight:200
+    }
+  });
   const classes = useStyles();
   const bull = <span className={classes.bullet}>•</span>;
   const { activeStepIndex, isSlideActive } = React.useContext(SlideContext);
 
   // console.log('card',id,  activeStepIndex, isSlideActive, appearStep, activeStepIndex === appearStep)
   return (
-      <Card id={id} className={[classes.root, 'basic-card-root']} elevation={0}>
+      <Card id={id} className={[classes.root, 'basic-card-root']} elevation={elevation}>
         <CardContent className={'basic-card-content'}>
           {typeof title === 'string' ? <Typography className={classes.title} variant={"h5"} component={"h2"} gutterBottom>
             {title}
