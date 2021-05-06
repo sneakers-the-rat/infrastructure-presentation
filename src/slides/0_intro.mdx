@@ -245,6 +245,78 @@ export const testprop = 'hi';
 
 ---
 
+<SvgAnimator
+    svgUrl={TitleCard}
+    steps={[
+      [
+        {targets:'#computers-2 [style*="stroke:#ed1c24"]',
+          strokeDashoffset: [anime.setDashoffset, 0],
+          duration: anime.random(3000, 5000),
+          direction: 'alternate',
+          delay: anime.random(0, 1000),
+          easing: 'easeInOutCirc',
+          loop: true
+        },
+        {
+          targets: '#computers-2 '+'#Layer_6 [style*="stroke-width:0.5px"]',
+          strokeDashoffset: [anime.setDashoffset, 0],
+          duration: anime.random(500, 1000),
+          delay: function(el){
+            let dist = distance(el.getBBox(), {x:1306, y:716})*5;
+            console.log('dist', dist);
+            return dist;
+          },
+          direction:'alternate',
+          easing: 'easeInOutCirc',
+          loop: true
+        },
+        {
+          targets: '#computers-2 '+'#Layer_3 [style*="stroke-width:0.5px"]',
+          strokeDashoffset: [anime.setDashoffset, 0],
+          duration: anime.random(3000, 5000),
+          delay: function(el){
+            let dist = distance(el.getBBox(), {x:1257, y:308})*3;
+            console.log('dist', dist);
+            return dist;
+          },
+          direction: 'alternate',
+          easing: 'easeInOutCirc',
+          loop: true
+        },
+        {
+          targets: '#computers-2 '+'#Layer_3 [style*="stroke-width:2px"]',
+          strokeDashoffset: [anime.setDashoffset, 0],
+          strokeDasharray: [100, 5],
+          duration: anime.random(3000, 5000),
+          delay: function(el){
+            let dist = distance(el.getBBox(), {x:1257, y:308})*3;
+            console.log('dist', dist);
+            return dist;
+          },
+          direction: 'alternate',
+          easing: 'linear',
+          loop: true
+        },
+        {
+          targets: '#computers-2 '+'#Layer_5 *',
+          strokeDashoffset: [anime.setDashoffset, 0],
+          duration: anime.random(3000, 5000),
+          delay: function(el){
+            let dist = distance(el.getBBox(), {x:1185, y:715})*3;
+            console.log('dist', dist);
+            return dist;
+          },
+          easing: 'easeInOutQuad',
+          loop: true,
+          direction: 'alternate'
+        }
+      ]]}
+    id={'computers-2'}
+/>
+
+
+---
+
 <Box width={2/3}>
   <Collapser>
     <Heading textAlign={'left'} color={"tools"} fontWeight={200} fontStyle={"italic"}>
