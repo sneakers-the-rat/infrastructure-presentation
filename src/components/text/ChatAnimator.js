@@ -22,7 +22,7 @@ export default function ChatAnimator(
     stepIndex,
   });
 
-  console.log('chatter', {activeStepIndex, isSlideActive, stepId, isActive, stepNum})
+  // console.log('chatter', {activeStepIndex, isSlideActive, stepId, isActive, stepNum})
 
   const [showMessages, setShowMessages] = React.useState([])
 

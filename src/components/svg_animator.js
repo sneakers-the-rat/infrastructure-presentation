@@ -25,9 +25,9 @@ export default function SvgAnimator({
   let activeStep = React.useRef(null);
 
   useEffect(() => {
-    console.log('steps', steps)
+    // console.log('steps', steps)
     if (isSlideActive === true && (activeStepIndex-1 in steps || activeStepIndex === 0)){
-      console.log("calling", id, activeStepIndex, animeSteps, activeStep, stepId);
+      // console.log("calling", id, activeStepIndex, animeSteps, activeStep, stepId);
       try {
         setStep(activeStepIndex);
       } catch (e) {
@@ -43,7 +43,7 @@ export default function SvgAnimator({
 
     // clean up when dismounted
     return () => {
-      console.log('cleaning', animeSelectors)
+      // console.log('cleaning', animeSelectors)
       animeSelectors.map(selector => anime.remove(selector))
     }
   }, [])

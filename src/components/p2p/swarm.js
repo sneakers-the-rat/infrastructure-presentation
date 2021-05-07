@@ -25,6 +25,7 @@ export default class Swarm extends React.Component{
       peers: originalstate.peers,
       position: this.props.position,
       orientation: this.props.orientation,
+      server: originalstate.server
     }
 
     // Array.from({length: 2}, a => useRef(null));
@@ -65,9 +66,29 @@ export default class Swarm extends React.Component{
       this.peer
       // this.peersRefs.current[peer.name] = React.createRef();
       peers[peer.name] = peer
-      console.log(peer)
+      // console.log(peer)
+
 
     }
+
+    if (this.props.centralized === true){
+      peers[this.props.server.name] = {
+        name: this.props.server.name,
+        dataset_angle: this.props.server.datasetAngle,
+        upload:this.props.server.upload,
+        download:this.props.server.download,
+        position: [0,0],
+        orientation: 0,
+        isServer: true,
+        datasets:{
+          n: 0,
+          col_range: [3,6],
+          size_range: [2,15]
+        }
+      }
+    }
+
+
     return({peers})
 
   }
@@ -88,6 +109,7 @@ export default class Swarm extends React.Component{
                 key={peer.name}
                 scale={this.props.peers.scale}
                 fast={true}
+                centralized={this.props.centralized}
                 ref={(element) => this.peersRefs[peer.name] = element}/>);
     }
     return(
@@ -96,7 +118,6 @@ export default class Swarm extends React.Component{
            className={'swarm'}
         >
           {peer_svgs}
-
         </g>
     )
 
@@ -118,5 +139,12 @@ Swarm.defaultProps = {
   position: [0, 0],
   orientation: 0,
   scale: 1,
-  center: false
+  center: false,
+  centralized: false,
+  server: {
+    name: 'servy',
+    upload: 10,
+    download: 10,
+    datasetAngle:120
+  }
 }

@@ -14,6 +14,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import { parse, stringify } from 'transform-parser';
+import {SlideContext} from 'spectacle';
 
 export class Peer extends React.Component {
   constructor(props){
@@ -75,13 +76,13 @@ export class Peer extends React.Component {
 
     for (let i=0; i<n_datasets; i++){
       // space evenly in dataset_angle
-      let position_angle = (this.props.dataset_angle/(n_datasets-1))*i+((180-this.props.dataset_angle)/2);
+      let position_angle = (this.props.dataset_angle/(n_datasets))*i+((180-this.props.dataset_angle)/2);
       // rotate to be at the bottom
 
       let display_angle = position_angle- 90;
       let position = [
-          peer_params.outer_radius_scale*this.props.upload * Math.cos(toRadians(position_angle)),
-          peer_params.outer_radius_scale*this.props.upload * Math.sin(toRadians(position_angle))
+        (peer_params.outer_radius_scale+peer_params.inner_radius_scale*this.props.upload*this.props.scale) * Math.cos(toRadians(position_angle)),
+            (peer_params.outer_radius_scale+peer_params.inner_radius_scale*this.props.upload*this.props.scale) * Math.sin(toRadians(position_angle))
           ]
 
       let ds_name;
@@ -134,6 +135,7 @@ export class Peer extends React.Component {
 
   uploadLoop(){
     // check if an array is in another array
+
     try {
       let peersRefs
       try {
@@ -141,9 +143,11 @@ export class Peer extends React.Component {
         let peers = peers_obj.peers
         peersRefs = peers_obj.peersRefs
       } catch (e){
+        console.log('didnt get peers from swarm ', e)
         peersRefs = MADE_PEERS;
         // console.log('made peers', this.props.name, peersRefs)
       }
+      // console.log(peersRefs)
 
       let haveBlocks = JSON.parse(JSON.stringify(this.haveBlocks))
 
@@ -155,12 +159,16 @@ export class Peer extends React.Component {
         let try_ind = peer_inds.pop()
         let peer_name = peer_names[try_ind];
         if (peer_name === this.props.name){
-          continue
+          continue;
         }
         let peer = peersRefs[peer_name];
+        if (this.props.centralized === true && this.props.isServer === false && peer.props.isServer === false){
+          continue;
+        }
         let requestedBlocks = JSON.parse(JSON.stringify(peer.requestedBlocks))
         // console.log(peer)
         if ((requestedBlocks !== undefined) && (requestedBlocks.length>0)){
+          console.log(this.props.name, this.props, peer, requestedBlocks)
           //  also random iter here
           // console.log(requestedBlocks)
           // let wanted_inds = [...Array(requestedBlocks.length).keys()];
@@ -386,6 +394,29 @@ export class Peer extends React.Component {
 
     }
 
+    let windowPeers = this.state.peers;
+    try{
+      let { peersRefs } = this.props.getPeers();
+      if (this.props.centralized === true && this.props.isServer === false){
+        console.log(windowPeers)
+        windowPeers = Object.fromEntries(Object.entries(windowPeers).filter(([key, val]) => peersRefs[key].props.isServer === true));
+        // console.log(windowPeers)
+      }
+
+      for (let peerName in windowPeers){
+        windowPeers[peerName].datasets = peersRefs[peerName].state.datasets
+      }
+
+
+
+    } catch(e){
+      console.log('couldnt filder peers', e)
+    }
+
+
+
+
+
 
     return(
         <g style={{transform: this.translate_str(this.state.position[0], this.state.position[1], this.state.orientation)}}
@@ -404,7 +435,7 @@ export class Peer extends React.Component {
               ref={this.toggleRef}
               stylestr={{transform:"scale("+this.state.peerWindow.scale+") translate("+this.state.peerWindow.position[0]+', '+this.state.peerWindow.position[1]+') rotate('+this.state.orientation*-1+"deg)"}}
               id={'peer-'+this.props.name+'-peerWindow'}
-              peers={this.state.peers}
+              peers={windowPeers}
               requestDataset={this.requestDataset}
           />
         </g>
@@ -426,7 +457,9 @@ Peer.defaultProps = {
   upload:2,
   download:1,
   peers: {},
-  fast: false
+  fast: false,
+  centralized: false,
+  isServer: false
 }
 
 let last_name = 97;
@@ -465,13 +498,13 @@ class PeerWindow extends React.Component {
             <li key={`section-${peer_name}`} className={"peer-window-section"}>
               <ul >
                 <ListSubheader>{`${peer_name}`}</ListSubheader>
-                {Object.keys(this.props.peers[peer_name].datasets).map((item) => (
+                {this.props.peers[peer_name].datasets ? Object.keys(this.props.peers[peer_name].datasets).map((item) => (
                     <ListItem key={`item-${peer_name}-${item}`}
                     button
                     onClick={(event) => (this.props.requestDataset(`${item}`))}>
                       <ListItemText primary={`${item}`} />
                     </ListItem>
-                ))}
+                )): null}
               </ul>
             </li>
           ))}

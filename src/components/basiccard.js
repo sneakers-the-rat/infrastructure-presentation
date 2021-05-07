@@ -32,11 +32,6 @@ export default function BasicCard({
       backgroundColor: "rgba(255, 255, 255, 0.6)",
 
     },
-    bullet: {
-      display: 'inline-block',
-      margin: '0 2px',
-      transform: 'scale(0.8)',
-    },
     title: {
       fontFace: serif ? '"EB Garamond" serif' : '"Helvetica Neue" sans-serif',
       fontWeight:fontWeight,
@@ -56,12 +51,11 @@ export default function BasicCard({
     }
   });
   const classes = useStyles();
-  const bull = <span className={classes.bullet}>•</span>;
   const { activeStepIndex, isSlideActive } = React.useContext(SlideContext);
 
   // console.log('card',id,  activeStepIndex, isSlideActive, appearStep, activeStepIndex === appearStep)
   return (
-      <Card id={id} className={[classes.root, 'basic-card-root']} elevation={elevation}>
+      <Card id={id} className={classes.root + ' basic-card-root'} elevation={elevation}>
         <CardContent className={'basic-card-content'}>
           {typeof title === 'string' ? <Typography className={classes.title} variant={"h5"} component={"h2"} gutterBottom>
             {title}
