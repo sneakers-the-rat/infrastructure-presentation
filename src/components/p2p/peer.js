@@ -486,29 +486,38 @@ class PeerWindow extends React.Component {
   render(){
     // console.log('peer window', this.props.peers)
     return(
-        <foreignObject className={'peer-window-container'}
-        width={peer_params.window.width}
-        height={peer_params.window.height}
-         // ref={this.props.ref}
-         style={this.props.stylestr}
-         id={this.props.id}>
-          <Paper>
-        <List className={"peer-window"} disablePadding>
-          {Object.keys(this.props.peers).map((peer_name) => (
-            <li key={`section-${peer_name}`} className={"peer-window-section"}>
-              <ul >
-                <ListSubheader>{`${peer_name}`}</ListSubheader>
-                {this.props.peers[peer_name].datasets ? Object.keys(this.props.peers[peer_name].datasets).map((item) => (
-                    <ListItem key={`item-${peer_name}-${item}`}
-                    button
-                    onClick={(event) => (this.props.requestDataset(`${item}`))}>
-                      <ListItemText primary={`${item}`} />
-                    </ListItem>
-                )): null}
-              </ul>
-            </li>
-          ))}
-        </List></Paper></foreignObject>
+        <foreignObject
+            width={peer_params.window.width}
+            height={peer_params.window.height}
+            // ref={this.props.ref}
+            style={this.props.stylestr}
+            id={this.props.id}>
+          <div className={'peer-window-container'}>
+            <Paper>
+              <List className={'peer-window'} disablePadding>
+                {Object.keys(this.props.peers).map((peer_name) => (
+                    <li key={`section-${peer_name}`}
+                        className={'peer-window-section'}>
+                      <ul>
+                        <ListSubheader>{`${peer_name}`}</ListSubheader>
+                        {this.props.peers[peer_name].datasets ?
+                            Object.keys(this.props.peers[peer_name].datasets).
+                                map((item) => (
+                                    <ListItem key={`item-${peer_name}-${item}`}
+                                              button
+                                              onClick={(event) => (this.props.requestDataset(
+                                                  `${item}`))}>
+                                      <ListItemText primary={`${item}`}/>
+                                    </ListItem>
+                                )) :
+                            null}
+                      </ul>
+                    </li>
+                ))}
+              </List>
+            </Paper>
+          </div>
+        </foreignObject>
     )
   }
 }
