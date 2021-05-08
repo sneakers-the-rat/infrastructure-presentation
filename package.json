@@ -36,6 +36,7 @@
     "@babel/plugin-proposal-class-properties": "^7.13.0",
     "@babel/preset-env": "^7.13.15",
     "@babel/preset-react": "^7.13.13",
+    "@material-ui/icons": "^4.11.2",
     "@mdx-js/react": "^1.6.22",
     "assert": "^2.0.0",
     "babel-loader": "^8.2.2",

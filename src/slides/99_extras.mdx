@@ -70,3 +70,94 @@ import anime from 'animejs';
       ]]}
     id={'computers-2'}
 />
+
+---
+# Interdependent Frontends Are Cool, But...
+
+We're familiar with extremely sick, domain-specific databases like this one from the IBL:
+
+Notes: dont render this
+<Box width={"80%"} height={"80%"} margin={"auto"}>
+  <Paper elevation={1} style={{width:"100%", height:"100%"}}>
+    <iframe width={"100%"} height={"100%"}  loading={"lazy"}
+            src={"https://data.internationalbrainlab.org/mouse/00778394-c956-408d-8a6c-ca3b05a611d5"}
+    />
+  </Paper>
+</Box>
+
+---
+
+
+
+---
+
+
+# Lessons from piracy...
+
+<Grid gridTemplateColumns={"2fr 1fr"} height={"100%"}>
+  <Box width={"100%"}>
+    <Text>You need some way of finding torrents!</Text>
+    <Text>So there are these trackers, u might be familiar with this 1</Text>
+    <br/><br/>
+    <Appear stepIndex={2}>
+      <Heading fontSize={'h2'}>Enter Private Trackers:</Heading>
+      <Text marginTop={'26px'}>Interview in or invite-only, each tracker has its own culture, rules,
+        history, and specific tools that facilitate it.</Text>
+      <br/><br/>
+      <Text>Separating the interface from the protocol made space for what is now a
+        decadeslong experiment in decentralized archivalism</Text>
+      <Text fontSize={26} fontStyle={"italic"}>(we will return to them later!)</Text></Appear>
+  </Box>
+  <Appear stepIndex={1}><Image src={PirateBay} maxWidth={"100%"} alignSelf={"center"} /></Appear>
+</Grid>
+
+<Appear stepIndex={3}>
+  <Card style={{marginBottom:"auto"}} elevation={1}>
+    <Heading fontSize={"h2"}>Problem tho:</Heading>
+    <Text style={{padding:"1em"}}>If we have a bunch of different sites, how is that any better than having a zillion centralized databases?</Text></Card></Appear>
+
+---
+
+# Federated systems
+
+<Grid gridTemplateColumns={"1fr 1fr"} height={"100%"}>
+  <Card>
+    <Typography>basic idea here is that we</Typography>
+    <Text>a) conceptualize our data storage system as a *sharing* system first</Text>
+    <Text>b) choose the other *users* and *servers* we want to federate with</Text>
+    <Text>c) federations operate on a common protocol that allows communication between instances</Text>
+    <Text>d) but each user/instance/etc. retains <strong>design autonomy</strong> -- share the *data* not the design</Text>
+  </Card>
+
+  <Image src={Federation}/>
+</Grid>
+
+---
+
+# Eg. "The Fediverse"
+
+Built on W3C's "ActivityPub" protocol, an interconnected network of autonomous social media networks
+
+
+<Box width={"80%"} height={"80%"} margin={"auto"}>
+  <Paper elevation={1} style={{width:"100%", height:"100%"}}>
+    <iframe width={"100%"} height={"100%"} loading={"lazy"}
+            src={"https://google.com"}
+    />
+  </Paper>
+</Box>
+
+
+---
+
+# Federated database systems
+
+Not a new idea!
+
+<Grid gridTemplateColumns={"1fr 1fr"} height={"80%"}>
+  <Image maxWidth={"80%"} maxHeight={"80%"} src={FederatedStack}/>
+  <Image maxWidth={"80%"} maxHeight={"80%"} src={FederatedLinks}/>
+  <Box>
+    <Text>Sima AC et al,</Text>
+    <Link href={"https://doi.org/10.1093/database/baz106"}>Enabling semantic queries across federated bioinformatics databases</Link></Box>
+</Grid>

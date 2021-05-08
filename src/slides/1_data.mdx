@@ -12,6 +12,9 @@ import Typography from '@material-ui/core/Typography';
 import VerticalLinearStepper from '../components/vertical_stepper'
 import FederatedStack from '../img/federated_db_stack.png'
 import FederatedLinks from '../img/federated_db_links.png'
+import Federation1 from '../img/federation_1-01.svg'
+import SvgAnimator from '../components/svg_animator';
+import anime from 'animejs'
 
 import funky from 'react-syntax-highlighter/dist/cjs/styles/prism/funky'
 
@@ -161,42 +164,17 @@ Notes: popup with more info
 That p2p system is literally the most basic one. extend it in a bunch of ways
 
 * Versioning
-* Obligate Peers - making it always at least as fast as
+* Obligate Peers - making it always at least as fast as an existing system and integrating with whatever databases already exist
 
 ---
 
-# problems with p2p systems
-
-* ppl freaking drop out!
-* rare material can get lost if only one peer has it!
-* make networks sad! (this one is just a QoS one so we can ignore that)
-
-but what if i told u that there have been hundreds of thousands of people experimenting
-with the culture of how to make a peer-to-peer data archival system
-sustainable for decades? and those ppl are pirates?
-
-We get one early lesson from the pirates, and thats to divide the
-*database* itself from the *means of accessing it*
-
-
----
-
-# Interdependent Frontends Are Cool, But...
-
-We're familiar with extremely sick, domain-specific databases like this one from the IBL:
-
-Notes: dont render this
-<Box width={"80%"} height={"80%"} margin={"auto"}>
-<Paper elevation={1} style={{width:"100%", height:"100%"}}>
-<iframe width={"100%"} height={"100%"}  loading={"lazy"}
-        src={"https://data.internationalbrainlab.org/mouse/00778394-c956-408d-8a6c-ca3b05a611d5"}
-  />
-</Paper>
-</Box>
-
----
 
 # Databases Are Political
+
+So far we have one type of data format and one swarm of peers. so now we just need to get everybody
+on the same format and swarm right?
+
+noooo
 
 If we pay attention to the people who study these things...
 
@@ -231,92 +209,131 @@ If we pay attention to the people who study these things...
 
 ---
 
-# Lessons from piracy...
 
-<Grid gridTemplateColumns={"2fr 1fr"} height={"100%"}>
-<Box width={"100%"}>
-  <Text>You need some way of finding torrents!</Text>
-  <Text>So there are these trackers, u might be familiar with this 1</Text>
-  <br/><br/>
-  <Appear stepIndex={2}>
-  <Heading fontSize={'h2'}>Enter Private Trackers:</Heading>
-  <Text marginTop={'26px'}>Interview in or invite-only, each tracker has its own culture, rules,
-    history, and specific tools that facilitate it.</Text>
-  <br/><br/>
-  <Text>Separating the interface from the protocol made space for what is now a
-  decadeslong experiment in decentralized archivalism</Text>
-  <Text fontSize={26} fontStyle={"italic"}>(we will return to them later!)</Text></Appear>
-</Box>
-<Appear stepIndex={1}><Image src={PirateBay} maxWidth={"100%"} alignSelf={"center"} /></Appear>
-</Grid>
+<SvgAnimator
+    svgUrl={Federation1}
+    steps={[
+      [
+        {
+          targets: '#federation-1 '+'#peer_1 *',
+          opacity: [0, 1],
+          duration: anime.random(500, 1000),
+          delay: anime.random(0, 200),
+          easing: 'easeInOutQuad',
+          loop: false
+        },
+        {
+          targets: '#federation-1 '+'#peer_2 *',
+          opacity: [0, 1],
+          duration: anime.random(500, 1000),
+          delay: anime.random(0, 200),
+          easing: 'easeInOutCirc',
+          loop: false
+        },
+        {
+          targets: '#federation-1 '+'#peer_outlines *',
+          opacity: [0, 1],
+          duration: anime.random(500, 1000),
+          delay: anime.random(0, 200),
+          easing: 'easeInOutCirc',
+          loop: false
+        }
+      ],
+      [
+        {
+          targets: '#federation-1 '+'#call *',
+          opacity: [0, 1],
+          duration: anime.random(500, 1000),
+          delay: anime.random(0, 200),
+          easing: 'easeInOutCirc',
+          loop: false
+        }
+      ],
+      [
+        {
+          targets: '#federation-1 '+'#phone-3',
+          translateX: ["10px", 0],
+          translateY: ["-10px", 0],
+          duration: 100,
+          delay: 0,
+          easing: 'easeInOutQuad',
+          direction: 'alternate',
+          loop: 5
+        }
+      ],[
+        {
+          targets: "#federation-1 #call_1 polyline",
+          strokeDashoffset: [anime.setDashoffset, 0],
+          duration: 1000,
+          easing: 'easeInQuad'
+        },
+        {
+          targets: "#federation-1 #call_1 #phone, #phone-2",
+          translateX: ["10px", 0],
+          translateY: ["-10px", 0],
+          duration: 100,
+          delay: 0,
+          easing: 'easeInOutQuad',
+          direction: 'alternate',
+          loop: 5
+        }
+      ],
+        [
+          {
+            targets: "#federation-1 #call_1 *",
+            opacity: [1,0]
+          }
+        ],
+      [
+          {
+            target: "#federation-1 #fedlayer *",
+            scale: [0, 1],
+            duration: 500,
+            delay: 0,
+            easing: 'easeInQuad',
+            loop: false
+          }
+        ],
+      [
+        {
+          targets: '#federation-1 #call_2 *',
+          opacity: [0,1],
+          duration: 500,
+          delay:0 ,
+          easing: 'easeInOutQuad',
+          loop: false
+        }
+        ]]}
+    id={'federation-1'}
+/>
 
-<Appear stepIndex={3}>
-  <Card style={{marginBottom:"auto"}} elevation={1}>
-<Heading fontSize={"h2"}>Problem tho:</Heading>
-    <Text style={{padding:"1em"}}>If we have a bunch of different sites, how is that any better than having a zillion centralized databases?</Text></Card></Appear>
+Notes: federation notes
+* Design autonomy - users control implementation
+* Loosely Coupled - users control federation (cite sheth 1990)
+
 
 ---
 
-# Federated systems
-
-<Grid gridTemplateColumns={"1fr 1fr"} height={"100%"}>
-  <Card>
-    <Typography>basic idea here is that we</Typography>
-    <Text>a) conceptualize our data storage system as a *sharing* system first</Text>
-    <Text>b) choose the other *users* and *servers* we want to federate with</Text>
-    <Text>c) federations operate on a common protocol that allows communication between instances</Text>
-    <Text>d) but each user/instance/etc. retains <strong>design autonomy</strong> -- share the *data* not the design</Text>
-  </Card>
-
-<Image src={Federation}/>
-</Grid>
+zoomed out federation slide showing the example of multiple labs/institutes/formats federating together
+with incomplete linkage.
 
 ---
 
-# Eg. "The Fediverse"
+brief slide of caveats
 
-Built on W3C's "ActivityPub" protocol, an interconnected network of autonomous social media networks
-
-
-<Box width={"80%"} height={"80%"} margin={"auto"}>
-  <Paper elevation={1} style={{width:"100%", height:"100%"}}>
-    <iframe width={"100%"} height={"100%"} loading={"lazy"}
-            src={"https://google.com"}
-    />
-  </Paper>
-</Box>
-
+* not new! lots of previous times been proposed
+* need other stuff - total control over federation, data privacy,
+  versioning, etc.
+  - ipfs does this! libgen is on ipfs!
 
 ---
 
-# Federated database systems
+Brief nod to frontend diagrammatically -- the 'third layer' of the user actually executing a query
+say we're going to get back to that when we talk about the community structure.
 
-Not a new idea!
-
-<Grid gridTemplateColumns={"1fr 1fr"} height={"80%"}>
-  <Image maxWidth={"80%"} maxHeight={"80%"} src={FederatedStack}/>
-  <Image maxWidth={"80%"} maxHeight={"80%"} src={FederatedLinks}/>
-  <Box>
-    <Text>Sima AC et al,</Text>
-  <Link href={"https://doi.org/10.1093/database/baz106"}>Enabling semantic queries across federated bioinformatics databases</Link></Box>
-</Grid>
 
 
 
 ---
-
-# General needs for scientific federated db system
-
-* versioning
-* privacy/sharing control
-
-
-could be
-* IPFS
-* Hypercore
-
----
-
-
 
 

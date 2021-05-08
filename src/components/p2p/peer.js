@@ -55,9 +55,14 @@ export class Peer extends React.Component {
     this.timer = setTimeout(this.uploadLoop, 1000/this.props.upload);
   }
 
-  componentDidUnmount(){
-    this.timer.current.stop()
-  }
+  // componentWillUnmount(){
+  //   try {
+  //     this.timer.current.stop()
+  //   } catch {
+  //   // do nothing?
+  //     console.log('')
+  //   }
+  // }
 
 
   generate(datasets){
