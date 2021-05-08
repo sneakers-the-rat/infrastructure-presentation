@@ -20,11 +20,12 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
+import {tryCatch} from 'ramda';
+import {spectacle_theme} from '../theme';
 
 export const Circle = styled('div')`
   width: ${({ size }) => size}px;
   height: ${({ size }) => size}px;
-  display: inline-block;
   border: 1px solid ${({ color }) => color};
   background: ${({ color, active }) => (active ? color : 'transparent')};
   margin: ${({ size }) => size / 3}px;
@@ -60,18 +61,19 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerOpen: {
     width: drawerWidth,
-    transition: theme.transitions.create('width', {
+    transition: theme.transitions.create(['width','height'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
   drawerClose: {
-    transition: theme.transitions.create('width', {
+    transition: theme.transitions.create(['width','height'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
     overflowX: 'hidden',
     width: "70px",
+    height: "70px"
   },
   toolbar: {
     display: 'flex',
@@ -86,13 +88,13 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(3),
   },
   data:{
-    backgroundColor: theme.palette.data
+    color: spectacle_theme.colors.data
   },
   tools:{
-    backgroundColor: theme.palette.tools
+    color: spectacle_theme.colors.tools
   },
   knowledge:{
-    backgroundColor: theme.palette.knowledge
+    color: spectacle_theme.colors.knowledge
   },
   intro:{
 
@@ -150,21 +152,26 @@ export default function TOC(
           </div>
 
           <Divider />
-          <List>
+          {open && <List>
           {Array(slideCount).fill(0).map(
-              (_,idx) => (
-              <ListItem button onClick={() =>{
-                  console.log('clicked', idx)  ;
+              (_,idx) => {
+                try{
+                console.log('tocslide', slides[idx])}catch{console.log('')}
+                return(<ListItem button onClick={() => {
+                  console.log('clicked', idx);
                   skipTo({
-                      slideIndex: idx,
-                      stepIndex: 0
-                    })}}
+                    slideIndex: idx,
+                    stepIndex: 0
+                  })
+                }}
+               className={classes[slides[idx].group]}
+               selected={activeView.slideIndex===idx}
                 key={idx}>
-                  <ListItemText primary={idx}/>
-                </ListItem>
-              )
+                  <ListItemText primary={slides[idx].group +' - ' +idx}/>
+                </ListItem>)
+              }
           )}
-          </List>
+          </List>}
           {/*{slides.map((slideGroup, i) => {*/}
 
           {/*  return(<List key={'list-'+slideGroup.name}>*/}
@@ -192,7 +199,7 @@ export default function TOC(
         .map((_, idx) => (
             <Circle
                 key={`progress-circle-${idx}`}
-                color={props.color}
+                color={spectacle_theme.colors[slides[idx].group] ? spectacle_theme.colors[slides[idx].group]  : props.color}
                 active={activeView.slideIndex === idx}
                 size={props.size}
                 onClick={() =>
@@ -209,6 +216,6 @@ export default function TOC(
 }
 
 TOC.defaultProps = {
-  color: '#fff',
+  color: '#000',
   size: 10,
 }

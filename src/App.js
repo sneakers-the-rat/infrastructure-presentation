@@ -67,6 +67,10 @@ const toc_slides = [
   },
 ]
 
+const toc_slides_flat = Array.prototype.concat(...toc_slides.map((slide_group) => (
+    slide_group.slides.map(slide => ({slide:slide, group:slide_group.name}))
+)))
+
 const transition = {
   from: {
     opacity: 0
@@ -84,19 +88,19 @@ let slide_num = 0;
 export const template = () => (
     <FlexBox
         justifyContent="space-between"
-        // flexDirection="column"
+        flexDirection="column"
         position="absolute"
-        // left={0}
-        // height={1}
-        bottom={0}
-        width={1}
+        left={0}
+        height={1}
+        // bottom={0}
+        // width={1}
     >
 
-      {/*<TOC slides={toc_slides}/>*/}
+      <TOC slides={toc_slides_flat}/>
       <Box padding="0 1em">
         <FullScreen/>
       </Box>
-      <Box><Progress zIndex={3} color={"#000000"}/></Box>
+      {/*<Box><Progress zIndex={3} color={"#000000"}/></Box>*/}
     </FlexBox>
 );
 
@@ -107,7 +111,7 @@ function Presentation(){
   // MDXCreateElement does in the debugger)
   return(
   <MDXProvider components={mdxComponentMap}>
-    <Deck theme={spectacle_theme}>
+    <Deck theme={spectacle_theme} template={template}>
       {all_slides.map((slides, j) =>
           slides.map((MDXSlide, i) => [MDXSlide, all_notes[j][i]]).
               map(([MDXSlide, MDXNote], i) => (
