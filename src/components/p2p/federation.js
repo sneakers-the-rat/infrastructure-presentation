@@ -1,9 +1,16 @@
 import React from 'react';
 import * as d3 from 'd3'
-import {SlideContext, useSteps} from 'spectacle';
+import {SlideContext, useSteps, FlexBox} from 'spectacle';
+import ColorPicker from '../input';
+import Grid from '@material-ui/core/Grid';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import Slider from '@material-ui/core/Slider';
+import { Box } from 'spectacle';
+import * as colors from '@material-ui/core/colors';
+import {distance} from '../utils';
 
-
-const nodes = [
+const defaultNodes = [
   {id:1, group:0, size:10},
   {id:2, group:0, size:10},
   {id:3, group:0, size:10},
@@ -27,7 +34,7 @@ const nodes = [
 
 ]
 
-const links = [
+const defaultLinks = [
   {source: 1, target: 10, value:1},
   {source: 2, target: 10, value:1},
   {source: 3, target: 10, value:1},
@@ -68,11 +75,15 @@ const links = [
 ]
 
 export default function Federation(
-    {
+    {startNodes,
+        startLinks,
   width=1920,
         height=1080,
         id, stepIndex
    }){
+
+  const [nodes, setNodes] = React.useState(startNodes.map(d => Object.create(d)))
+  const [links, setLinks] = React.useState(startLinks.map(d => Object.create(d)))
 
   const numberOfSteps = 2;
   const { activeStepIndex, isSlideActive } = React.useContext(SlideContext);
@@ -84,6 +95,12 @@ export default function Federation(
   const [showGroup, setShowGroup] = React.useState(1)
   const [showNodes, setShowNodes] = React.useState([])
   const [showLinks, setShowLinks] = React.useState([])
+
+  // node adding state
+  const [drawGroupColor, setDrawGroupColor] = React.useState('rgb(244, 67, 54)')
+  const [drawGroupIndex, setDrawGroupIndex] = React.useState()
+  const [drawSize, setDrawSize] = React.useState(10)
+  const [connectSize, setConnectSize] = React.useState(50)
 
   const showLinksTemp = React.useRef([])
   const showNodesTemp = React.useRef([])
@@ -102,7 +119,7 @@ export default function Federation(
   },  [isSlideActive])
 
   React.useEffect(() => {
-    showNodesTemp.current = nodes.filter(node => node.group <= showGroup)
+    showNodesTemp.current = nodes.filter(node => node.group <= showGroup || node.added === true)
     let showNodeIds = showNodesTemp.current.map(node => node.id);
     showLinksTemp.current = links.filter(link => (showNodeIds.includes(link.source.id) || showNodeIds.includes(link.target.id) || showNodeIds.includes(link.source) || showNodeIds.includes(link.target)))
     setShowNodes(showNodesTemp.current)
@@ -135,7 +152,7 @@ export default function Federation(
     }
 
     console.log('fedration svg', showNodesTemp, showLinksTemp, links)
-  }, [showGroup])
+  }, [showGroup, nodes, links])
 
   const drag = (simulation) => {
     function dragstarted(event) {
@@ -167,22 +184,57 @@ export default function Federation(
   //
   // }, [showNodes, showLinks])
 
+  const mouseMove = (event) => {
+    d3.select('#federation-cursor').attr('transform', 'translate('+(event.nativeEvent.layerX)+", "+(event.nativeEvent.layerY)+")")
+  }
+
   React.useEffect(() => {
+
     return(() => (simulation.current.stop()))
   }, [])
 
 
+  const handleChangeHue= (hue, color, groupIdx) => {
+    setDrawGroupColor(color)
+    setDrawGroupIndex(hue)
+  };
+
+  const handleChangeNodeSize = (event, newValue) => {
+    setDrawSize(newValue)
+  }
+
+  const handleChangeConnectSize = (event, newValue) => {
+    setConnectSize(newValue)
+  }
+
+  const addNode = (event) => {
+    let point = d3.pointer(event);
+    let newNode = {x: event.nativeEvent.layerX, y:event.nativeEvent.layerY, group:drawGroupIndex, added:true, size:drawSize, color:drawGroupColor}
+
+    let newLinks = nodes.map(node => {
+      if (distance(node, newNode)<connectSize){
+        return({source:node, target:newNode})
+      }
+    }).filter(item => item !== undefined)
+
+    console.log(newNode, links, newLinks)
+    setNodes([...nodes, newNode])
+    setLinks([...links, ...newLinks])
+
+  }
+
   return(
-    <svg id={"#federation-svg"} width={width} height={height}>
+    <>
+      <svg id={"federation-svg"} width={width} height={height} onMouseMove={mouseMove} onClick={addNode}>
       {placeholder}
       <g className={"federation-nodes"}>
         {showNodes && showNodes.map((node, i) => (
-            <circle key={"node-"+node.id} id={node.id} className={"federation-svg-node"} group={node.group} r={node.size}/>
+            <circle {...node} key={"node-"+node.id} id={node.id} className={"federation-svg-node"} group={node.group} r={node.size} fill={node.color}  />
         ))}
       </g>
       <g className={"federation-links"}>
         {showLinks && showLinks.map((link, i) => (
-            <line key={'link-'+link.source.id+'-'+link.target.id}
+            <line {...link} key={'link-'+link.source.id+'-'+link.target.id}
                   id={'link-'+link.source.id+'-'+link.target.id}
                   className={"federation-svg-link"}
                   strokeWidth={link.value}
@@ -191,6 +243,48 @@ export default function Federation(
             />
         ))}
       </g>
+        <circle id={'federation-cursor'} r={connectSize}/>
+
     </svg>
+      <Box className={'federation-params'} width={"216px"}>
+
+        <Paper elevation={3}>
+          <FlexBox flexDirection={'column'}>
+            <ColorPicker liftHue={handleChangeHue}/>
+            <Typography id="size-slider" gutterBottom>
+              Peer Size
+            </Typography>
+            <Slider
+                defaultValue={10}
+                aria-labelledby="size-slider"
+                valueLabelDisplay="auto"
+                step={10}
+                marks
+                onChange={handleChangeNodeSize}
+                min={10}
+                max={100}
+            />
+            <Typography id="size-slider" gutterBottom>
+              Connection Size
+            </Typography>
+            <Slider
+                defaultValue={50}
+                aria-labelledby="size-slider"
+                valueLabelDisplay="auto"
+                step={10}
+                marks
+                onChange={handleChangeConnectSize}
+                min={10}
+                max={500}
+            />
+          </FlexBox>
+        </Paper>
+      </Box>
+      </>
 )
+}
+
+Federation.defaultProps={
+  startNodes:[],
+  startLinks:[]
 }
