@@ -85,6 +85,7 @@ export default function Federation(
   const [nodes, setNodes] = React.useState(startNodes.map(d => Object.create(d)))
   const [links, setLinks] = React.useState(startLinks.map(d => Object.create(d)))
 
+
   const numberOfSteps = 2;
   const { activeStepIndex, isSlideActive } = React.useContext(SlideContext);
 
@@ -95,10 +96,11 @@ export default function Federation(
   const [showGroup, setShowGroup] = React.useState(1)
   const [showNodes, setShowNodes] = React.useState([])
   const [showLinks, setShowLinks] = React.useState([])
+  const nodesMade = React.useRef(0)
 
   // node adding state
   const [drawGroupColor, setDrawGroupColor] = React.useState('rgb(244, 67, 54)')
-  const [drawGroupIndex, setDrawGroupIndex] = React.useState()
+  const [drawGroupIndex, setDrawGroupIndex] = React.useState('red')
   const [drawSize, setDrawSize] = React.useState(10)
   const [connectSize, setConnectSize] = React.useState(50)
 
@@ -128,8 +130,9 @@ export default function Federation(
     if (showNodesTemp.current.length>0) {
       simulation.current = d3.forceSimulation(showNodesTemp.current).
           force("link", d3.forceLink(showLinksTemp.current).id(d => d.id)).
-          force("charge", d3.forceManyBody().strength(-2000)).
-          force("center", d3.forceCenter(width / 2, height / 2))
+          force("charge", d3.forceManyBody().strength(d=>d.size*-20).distanceMin(d=>d.size*1.5).distanceMax(300))
+          .force("center", d3.forceCenter(width / 2, height / 2))
+          .force("collisionForce", d3.forceCollide().radius(d=>d.size*1.2))
 
       simulation.current.on("tick", () => {
         try {
@@ -141,9 +144,10 @@ export default function Federation(
               attr("y2", d => d.target.y);
 
           d3.selectAll(".federation-svg-node").
-              data(showNodesTemp.current).
-              attr("cx", d => d.x).
-              attr("cy", d => d.y).
+              data(showNodesTemp.current)
+              .attr('transform', d => 'translate('+d.x+','+d.y+')').
+              // attr("cx", d => d.x).
+              // attr("cy", d => d.y).
           call(drag(simulation.current));
         } catch {
           console.log('')
@@ -209,7 +213,15 @@ export default function Federation(
 
   const addNode = (event) => {
     let point = d3.pointer(event);
-    let newNode = {x: event.nativeEvent.layerX, y:event.nativeEvent.layerY, group:drawGroupIndex, added:true, size:drawSize, color:drawGroupColor}
+    let newNode = {x: event.nativeEvent.layerX,
+      y:event.nativeEvent.layerY,
+      group:drawGroupIndex,
+      added:true,
+      size:drawSize,
+      color:drawGroupColor,
+      id:drawGroupIndex+'-'+nodesMade.current
+    }
+    nodesMade.current += 1
 
     let newLinks = nodes.map(node => {
       if (distance(node, newNode)<connectSize){
@@ -227,11 +239,6 @@ export default function Federation(
     <>
       <svg id={"federation-svg"} width={width} height={height} onMouseMove={mouseMove} onClick={addNode}>
       {placeholder}
-      <g className={"federation-nodes"}>
-        {showNodes && showNodes.map((node, i) => (
-            <circle {...node} key={"node-"+node.id} id={node.id} className={"federation-svg-node"} group={node.group} r={node.size} fill={node.color}  />
-        ))}
-      </g>
       <g className={"federation-links"}>
         {showLinks && showLinks.map((link, i) => (
             <line {...link} key={'link-'+link.source.id+'-'+link.target.id}
@@ -243,6 +250,11 @@ export default function Federation(
             />
         ))}
       </g>
+        <g className={"federation-nodes"}>
+          {showNodes && showNodes.map((node, i) => (
+              <circle {...node} key={"node-"+node.id} id={node.id} className={"federation-svg-node"} group={node.group} r={node.size} fill={node.color}  />
+          ))}
+        </g>
         <circle id={'federation-cursor'} r={connectSize}/>
 
     </svg>
