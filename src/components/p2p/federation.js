@@ -9,6 +9,7 @@ import Slider from '@material-ui/core/Slider';
 import { Box } from 'spectacle';
 import * as colors from '@material-ui/core/colors';
 import {distance} from '../utils';
+import * as R from 'ramda';
 
 const defaultNodes = [
   {id:1, group:0, size:10},
@@ -81,7 +82,8 @@ export default function Federation(
         height=1080,
         id, stepIndex
    }){
-
+  const clampX = R.clamp(0, width)
+  const clampY = R.clamp(0, height)
   const [nodes, setNodes] = React.useState(startNodes.map(d => Object.create(d)))
   const [links, setLinks] = React.useState(startLinks.map(d => Object.create(d)))
 
@@ -130,22 +132,24 @@ export default function Federation(
     if (showNodesTemp.current.length>0) {
       simulation.current = d3.forceSimulation(showNodesTemp.current).
           force("link", d3.forceLink(showLinksTemp.current).id(d => d.id)).
-          force("charge", d3.forceManyBody().strength(d=>d.size*-20).distanceMin(d=>d.size*1.5).distanceMax(300))
-          .force("center", d3.forceCenter(width / 2, height / 2))
+          force("charge", d3.forceManyBody().strength(d=>d.size*-20).distanceMin(d=>d.size*1.1).distanceMax(300))
+          // .force("x", d3.forceX(d => d.x))
+          // .force("y", d3.forceY(d => d.y))
+          .force('center', d3.forceCenter(width/2, height/2))
           .force("collisionForce", d3.forceCollide().radius(d=>d.size*1.2))
 
       simulation.current.on("tick", () => {
         try {
           d3.selectAll(".federation-svg-link").
               data(showLinksTemp.current).
-              attr("x1", d => d.source.x).
-              attr("y1", d => d.source.y).
-              attr("x2", d => d.target.x).
-              attr("y2", d => d.target.y);
+              attr("x1", d => clampX(d.source.x)).
+              attr("y1", d => clampY(d.source.y)).
+              attr("x2", d => clampX(d.target.x)).
+              attr("y2", d => clampY(d.target.y));
 
           d3.selectAll(".federation-svg-node").
               data(showNodesTemp.current)
-              .attr('transform', d => 'translate('+d.x+','+d.y+')').
+              .attr('transform', d => 'translate('+clampX(d.x)+','+clampY(d.y)+')').
               // attr("cx", d => d.x).
               // attr("cy", d => d.y).
           call(drag(simulation.current));
@@ -237,7 +241,7 @@ export default function Federation(
 
   return(
     <>
-      <svg id={"federation-svg"} width={width} height={height} onMouseMove={mouseMove} onClick={addNode}>
+      <svg id={"federation-svg"} width={width} height={height} viewBox={[0,0, width, height]} onMouseMove={mouseMove} onClick={addNode}>
       {placeholder}
       <g className={"federation-links"}>
         {showLinks && showLinks.map((link, i) => (
@@ -300,3 +304,5 @@ Federation.defaultProps={
   startNodes:[],
   startLinks:[]
 }
+
+const clamp = (num, a, b) => Math.max(Math.min(num, Math.max(a, b)), Math.min(a, b));
