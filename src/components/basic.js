@@ -3,6 +3,7 @@ import {Text, Heading, SlideContext, useSteps} from 'spectacle';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Collapse from '@material-ui/core/Collapse';
+import Paper from '@material-ui/core/Paper';
 
 
 
@@ -68,7 +69,6 @@ export function Collapser({
     id, stepIndex,
   });
 
-  console.log("renderin");
   return(
       <Collapse in={isActive}>
         {placeholder}
@@ -77,3 +77,26 @@ export function Collapser({
   )
 
 }
+
+export function IFrame({
+    src,
+    paper
+   }){
+  const { activeStepIndex, isSlideActive } = React.useContext(SlideContext);
+
+
+  const renderthis = paper ?
+      <Paper elevation={1} style={{width:"100%", height:"100%"}}>
+        {isSlideActive && <iframe frameBorder={'0'} className={'iframe-component'} width={"100%"} height={"100%"}  loading={"lazy"} src={src}/>}
+          </Paper>
+     :
+      <>{isSlideActive && <iframe frameBorder={'0'} className={'iframe-component'} width={"100%"} height={"100%"}  loading={"lazy"} src={src}/>}</>
+
+  console.log(renderthis)
+  return(
+      {...renderthis}
+  )
+}
+  IFrame.defaultProps = {
+    paper:true
+    }

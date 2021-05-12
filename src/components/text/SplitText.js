@@ -6,12 +6,13 @@ export function SplitText({ children, id, ...rest }) {
   return words.map((word, i) => {
     return (
         <div
-            key={children + i}
+            key={'container'+i}
             style={{ display: 'inline-block', overflow: 'hidden' }}
         >
           <motion.div
               id={id+'-'+word}
               idx={i}
+              key={'text'+i}
               {...rest}
               style={{ display: 'inline-block', willChange: 'transform' }}
               custom={i}

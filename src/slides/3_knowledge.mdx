@@ -1,5 +1,25 @@
+import { Appear, Grid, Box, FlexBox, Text, Heading, Image, Quote } from 'spectacle';
+import WhatKanye from '../img/kanye-what.png'
+import VerticalLinearStepper from '../components/vertical_stepper';
+import TextAnimator from '../components/text/TextAnimator';
+import { IFrame } from '../components/basic';
+import NWBTree from '../assets/nwb_tree_noschemas.json'
+import {SchemaTree} from '../components/schema';
 
 # Shared Knowledge
+
+<Quote>
+  "Providing tools and infrastructure mechanisms that support
+  the development and management of policies*
+  <TextAnimator>[and knowledge and schemas and everything else]</TextAnimator>
+  is an important part of creating social computing systems
+  that work."
+  - "dont look now weve created a bureaucracy"</Quote>
+
+
+
+
+Notes: shared knowledge notes
 
 * Reintroduce notion of labor inequity and lack of credit assignment
 * failure of contextual knowledge
@@ -11,19 +31,121 @@ Return of pirate communities and learning from wikis
 Semantic wiki infrastructure as the third photoreceptor that
 multiplies the power of the previous two pillars.
 
+
+# Thinking expansively
+
+* A common lack in all these tools is that they don't really have a clear means for
+people to communicate about their use, to interact with the shared components.
+* Relatedly, our embrace of heterogeneity and federation has also left us with
+a bunch of disordered schemas, what to do?
+
+Here's three steps on a gradient for software
+* Traditional software library -- code is fixed, but you can create local files. like MS paint
+* Extensible software library -- certain features can be added in
+* Modular software library -- the basic components of the system can be swapped out
+* ??? -- natural final step is some way of discussing and governing the module combinations
+
+And in schemas
+* Traditional centralized schama -- there is one vocabulary
+* Extensible schema -- there is a core vocabulary and a way of making new terms
+* Modular schema -- core links can be replaced by links with comparable semantic structure
+* ??? -- a way of negotiating the links between data and meaning of terms
+
+
+My argument: investment in collaborative design and communication tools is the missing link
+
+
 ---
 
 # archives need communities
 
-(Return to what.cd)
+Lessons from what.cd
+
+and wiki culture
 
 ---
 
-# Early wiki examples
-
-* each invented their own technologies of expression
+<Grid gridTemplateColumns={"2fr 1fr"}>
+  <FlexBox flexDirection={'column'}>
+    <Heading>What.cd</Heading>...
+    <Text>The most complete archive of music in human history</Text>
+    <Text>Created and curated by an anonymous, decentralized community for zero compensation.</Text>
+    <VerticalLinearStepper
+        steps={[
+          {
+            title: 'System Design',
+            body: 'Separation of interface from database allowed private torrent trackers to innovate on community structure for decades',
+          },
+          {
+            title: 'Explicit Structure & Rules',
+            body: 'Strong incentives for uploading and curating',
+          },
+          {
+            title: 'Affordances',
+            body: 'clear tools and guides for how to use all parts of the site, means for reporting/discussing changes, tagging, collections',
+          },
+          {
+            title: 'Community',
+            body: 'lots of places where your contributions were credited, extensive forums, discussions, collections, vanity house, album of the week',
+          }
+        ]}
+    />
+  </FlexBox>
+  <FlexBox>
+  <Image src={WhatKanye}/>
+  </FlexBox>
+</Grid>
 
 ---
+
+# Before Wikipedia...
+
+... there were meatball wiki(s)
+
+
+<FlexBox height={"100%"}>
+  <FlexBox flexDirection={'column'} height={"100%"} width={1/2}>
+    <Text>Early wikis where people designed the environment for a community    </Text>
+    <IFrame paper={false} flexGrow={4} src={"http://meatballwiki.org/wiki/StartingPoints"}/>
+  </FlexBox>
+    <FlexBox key={"meatball2container"} flexDirection={'column'} height={"100%"} width={1/2}>
+      <Appear stepIndex={1} id={"meatballappear"}>
+      <Text key={"meatball2text"} >Loosely federated, multiple communities with similar ideas but different local structure
+      </Text>
+      <IFrame paper={false} key={"meatball2"} flexGrow={4} src={"http://meatballwiki.org/wiki/TourBus"}/>
+        </Appear>
+    </FlexBox>
+</FlexBox>
+
+
+---
+
+# Wikipedia...
+
+How do we organize all knowledge together?
+
+<FlexBox height={"100%"}>
+  <FlexBox flexDirection={'column'} height={"100%"} width={1/2}>
+    <Text>Hub-and-spoke "WikiProjects"</Text>
+    <IFrame paper={false} flexGrow={4} src={"https://en.wikipedia.org/wiki/Wikipedia:WikiProject_Council/Directory"}/>
+  </FlexBox>
+  <FlexBox key={"wiki2container"} flexDirection={'column'} height={"100%"} width={1/2}>
+    <Appear stepIndex={1} id={"meatballappear"}>
+      <Quote>the true power of wikis lies in the fact that they are a platform that provides affordances which allow for a wide variety of rich, multifaceted organizational structures. - dont look now we made a bureaucracy </Quote>
+      <Quote>“If a rule prevents you from working with others to improve or maintain Wikipedia, ignore it” - ignore all rules policy</Quote>
+        <Quote>“Wikipedia is not a moot court, and rules are not the purpose of the community. ... Disagreements should be resolved through consensus-based discussion, rather than through tightly sticking to rules and procedures.” - wikipedia is not a bureaucracy</Quote>
+    <Quote></Quote>
+      </Appear>
+  </FlexBox>
+</FlexBox>
+
+
+Notes: cite butlerDonLookNow2008
+
+Screenshot of wikipedia consensus flowchart?
+
+---
+
 
 # The Semantic Web
 
@@ -40,39 +162,10 @@ idea of what the data is or what it is about. The only way to find
 out what a Java applet means is to set it running in front of a person.
 - https://www.w3.org/DesignIssues/Principles.html#PLP
 
----
-
-
-# Linked data
-
-* we know about like regular links but what about semantic links
-* example of semantic links
-* notion of recursive links
-* most specs are already expressed in this, RDF and OWL and the like
 
 ---
 
-# Thinking expansively
-
-* A common lack in all these tools is that they don't really have a clear means for
-  people to communicate about their use, to interact with the shared components.
-* Relatedly, our embrace of heterogeneity and federation has also left us with
-  a bunch of disordered schemas, what to do?
-
-Here's three steps on a gradient for software
-* Traditional software library -- code is fixed, but you can create local files. like MS paint
-* Extensible software library -- certain features can be added in
-* Modular software library -- the basic components of the system can be swapped out
-* ??? -- natural final step is some way of discussing and governing the module combinations
-
-And in schemas
-* Traditional centralized schama -- there is one vocabulary
-* Extensible schema -- there is a core vocabulary and a way of making new terms
-* Modular schema -- core links can be replaced by links with comparable semantic structure
-* ??? -- a way of negotiating the links between data and meaning of terms
-
-
-My argument: investment in collaborative design and communication tools is the missing link
+<SchemaTree srcJson={NWBTree}/>
 
 ---
 

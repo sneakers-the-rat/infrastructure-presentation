@@ -4,12 +4,47 @@ import CanvasDraw from "react-canvas-draw";
 import VerticalLinearStepper from '../components/vertical_stepper'
 import ExptRequirements from '../img/task_requirements_2.png'
 import Parallax from '../img/plax.png'
+import Overview from '../img/overview.svg'
+import anime from 'animejs'
+import SvgAnimator from '../components/svg_animator';
+import {PositionedHeading, Collapser} from '../components/basic';
 
-# Shared Tools
 
-Notes: have the tools representation be a wrench around two peers with datasets on either side, zoom in to reveal systems diagram like the one from nmc presentation, but zoom out to just be tangles in a wrench.
 
-unify the idea of data transformation, have analysis tools be wrench points btw source and output dataset.
+<SvgAnimator
+    svgUrl={Overview}
+    steps={[
+      [
+        {targets:'#rect-data',
+          fill:["#2f0987", "#333333"],
+        easing:"easeInOutQuad",
+        duration: 500},
+        {targets:"#overview-1 #data *",
+          stroke: ["#2f0987", "#333333"],
+          easing:"easeInOutQuad"
+        },
+        {targets:'#rect-tools',
+          width:[0,750]},
+        {targets:"#overview-1 #tools *",
+          strokeDashoffset: [anime.setDashoffset, 0]
+        },
+        {targets:'#rect-knowledge',
+          opacity:[0,0]},
+        {targets:"#overview-1 #knowledge *",
+          opacity: [0,0]
+        }
+      ]
+    ]}
+    id={'overview-1'}
+/>
+
+
+<PositionedHeading id={'overview-knowledge'} y={250} x={20}>Knowledge</PositionedHeading>
+
+<PositionedHeading id={'overview-tools'} y={600} x={20}>Tools</PositionedHeading>
+
+<PositionedHeading id={'overview-data'} y={950} x={20}>Data</PositionedHeading>
+
 
 ---
 

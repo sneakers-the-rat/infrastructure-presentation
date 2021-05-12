@@ -162,6 +162,7 @@ export default function Federation(
     console.log('fedration svg', showNodesTemp, showLinksTemp, links)
   }, [showGroup, nodes, links])
 
+  // TODO: Fix drag to be more like this https://observablehq.com/@d3/sticky-force-layout?collection=@d3/d3-force
   const drag = (simulation) => {
     function dragstarted(event) {
       if (!event.active) simulation.alphaTarget(0.3).restart();
@@ -192,6 +193,7 @@ export default function Federation(
   //
   // }, [showNodes, showLinks])
 
+  // TODO: fix mouse move to be more like this https://observablehq.com/@d3/build-your-own-graph?collection=@d3/d3-force
   const mouseMove = (event) => {
     d3.select('#federation-cursor').attr('transform', 'translate('+(event.nativeEvent.layerX)+", "+(event.nativeEvent.layerY)+")")
   }
