@@ -92,7 +92,6 @@ export function IFrame({
      :
       <>{isSlideActive && <iframe frameBorder={'0'} className={'iframe-component'} width={"100%"} height={"100%"}  loading={"lazy"} src={src}/>}</>
 
-  console.log(renderthis)
   return(
       {...renderthis}
   )

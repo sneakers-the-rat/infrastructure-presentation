@@ -155,8 +155,6 @@ export default function TOC(
           {open && <List>
           {Array(slideCount).fill(0).map(
               (_,idx) => {
-                try{
-                console.log('tocslide', slides[idx])}catch{console.log('')}
                 return(<ListItem button onClick={() => {
                   console.log('clicked', idx);
                   skipTo({
