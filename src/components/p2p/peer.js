@@ -173,7 +173,7 @@ export class Peer extends React.Component {
         let requestedBlocks = JSON.parse(JSON.stringify(peer.requestedBlocks))
         // console.log(peer)
         if ((requestedBlocks !== undefined) && (requestedBlocks.length>0)){
-          console.log(this.props.name, this.props, peer, requestedBlocks)
+          // console.log(this.props.name, this.props, peer, requestedBlocks)
           //  also random iter here
           // console.log(requestedBlocks)
           // let wanted_inds = [...Array(requestedBlocks.length).keys()];
@@ -403,7 +403,7 @@ export class Peer extends React.Component {
     try{
       let { peersRefs } = this.props.getPeers();
       if (this.props.centralized === true && this.props.isServer === false){
-        console.log(windowPeers)
+        // console.log(windowPeers)
         windowPeers = Object.fromEntries(Object.entries(windowPeers).filter(([key, val]) => peersRefs[key].props.isServer === true));
         // console.log(windowPeers)
       }

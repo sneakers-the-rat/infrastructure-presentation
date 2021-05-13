@@ -50,11 +50,7 @@ import {PositionedHeading, Collapser} from '../components/basic';
 
 # Analysis tools
 
-* Most widely used tools are either atomic level packages like pandas or dplyr
-* Open source packages each with their own parameterization style & difficulty of use, etc
-* Many papers don't ever get implementations
-
-We need something that's
+Figure of modular pipeline, overlay these
 
 <Box >
   <VerticalLinearStepper
@@ -90,37 +86,7 @@ We need something that's
   />
 </Box>
 
----
-
-# BIDS Apps
-
-Thankfully there are some examples of this
-
-Bids apps - https://bids-apps.neuroimaging.io/tutorial/
-
-Notes: dont render
-<Box width={"80%"} height={"80%"} margin={"auto"}>
-  <Paper elevation={1} style={{width:"100%", height:"100%"}}>
-    <iframe width={"100%"} height={"100%"} loading={"lazy"}
-            src={"https://bids-apps.neuroimaging.io/apps/"}
-    />
-  </Paper>
-</Box>
-
----
-
-# DataJoint Elements
-
-https://github.com/datajoint/datajoint-elements
-
-Notes: dont render
-<Box width={"80%"} height={"80%"} margin={"auto"}>
-  <Paper elevation={1} style={{width:"100%", height:"100%"}}>
-    <iframe width={"100%"} height={"100%"}  loading={"lazy"}
-            src={"https://github.com/datajoint/workflow-array-ephys"}
-    />
-  </Paper>
-</Box>
+Overlay datajoint elements & bids apps are good starts!
 
 ---
 
@@ -147,64 +113,52 @@ Notes: dont render
 
 # Experimental Framework
 
-What do the next 10 years of neuroscience
+What kind of tool do we need for the next 10 years of neuroscience?
 
-experiments look like?
+* **Flexible** enough to handle infinitely variable naturalistic tasks
+* **Fast** enough for realtime control and huge data
+* **Accessible** enough for anyone to use and contribute to
+* **Reproducible** enough to support replication and provenance
 
-* **Infinitely variable** naturalistic experimental structure
-* Complex, **multi-stage** and **continuous** tasks
-* **Lots** of hardware
-* Lots of **heterogeneous** hardware
-* **Custom** and **off-the-shelf** hardware
-* **All-To-All** control
-* **Real-time** data processing
-* **~Microsecond-precise** synchronization
-* **High-Bandwidth** data collection
-* **Multimodal** data collection
-
-
-<Image src={ExptRequirements} style={{right:0, bottom:0,height:"80%", position:"absolute"}}></Image>
+(Autopilot logo) here's an example from autopilot
 
 ---
 
+checkboxes to tick off elements of experiment
+- cameras: control any hardware, any amount bc distributed
+- dlc: integrate with external libraries
+- computers: flexible task design
+
 
 <Image src={Parallax} maxWidth={"100%"} maxHeight={"100%"}></Image>
-
-
-
-Notes: Examples from Parallax task
-
-* Describe the task (from nmc)
-* IMU transformation example - lots of people need to do this, why is it so hard?
-* Porting code is easy - adapted kalman filter & sensor code
-* Having clear place to expand things
-* Making each part of it separately available.
-* Manipulating custom hardware is possible - video of platform
-* Connecting separate components is possible
-* Finish with DLC example
 
 ---
 
 # Integrate with custom components
 
-<div style={{"z-index": -1}}>
+- platform: control esoteric hardware with easy controls like platform.height = 100
+
+<div style={{zIndex: -1}}>
   <iframe loading={"lazy"}
           src="https://player.vimeo.com/video/543747956?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
-          frameBorder="0" allow="autoplay; fullscreen; picture-in-picture" allowFullscreen
+          frameBorder="0" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen
           style={{position: "absolute", top: 0, left: 0, width: "100%", height: "100%"}} title="hell_naw.mp4"></iframe>
 </div><script src="https://player.vimeo.com/api/player.js"></script>
 
 ---
 
-# Link in RT
+# focus on imu
 
-<div style={{zIndex:-1}}>
-  <iframe loading={"lazy"}
-          src="https://player.vimeo.com/video/543748950?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
-          frameBorder="0" allow="autoplay; fullscreen; picture-in-picture" allowFullscreen
-          style={{position: "absolute", top: 0, left: 0, width: "100%", height: "100%"}}
-          title="Motion Control"></iframe>
-</div><script src="https://player.vimeo.com/api/player.js"></script>
+figure to break down different parts of what goes into IMU
+
+u can use any part of the system by itself
+
+
+---
+
+# Closing section
+
+return to diagram, draw in combinatoric benefits
 
 Notes: tools notes
 
@@ -240,3 +194,5 @@ Community structure
 
 
 ---
+
+
