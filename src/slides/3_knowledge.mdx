@@ -4,7 +4,7 @@ import VerticalLinearStepper from '../components/vertical_stepper';
 import TextAnimator from '../components/text/TextAnimator';
 import { IFrame } from '../components/basic';
 import NWBTree from '../assets/nwb_tree_noschemas.json'
-import {SchemaTree} from '../components/schema';
+import {SchemaTree, SchemaContainer} from '../components/schema';
 
 # Shared Knowledge
 
@@ -168,7 +168,9 @@ out what a Java applet means is to set it running in front of a person.
 and data linking and tool linking all on the same slide
 NWB schema, link to another schema, then link to tools, then link to analysis...
 
-<SchemaTree srcJson={NWBTree}/>
+<SchemaContainer>
+<SchemaTree y={250} srcJson={NWBTree}/>
+</SchemaContainer>
 
 ---
 

@@ -1,0 +1,32 @@
+svg.schema-svg
+  position: absolute
+  left: 0
+  top: 0
+
+  line.link
+    fill: none
+    stroke: #000
+    stroke-width: 4px
+    cursor: default
+
+    &.selected
+      stroke-dasharray: 10,2
+
+    &.dragline
+      pointer-events: none
+
+    &.hidden
+      stroke-width: 0
+
+  line.schema-drawnlink
+    stroke: #ff0000
+    stroke-width: 2px
+
+.schema-label
+  font:
+    size: 20px
+
+
+//svg:not(.active):not(.ctrl) path.link {
+//  cursor: pointer;
+//}
