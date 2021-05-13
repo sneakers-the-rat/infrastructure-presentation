@@ -8,17 +8,17 @@ export default function HideSlide({
   children,
   ...rest
 }) {
-  const { slideCount, skipTo, activeView } = React.useContext(DeckContext);
+  const { slideCount, skipTo, activeView, initialized } = React.useContext(DeckContext);
 
-  const [show, setShow] = React.useState(false);
+  const [show, setShow] = React.useState(true);
 
   React.useEffect(() => {
     if (activeView.slideIndex === undefined) {
       console.log("doing nothing");
     } else {
       setShow(
-        activeView.slideIndex >= slideNum - bufferSlides &&
-          activeView.slideIndex <= slideNum + bufferSlides
+          (activeView.slideIndex >= slideNum - bufferSlides &&
+          activeView.slideIndex <= slideNum + bufferSlides) || !initialized
       );
     }
   }, [activeView]);
