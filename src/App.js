@@ -112,20 +112,36 @@ function Presentation(){
   return(
   <MDXProvider components={mdxComponentMap}>
     <Deck theme={spectacle_theme} template={template}>
-      {all_slides.map((slides, j) =>
-          slides.map((MDXSlide, i) => [MDXSlide, all_notes[j][i]]).
-              map(([MDXSlide, MDXNote], i) => (
-                    <Slide
-                        key={`slide-${i}`}
-                        slideNum={i}
-                        backgroundColor={'background'}
-                    >
-                      <MDXSlide/>
-                      <Notes>
-                        <MDXNote/>
-                      </Notes>
-                    </Slide>
-              ))
+      {/*{all_slides.map((slides, j) =>*/}
+      {/*    slides.map((MDXSlide, i) => [MDXSlide, all_notes[j][i]]).*/}
+      {/*        map(([MDXSlide, MDXNote], i) => (*/}
+      {/*              <HideSlide*/}
+      {/*                  key={`slide-${j}-${i}`}*/}
+      {/*                  slideNum={i}*/}
+      {/*                  backgroundColor={'background'}*/}
+      {/*                  bufferSlides={2}*/}
+      {/*              >*/}
+      {/*                <MDXSlide/>*/}
+      {/*                <Notes>*/}
+      {/*                  <MDXNote/>*/}
+      {/*                </Notes>*/}
+      {/*              </HideSlide>*/}
+      {/*        ))*/}
+      {/*)}*/}
+      {toc_slides_flat.map((slide, i) =>
+          // slides.map((MDXSlide, i) => [MDXSlide, all_notes[j][i]]).
+          //     map(([MDXSlide, MDXNote], i) => (
+                  <HideSlide
+                      key={`slide-${i}`}
+                      slideNum={i}
+                      backgroundColor={'background'}
+                      bufferSlides={2}
+                  >
+                    <slide.slide/>
+                    {/*<Notes>*/}
+                      {/*<MDXNote/>*/}
+                    {/*</Notes>*/}
+                  </HideSlide>
       )}
     </Deck>
   </MDXProvider>)
