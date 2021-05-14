@@ -9,7 +9,7 @@ import Analysis1 from '../img/analysis_1-01.svg'
 import anime from 'animejs'
 import SvgAnimator from '../components/svg_animator';
 import {PositionedHeading, Collapser} from '../components/basic';
-
+import {PositionedCard} from '../components/basiccard';
 
 
 <SvgAnimator
@@ -61,8 +61,14 @@ import {PositionedHeading, Collapser} from '../components/basic';
         {targets: "#analysis-1 #scribble #analysis *",
         opacity:[0,1],
         duration: 1000,
+          delay: 1000,
           easing: 'easeInOutQuad'
-        }
+        },
+        {targets:'#analysis-1 #scribble>polygon',
+          width: [0, 1],
+          duration: 500,
+          delay: 0,
+          easing: 'easeInOutCirc'}
       ],
         [
       {targets: "#analysis-1 #scribble #analysis *",
@@ -101,7 +107,13 @@ import {PositionedHeading, Collapser} from '../components/basic';
               delay:500,
               duration: 500,
               easing: 'easeInOutQuad'
-            }}
+            }},
+          {
+            targets: "#analysis-modular-card",
+            opacity: [0,1],
+            easing: 'easeInOutQuad',
+            duration:500
+          }
             ],
         [
             {targets:'#analysis-1 #params *',
@@ -161,11 +173,15 @@ import {PositionedHeading, Collapser} from '../components/basic';
 />
 
 
-<PositionedHeading id={'overview-knowledge'} y={250} x={20}>Knowledge</PositionedHeading>
+<PositionedCard
+    id={'analysis-modular-card'} x={400} y={725} width={1/4}
+    title={"Modular"}
+    extraClass={'noshadow'}
+    opacity={1}
+    body={"Break analyses into input, processing, and output nodes"}
+    appearStep={2}
+/>
 
-<PositionedHeading id={'overview-tools'} y={600} x={20}>Tools</PositionedHeading>
-
-<PositionedHeading id={'overview-data'} y={950} x={20}>Data</PositionedHeading>
 
 
 

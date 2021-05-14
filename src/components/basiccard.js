@@ -18,6 +18,7 @@ export default function BasicCard({
     id='',
     appearStep=0,
     elevation=0,
+    opacity=0.6,
     serif=true,
     fontWeight=500,
     titleBorder=true
@@ -29,7 +30,7 @@ export default function BasicCard({
       minWidth: 275,
       padding: 20,
       // backdropFilter: "blur(30px)",
-      backgroundColor: "rgba(255, 255, 255, 0.6)",
+      backgroundColor: "rgba(255, 255, 255, opacity)",
 
     },
     title: {
@@ -84,23 +85,27 @@ export function PositionedCard({
      subtitle=null,
      body="",
      id='',
+    extraClass = "",
     appearStep=0,
      x=0,
     y = 0,
-    width=1/3
+    width=1/3,
+    ...rest
 }){
   return(
       <Box
           left={x+'px'}
           top={y+'px'}
           width={width}
-          className={'positioned-card'}>
+          className={'positioned-card '+ extraClass}>
         <BasicCard
         title={title}
         subtitle={subtitle}
         body={body}
         id={id}
-        appearStep={appearStep}/>
+        appearStep={appearStep}
+        {...rest}
+        />
       </Box>
   )
 }

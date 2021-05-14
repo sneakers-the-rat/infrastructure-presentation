@@ -131,17 +131,19 @@ function Presentation(){
       {toc_slides_flat.map((slide, i) =>
           // slides.map((MDXSlide, i) => [MDXSlide, all_notes[j][i]]).
           //     map(([MDXSlide, MDXNote], i) => (
-                  <HideSlide
-                      key={`slide-${i}`}
-                      slideNum={i}
-                      backgroundColor={'background'}
-                      bufferSlides={2}
-                  >
-                    <slide.slide/>
-                    {/*<Notes>*/}
-                      {/*<MDXNote/>*/}
-                    {/*</Notes>*/}
-                  </HideSlide>
+        <ThemeProvider theme={material_theme}>
+          <HideSlide
+            key={`slide-${i}`}
+            slideNum={i}
+            backgroundColor={'background'}
+            bufferSlides={2}
+          >
+            <slide.slide/>
+            {/*<Notes>*/}
+              {/*<MDXNote/>*/}
+            {/*</Notes>*/}
+          </HideSlide>
+        </ThemeProvider>
       )}
     </Deck>
   </MDXProvider>)
