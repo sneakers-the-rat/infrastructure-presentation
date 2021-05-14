@@ -170,26 +170,6 @@ export default function TOC(
               }
           )}
           </List>}
-          {/*{slides.map((slideGroup, i) => {*/}
-
-          {/*  return(<List key={'list-'+slideGroup.name}>*/}
-          {/*    <ListItem className={classes.sectionHead} key={'head-'+classes[slideGroup.name]}>*/}
-          {/*      <ListItemText primary={slideGroup.display}/>*/}
-          {/*    </ListItem>*/}
-          {/*    {slideGroup.slides.map((slide, j) => {*/}
-          {/*      slidect+=1;*/}
-          {/*      return(<ListItem button onClick={() =>{*/}
-          {/*        console.log('clicked', slidect)  ;*/}
-          {/*        skipTo({*/}
-          {/*            slideIndex: slidect,*/}
-          {/*            stepIndex: 0*/}
-          {/*          })}}*/}
-          {/*      key={i+'-'+j}>*/}
-          {/*        <ListItemText primary={'a'}/>*/}
-          {/*      </ListItem>);*/}
-          {/*    })}*/}
-          {/*  </List>);*/}
-          {/*})}*/}
         </Drawer>
 
         {Array(slideCount)

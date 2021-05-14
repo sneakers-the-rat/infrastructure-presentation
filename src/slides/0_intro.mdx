@@ -291,13 +291,13 @@ other softwarez to mention:
 
   <Heading fontWeight={200} textAlign={'left'} marginBottom={"2em"}>thought experiment:</Heading>
   <div style={{height: "20px"}}/>
-  <Appear>
+  <Appear id={"aws-1"}>
     <Text>Say we upload all data onto AWS...</Text>
   </Appear>
   <div style={{height: "20px"}}/>
 </Box>
 <FlexBox justifyContent={'space-evenly'}>
-  <Appear height={"100%"}>
+  <Appear height={"100%"} id={"aws-2"}>
     <ChatAnimator
         stepIndex={3}
         isOpen={true}
@@ -322,7 +322,7 @@ other softwarez to mention:
           ]}
     />
   </Appear>
-  <Appear height={"100%"}>
+  <Appear height={"100%"} id={"aws-3"}>
     <ChatAnimator
         stepIndex={6}
         isOpen={true}
@@ -356,7 +356,7 @@ other softwarez to mention:
   </Appear>
 
 
-  <Appear stepIndex={9}>
+  <Appear stepIndex={9} id={"aws-4"}>
     <Box width={"400px"}>
       <Card elevation={1}>
         <CardContent>

@@ -5,6 +5,7 @@ import VerticalLinearStepper from '../components/vertical_stepper'
 import ExptRequirements from '../img/task_requirements_2.png'
 import Parallax from '../img/plax.png'
 import Overview from '../img/overview.svg'
+import Analysis1 from '../img/analysis_1-01.svg'
 import anime from 'animejs'
 import SvgAnimator from '../components/svg_animator';
 import {PositionedHeading, Collapser} from '../components/basic';
@@ -48,45 +49,127 @@ import {PositionedHeading, Collapser} from '../components/basic';
 
 ---
 
-# Analysis tools
+<SvgAnimator
+    svgUrl={Analysis1}
+    steps={[
+      [
+        {targets:'#analysis-1 #scribble>path',
+          strokeDashoffset: [anime.setDashoffset, 0],
+          duration: 2000,
+          delay: 0,
+          easing: 'easeInOutCirc'},
+        {targets: "#analysis-1 #scribble #analysis *",
+        opacity:[0,1],
+        duration: 1000,
+          easing: 'easeInOutQuad'
+        }
+      ],
+        [
+      {targets: "#analysis-1 #scribble #analysis *",
+        opacity:[1,0],
+        duration: 500,
+        easing: 'easeInOutQuad'
+      },
+          {targets:'#analysis-1 #scribble>path',
+          strokeDashoffset: [0, anime.setDashoffset],
+          duration: 500,
+          delay: 0,
+          easing: 'easeInOutCirc'},
+      {targets:'#analysis-1 #modules *',
+        strokeDashoffset: {
+          value:[anime.setDashoffset, 0],
+          duration: anime.random(500,1000),
+          delay: anime.random(500,1500),
+          easing: 'easeInOutCirc'
+        },
+        opacity: {
+          value: [0, 1],
+          delay:500,
+          duration: 500,
+          easing: 'easeInOutQuad'
+        }
+        },
+          {targets:'#analysis-1 #module *',
+            strokeDashoffset: {
+              value:[anime.setDashoffset, 0],
+              duration: anime.random(500,1000),
+              delay: anime.random(500,1500),
+              easing: 'easeInOutCirc'
+            },
+            opacity: {
+              value: [0, 1],
+              delay:500,
+              duration: 500,
+              easing: 'easeInOutQuad'
+            }}
+            ],
+        [
+            {targets:'#analysis-1 #params *',
+          strokeDashoffset: {
+            value:[anime.setDashoffset, 0],
+            duration: anime.random(500,1000),
+            delay: anime.random(500,1500),
+            easing: 'easeInOutCirc'
+          },
+          opacity: {
+            value: [0, 1],
+            delay:500,
+            duration: 500,
+            easing: 'easeInOutQuad'
+          }
+        },
+          {targets: "#analysis-1 #module",
+          scale:[1,1.5],
+          duration:500,
+          delay: 500}],
+      [
+        {targets:'#analysis-1 #tools *',
+          strokeDashoffset: {
+            value:[anime.setDashoffset, 0],
+            duration: anime.random(500,1000),
+            delay: anime.random(500,1500),
+            easing: 'easeInOutCirc'
+          },
+          opacity: {
+            value: [0, 1],
+            delay:500,
+            duration: 500,
+            easing: 'easeInOutQuad'
+          }
+        }],
+      [
+        {targets:'#analysis-1 #container *',
+          strokeDashoffset: {
+            value:[anime.setDashoffset, 0],
+            duration: anime.random(500,1000),
+            delay: anime.random(500,1500),
+            easing: 'easeInOutCirc'
+          },
+          opacity: {
+            value: [0, 1],
+            delay:500,
+            duration: 500,
+            easing: 'easeInOutQuad'
+          }
+        },
+        {targets: "#analysis-1 #module",
+          scale:[1.5, 1],
+          duration:500,
+          delay: 0}]
+    ]}
+    id={'analysis-1'}
+/>
 
-Figure of modular pipeline, overlay these
 
-<Box >
-  <VerticalLinearStepper
-      steps={[
-        {
-          title: 'Modular',
-          body: 'Rather than implementing an entire analysis pipeline as a monolith, the system should be broken into minimal, composable modules. The threshold of what constitutes “minimal” is of course to some degree a matter of taste, but the overriding design principle should be to minimize the amount of duplicated labor. Rather than implementing a “peri-stimulus time-histogram” module, we should implement a “binning” module for counting spikes, connect it to an “alignment” module that splits the recording into chunks aligned at the stimulus onset, and so on. Higher-order analysis methods are relatively trivially composed from component parts, but extracting component parts from a frankenstein do-everything script is not. I expect this point to be relatively uncontroversial as it is a general principle of program design',
-        },
-        {
-          title: 'Deployable',
-          body:
-              'For wide use, the framework needs to be easy to install and deploy locally and on computing clusters. The primary obstacle is dependency management, or making sure that the computer has everything needed to run the program. Anecdotally, more than the complexity of using the package itself, the primary barrier for nonprogrammer scientists using a particular software package is managing to get it installed. Luckily containerization and package management is a widespread and increasingly streamlined practice, so I expect this too to be uncontroversial',
-        },
-        {
-          title: 'Pluggable',
-          body:
-              'The framework needs to provide a clear way of incorporating external analysis packages, handling their dependencies, and exposing their parameters to the user',
-        },
-        {
-          title: 'Reproducible',
-          body:
-              "The framework should separate the parameterization of a pipeline, the specific options set by the user, and its implementation, the code that constitutes it. Implicit in a modularly constructed analysis framework is the notion of a “pipeline,” or a specification of a tree (or, specifically, a DAG) of successive stages that process, merge, or split the data from the previous stage. The parameterization of a pipeline should be portable such that it, for example, can be published in the supplementary materials of a paper and reproduced exactly by anyone using the system.",
-        },
-        {
-          title: 'Discoverable',
-          body:
-              "Two kinds: findable by people who know what they're looking for (and what \
-          they're looking for is your data, of course!), ie. searchable, and also as part \
-          of a structured knowledge repository among other data of its type. More on this \
-          in the federated p2p section...",
-        },
-      ]}
-  />
-</Box>
+<PositionedHeading id={'overview-knowledge'} y={250} x={20}>Knowledge</PositionedHeading>
 
-Overlay datajoint elements & bids apps are good starts!
+<PositionedHeading id={'overview-tools'} y={600} x={20}>Tools</PositionedHeading>
+
+<PositionedHeading id={'overview-data'} y={950} x={20}>Data</PositionedHeading>
+
+
+
+Notes: Overlay datajoint elements & bids apps are good starts!
 
 ---
 
