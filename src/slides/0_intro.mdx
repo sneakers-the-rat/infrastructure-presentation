@@ -241,8 +241,12 @@ other softwarez to mention:
   </Heading>
 </Box>
 
-<Grid gridTemplateColumns={'1fr 1fr'} gridGap={"20px"}>
-<VerticalLinearStepper
+<Box width={1} height={"40px"}/>
+
+<Grid gridTemplateColumns={'1fr 1fr'} gridColumnGap={"40px"} marginTop={"40px"}>
+  <Appear stepIndex={2}><Heading fontSize={"h3"} color={"tools"} fontWeight={200}>Personally...</Heading></Appear>
+  <Appear stepIndex={3}><Heading fontSize={"h3"} color={"tools"} fontWeight={200} >Systemically...</Heading></Appear>
+  <Appear stepIndex={2}><VerticalLinearStepper
   steps={[
     {
       title: 'Everyone has to be a programmer now',
@@ -253,7 +257,7 @@ other softwarez to mention:
       body: 'Because we dont have a good way of preserving and sharing technical knowledge, we all resolve the same problem over and over again'
     },
     {
-      title: "Most cant afford 'openness'",
+      title: "'Openness' is expensive",
       body: 'because it requires so much additional labor, and the professional and personal benefits are so low, many researchers cant afford to use "open" scientific practices --- even if they wanted to.'
     },
     {
@@ -261,7 +265,8 @@ other softwarez to mention:
       body: 'because the mediums of scientific discourse are driven by ad clicks or by deeply entrenched institutional power, we dont have a good medium for sustained, thoughtful, densely interlinked dialogue that takes advantage of the possibilities of contemporary communication technology.'
     }
   ]}
-/>
+  /></Appear>
+  <Appear stepIndex={3}>
   <VerticalLinearStepper
       steps={[
         {
@@ -282,6 +287,7 @@ other softwarez to mention:
         }
       ]}
   />
+  </Appear>
 </Grid>
 
 ---
@@ -431,18 +437,6 @@ headerProps={{fontSize:80}}>
 
 ---
 
-# Infrastructuring is hard
-
-huge bodies of knowledge from lots of disciplines re: infrastructure
-here we'll focus on
-
-(topic list for each of these?)
-
-* STS
-* Library & information science
-* Pirates
-* Internet architects
-
 ## "Let us now anathemize techno hubris"
 
 <Box  width={2/3} margin={"auto"}>
@@ -462,45 +456,14 @@ here we'll focus on
 </Card>
 </Box>
 
----
-
-# Why is it like this
-
-(Combine this with previous slide, saying 'if we build it they will come' is one of the reasons. then slim down into 'cultural incentives', 'professional structure, etc.)
-
-the field of infra proposals is littered with the corpses of previous attempts
-why did they fail and what can we do differently?
-
-  <Box margin={"auto"} marginTop={"2em"} width={"65%"}>
-<VerticalLinearStepper
-    steps={[
-      {
-        title: 'Diversity of measurements & preps',
-        body: '',
-      },
-      {
-        title: 'The Hacker Spirit & Celebration of Heroism',
-        body: 'Heterogeneity is good! its just the hero part thats the problem!',
-      },
-      {
-        title: 'Focus on The Science At Hand',
-        body: 'Scientists dont think of themselves as infrastructuralists, they think of themselves as *scientists*',
-      },
-      {
-        title: 'Combinatorics of Recent Technology',
-        body: 'Some of this stuff just started existing!!!',
-      },
-      {
-        title: 'Dispersion of Structural Incentives',
-        body: 'next slide... how does infrastructure get done???',
-      },
-    ]}
-/>
-  </Box>
 
 ---
 
 # Design Principles
+
+Draw these! Maybe just go ahead and name the connection to the design of IP. like ... learning from the most successful
+decentralized infrastructure of all time, the internet, we can start off with a few basic design principles that will
+serve as points of contrast with the construction and constitution of centralized infrastructure.
 
 <Box margin={"auto"} marginTop={"2em"} width={"65%"}>
 <VerticalLinearStepper

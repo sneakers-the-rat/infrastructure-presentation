@@ -34,6 +34,12 @@ export const spectacle_theme = {
     text: '44px',
     monospace: '20px',
   },
+  fontWeights: {
+    h1: 200
+  },
+  fontStyles: {
+    h1: 'italic'
+  },
   space: [0, 0, 32],
 };
 export const material_theme = createMuiTheme({
@@ -59,6 +65,7 @@ export const material_theme = createMuiTheme({
     },
     h2: {
       fontSize: 64,
+      lineHeight: 1
     },
     h3: {
       fontSize: 56,
@@ -68,6 +75,7 @@ export const material_theme = createMuiTheme({
     },
     body2: {
       fontSize: 40,
+      lineHeight: 1.1
     },
   },
 });

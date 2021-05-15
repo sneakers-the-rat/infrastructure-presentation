@@ -97,8 +97,8 @@ export const template = () => (
     >
 
       <TOC slides={toc_slides_flat}/>
-      <Box padding="0 1em">
-        <FullScreen/>
+      <Box padding="1em 0">
+        <FullScreen style={{marginLeft:0, marginRight:0}}/>
       </Box>
       {/*<Box><Progress zIndex={3} color={"#000000"}/></Box>*/}
     </FlexBox>

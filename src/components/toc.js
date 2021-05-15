@@ -40,6 +40,11 @@ const Container = styled('div')`
   }
 `;
 
+const DotDivider = styled(Divider)`
+  margin-top: 1em;
+  margin-bottom: 1em;
+`
+
 
 const drawerWidth= 240;
 
@@ -132,6 +137,7 @@ export default function TOC(
 
   return (
       <Container className="material-toc">
+        {open &&
         <Drawer
             variant="permanent"
             className={clsx(classes.drawer, {
@@ -145,14 +151,17 @@ export default function TOC(
               }),
             }}
         >
-          <div className={classes.toolbar}>
-            <IconButton onClick={toggleDrawer}>
-              {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-            </IconButton>
-          </div>
+
+
+                <div className={classes.toolbar}>
+                <IconButton onClick={toggleDrawer}>
+                  {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+                </IconButton>
+                </div>
+
 
           <Divider />
-          {open && <List>
+          <List>
           {Array(slideCount).fill(0).map(
               (_,idx) => {
                 return(<ListItem button onClick={() => {
@@ -169,8 +178,22 @@ export default function TOC(
                 </ListItem>)
               }
           )}
-          </List>}
-        </Drawer>
+          </List>
+        </Drawer>}
+
+        {!open &&
+        Array(3).fill(0).map(
+            (_,idx) => (
+                <Circle
+                    key={`menu-circle-${idx}`}
+                    color={"#000000"}
+                    active={true}
+                    size={props.size}
+                    onClick={toggleDrawer}
+                    data-testid="Progress Circle"
+                />))
+        }
+        {!open && <DotDivider style={{marginTop:"1em", marginBottom: "1em"}}/>}
 
         {Array(slideCount)
         .fill(0)

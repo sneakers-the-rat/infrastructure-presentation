@@ -4,6 +4,8 @@ import Stepper from '@material-ui/core/Stepper'
 import Step from '@material-ui/core/Step'
 import StepLabel from '@material-ui/core/StepLabel'
 import StepContent from '@material-ui/core/StepContent'
+import StepButton from '@material-ui/core/StepButton'
+import StepConnector from "@material-ui/core/StepConnector"
 import Button from '@material-ui/core/Button'
 import Paper from '@material-ui/core/Paper'
 import Typography from '@material-ui/core/Typography'
@@ -18,6 +20,10 @@ const useStyles = makeStyles((theme) => ({
   },
   label: {
     fontSize: 30,
+    textAlign: 'left',
+    lineHeight: 1,
+    paddingLeft: "0.5em",
+    color: "#000000"
   },
   bodytext: {
     fontSize: 30,
@@ -33,6 +39,14 @@ const useStyles = makeStyles((theme) => ({
   resetContainer: {
     padding: theme.spacing(3),
   },
+  iconContainer: { // define styles for icon container
+    transform: 'scale(2)',
+    marginRight: "0.5em"
+  },
+  connector: {
+    minHeight: "40px",
+    marginLeft: "17px"
+  }
 }))
 
 function getSteps() {
@@ -40,8 +54,8 @@ function getSteps() {
 }
 
 export default function VerticalLinearStepper(props) {
-  const classes = useStyles()
-  const [activeStep, setActiveStep] = React.useState(0)
+  const classes = useStyles(props)
+  const [activeStep, setActiveStep] = React.useState(-1)
   let steps = []
   let step_text = []
   for (let i = 0; i < props.steps.length; i++) {
@@ -61,6 +75,10 @@ export default function VerticalLinearStepper(props) {
     setActiveStep(0)
   }
 
+  const handleStep = (step) => () => {
+    step === activeStep ? setActiveStep(-1) : setActiveStep(step)
+  }
+
   return (
     <div className={classes.root + ' vertical-stepper'}>
       <Stepper
@@ -68,10 +86,11 @@ export default function VerticalLinearStepper(props) {
         activeStep={activeStep}
         orientation="vertical"
         elevation={2}
+        connector={<StepConnector classes={{lineVertical:classes.connector}}/>}
       >
         {steps.map((label, index) => (
-          <Step key={label}>
-            <StepLabel className={classes.label}>{label}</StepLabel>
+          <Step key={label} disabled={false}>
+            <StepButton onClick={handleStep(index)} className={classes.label}><StepLabel classes={{iconContainer:classes.iconContainer}} className={classes.label}>{label}</StepLabel></StepButton>
             <StepContent>
               {typeof step_text[index] === 'string' ? (
                 <Typography className={classes.bodytext}>
@@ -83,7 +102,6 @@ export default function VerticalLinearStepper(props) {
                 <div>
                   {activeStep > 0 &&
                   <Button
-                    disabled={activeStep === 0}
                     onClick={handleBack}
                     className={classes.button}
                   >
