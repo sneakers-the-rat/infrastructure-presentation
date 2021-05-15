@@ -1,7 +1,7 @@
 import { Dataset } from '../components/p2p/dataset'
 import { Peer } from '../components/p2p/peer'
 import Swarm from '../components/p2p/swarm'
-import { Heading, Box, Text, Image, Grid, Quote, Appear } from 'spectacle'
+import { Heading, Box, Text, Image, Grid, Quote, Appear, FlexBox } from 'spectacle'
 import Paper from '@material-ui/core/Paper'
 import PirateBay from '../img/piratebay.png'
 import Card from '@material-ui/core/Card';
@@ -15,12 +15,39 @@ import Federation1 from '../img/federation_1-01.svg'
 import SvgAnimator from '../components/svg_animator';
 import anime from 'animejs'
 import Federation from '../components/p2p/federation'
-
+import Overview from '../img/overview.svg';
+import {PositionedHeading} from '../components/basic';
 import funky from 'react-syntax-highlighter/dist/cjs/styles/prism/funky'
+import {FormatAlignLeft} from '@material-ui/icons';
 
 # Shared Data
 
-(title slide)
+<SvgAnimator
+    svgUrl={Overview}
+    steps={[
+      [
+        {targets:'#rect-data',
+          width:[0,750]},
+        {targets:"#overview-1 #data *",
+          strokeDashoffset: [anime.setDashoffset, 0]
+        },
+        {targets:'#rect-tools',
+          opacity: [0,0]},
+        {targets:"#overview-1 #tools *",
+          opacity: [0,0]
+        },
+        {targets:'#rect-knowledge',
+          opacity:[0,0]},
+        {targets:"#overview-1 #knowledge *",
+          opacity: [0,0]
+        }
+      ]
+    ]}
+    id={'overview-1'}
+/>
+
+<PositionedHeading id={'overview-data'} y={950} x={20}>Data</PositionedHeading>
+
 
 Notes: notes!
 * simplifying standardization
@@ -28,7 +55,6 @@ Notes: notes!
 * federated databases
 
 ---
-
 
 <Heading marginLeft={'0px'} textAlign={'left'}>
   Accessible Data Standardization
@@ -64,16 +90,49 @@ Notes: notes!
 </svg>
 
 ---
-# How to share?
+<Box
+  width={4/9}
+  padding={"5px"}
+  marginLeft={'auto'}
+  marginRight={'auto'}
+  style={{
+    border: "5px solid black",
+    boxShadow: "15px 15px 0px #2F0987"
+  }}
+>
+<Heading
+    style={{
+      textShadow: "5px 5px 10px rgba(47, 9, 135, 0.3)"
+    }}
+    fontFamily={'Source Serif Pro'}
+    fontWeight={200}>
+  Have data, now what?
+</Heading>
+</Box>
 
-Once we've got our data standardized, now what?
+<Box height={"20px"} width={1}/>
 
-Now, we would find some centralized server to upload to...
+<FlexBox justifyContent={'space-around'}>
+  <Heading textAlign={'left'}
+           fontFamily={'Source Serif Pro'}
+           fontWeight={200}
+           fontWeight={200}
+           fontStyle={"italic"}>
+  Centralized...
+  </Heading>
+  <Heading textAlign={'left'}
+           fontFamily={'Source Serif Pro'}
+           fontWeight={200}
+           fontWeight={200}
+           fontStyle={"italic"}>
+    Peer-to-Peer...
+  </Heading>
+</FlexBox>
 
 
 <svg width={1920} height={1080} className={'svg-fill'} id={"svg-root"}>
   <Swarm
-      position={[500,600]}
+      position={[450,650]}
       radius={300}
       name={'swarm'}
       peers={{
@@ -95,10 +154,10 @@ Now, we would find some centralized server to upload to...
   />
 </svg>
 
-<Appear>
-<svg left={1920/2} width={1920/2} height={1080} className={'svg-fill'} id={"svg-root"}>
+<Appear stepIndex={1}>
+<svg style={{left:(1920/2), width:1920/2, height:1080}} className={'svg-fill'} id={"svg-root"}>
   <Swarm
-      position={[250,600]}
+      position={[450,650]}
       radius={300}
       name={'swarm'}
       peers={{
@@ -309,6 +368,9 @@ Notes: federation notes
 
 
 ---
+
+<Heading fontFamily={"Source Serif Pro"} fontWeight={200}
+         fontStyle={"italic"} textAlign={"left"}>Federating</Heading>
 
 <Federation/>
 

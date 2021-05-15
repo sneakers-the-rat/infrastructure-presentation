@@ -18,7 +18,8 @@ export const spectacle_theme = {
     background: '#EEEEEE',
     tools: '#CF005D',
     knowledge: '#45B6D9',
-    data: '#2F0987',
+    data: '#2f0987',
+    dataLight: '#784ed2',
   },
   fonts: {
     header: '"Helvetica Neue", Helvetica, Arial, sans-serif',
@@ -62,13 +63,16 @@ export const material_theme = createMuiTheme({
     fontFamily: ['Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'],
     h1: {
       fontSize: 72,
+      textAlign: 'left'
     },
     h2: {
       fontSize: 64,
-      lineHeight: 1
+      lineHeight: 1,
+      textAlign: 'left'
     },
     h3: {
       fontSize: 56,
+    textAlign: 'left'
     },
     body1: {
       fontSize: 44,
