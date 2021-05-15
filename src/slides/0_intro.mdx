@@ -18,19 +18,34 @@ import ChatAnimator from '../components/text/ChatAnimator';
 import UsaAvatar from '../img/usaAvatar.png'
 import AmazonLogo from '../img/amazonlogo.png'
 
+<Box width={2/3}>
 <Heading
-  fontFamily={'titleHeader'}
+  fontFamily={'headerSerif'}
   fontSize={'100pt'}
   textAlign={'left'}
   lineHeight={1.0}
   fontWeight={'bold'}
 >
-  Decentralized Infrastructure for Systems Neuroscience
+  Decentralized Infrastructure for (Neuro)science
 </Heading>
+</Box>
 
-<Paper elevation={3}>
-  <Text>  Jonny Saunders, 2021</Text>
-</Paper>
+<Text>Jonny Saunders, 2021</Text>
+
+<Box width={2/3} margin={'40px 0'}>
+<Quote fontSize={"2em"} fontFamily={"Source Serif Pro"} fontWeight={200} fontStyle={"italic"}>
+"If we can make something decentralised, out of control, and of great simplicity, we must be prepared to be astonished at whatever might grow"<br/>
+  -Tim Berners-Lee, <a fontSize={"1em"}  href={"https://www.w3.org/1998/02/Potential.html"}>W3C meeting 1997</a>
+</Quote>
+</Box>
+
+<Box width={2/3} margin={'0 0'}>
+  <Quote fontSize={"2em"} fontFamily={"Source Serif Pro"} fontWeight={200} fontStyle={"italic"}>
+Information is often a means of domination of both humans and the environment.
+The goal is to make information into a tool for liberation.<br/>
+    - Brian Martin, 1998, <a fontSize={"1em"} href={"https://documents.uow.edu.au/~bmartin/pubs/98il/ilall.html"}>Information Liberation</a>
+  </Quote>
+</Box>
 
 
 Notes: presenter notes??
@@ -486,25 +501,26 @@ headerProps={{fontSize:80}}>
 
 # Design Principles
 
+<Box width={2/3} margin={"0 auto"}>
+<Quote fontSize={"2em"} fontFamily={"Source Serif Pro"} fontWeight={200} fontStyle={"italic"}>A good analogy for the development of the Internet is that of
+  constantly renewing the individual streets and buildings of a city,
+  rather than razing the city and rebuilding it. The architectural
+  principles therefore aim to provide a framework for creating
+  cooperation and standards, as <strong style={{fontWeight:700}}>a small "spanning set" of rules that
+    generates a large, varied and evolving space of technology.</strong><br/>
+  - <Link href={"https://tools.ietf.org/html/rfc1958"} fontSize={"1em"}>RFC 1958</Link>, Architectural Principles of the Internet
+</Quote>
+</Box>
+
+<Appear>
 <Box margin={"auto"} marginTop={"2em"} width={"65%"}>
 <VerticalLinearStepper
     steps={[
       {
         title: "Frameworks, not Platforms",
-        body: [
-            <Typography>
-              Fewer tools, more tools that can build tools
-              (so that we can have more tools later)
-            </Typography>,
-            <Quote fontSize={"1em"} width={"60%"}>A good analogy for the development of the Internet is that of
-              constantly renewing the individual streets and buildings of a city,
-              rather than razing the city and rebuilding it. The architectural
-              principles therefore aim to provide a framework for creating
-              cooperation and standards, as a small "spanning set" of rules that
-              generates a large, varied and evolving space of technology.
-              - <Link href={"https://tools.ietf.org/html/rfc1958"} fontSize={"1em"}>RFC 1958</Link>, Architectural Principles of the Internet
-            </Quote>
-        ]
+        body:
+              "Fewer tools, more tools that can build tools"+
+              "(so that we can have more tools later)"
       },
       {
         title: 'Embrace Heterogeneity, Be Uncoercive',
@@ -514,7 +530,7 @@ headerProps={{fontSize:80}}>
             " experience rather than constrain it."
       },
       {
-        title: 'Empower the End-User',
+        title: 'Empower People, not Systems',
         body: 'The Internet Protocol was initially designed as a military technology by DARPA,'+
         ' and was constrained by "survivability." Rather than making the *network* powerful,'+
         ' every individual node could sustain the operation of the whole system. We need tools that'+
@@ -524,25 +540,16 @@ headerProps={{fontSize:80}}>
       },
       {
         title: 'Modularity is Flexibility',
-        body: [
-            <Typography>
-              Build complex systems out of simple components.
-            </Typography>,
-            <Typography>
-              Let people adopt things gradually
-            </Typography>,
-          <Typography>
-            Reciprocally: "the test of independent invention" -
-            if someone else had already invented your system, would theirs work with yours?
-            Tools with clear points of interoperability
-          </Typography>
-        ],
+        body: "Build complex systems out of simple components."+
+              "Let people adopt things gradually"+
+            "Reciprocally: \"the test of independent invention\" -"+
+            "if someone else had already invented your system, would theirs work with yours? "+
+            "Tools with clear points of interoperability"
       },
     ]}
 />
 </Box>
-
-- https://www.w3.org/DesignIssues/Principles.html
+</Appear>
 
 Notes: x
 

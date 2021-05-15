@@ -23,7 +23,8 @@ export const spectacle_theme = {
   },
   fonts: {
     header: '"Helvetica Neue", Helvetica, Arial, sans-serif',
-    headerSerif: '"EB Garamond", serif',
+    headerSerif: '"Source Serif Pro", "EB Garamond", serif',
+    quote: '"Source Serif Pro", "EB Garamond", serif',
     text: '"Helvetica Neue", Helvetica, Arial, sans-serif',
     monospace: '"Consolas", "Menlo", monospace',
     titleHeader: '"Fira Code", "Helvetica Neue", Helvetica, Arial, sans-serif',
