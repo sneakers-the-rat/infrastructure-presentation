@@ -14,19 +14,21 @@ export function PositionedHeading(
         right=false,
         bottom=false,
         id='',
-        headerProps={},
         light=true,
         align='left',
-        children
+        children,
+        headerProps={},
+        ...rest
     }){
   const classes = makeStyles({
     header: {
-      fontFamily:'"Helvetica Neue" Helvetica sans-serif',
-      fontWeight: headerProps.fontWeight ? headerProps.fontWeight : 200,
-      fontSize: headerProps.fontSize ? headerProps.fontSize : 72,
+      fontFamily: rest.fontFamily ? rest.fontFamily : '"Helvetica Neue" Helvetica sans-serif',
+      fontWeight: headerProps.fontWeight ? headerProps.fontWeight : rest.fontWeight ? rest.fontWeight : 200,
+      fontSize: headerProps.fontSize ? headerProps.fontSize : rest.fontSize ? rest.fontSize : 72,
       marginBottom:0,
       color: light ? "#EEEEEE" : "#222222",
-      lineHeight:1.1
+      lineHeight:1.1,
+      ...rest
     },
     headerContainer:{
       position:'absolute',
@@ -48,7 +50,7 @@ export function PositionedHeading(
 
   return(
       <div id={id} ref={container} className={classes.headerContainer}>
-      <Typography className={classes.header} align={align} {...headerProps}>
+      <Typography className={classes.header} align={align} {...rest} {...headerProps}>
         {children}
       </Typography>
       </div>

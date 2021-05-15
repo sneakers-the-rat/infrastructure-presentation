@@ -120,6 +120,7 @@ export default function SvgAnimator({
         className={"animated-svg"}
         id={id}
         src={svgUrl}
+        renumerateIRIElements={false}
       />{" "}
     </div>
   );

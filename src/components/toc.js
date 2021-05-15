@@ -92,6 +92,9 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
+  listText: {
+    fontSize: 22
+  },
   data:{
     color: spectacle_theme.colors.data
   },
@@ -102,10 +105,8 @@ const useStyles = makeStyles((theme) => ({
     color: spectacle_theme.colors.knowledge
   },
   intro:{
-
   },
   outro:{
-
   },
   sectionHead:{
 
@@ -174,7 +175,7 @@ export default function TOC(
                className={classes[slides[idx].group]}
                selected={activeView.slideIndex===idx}
                 key={idx}>
-                  <ListItemText primary={slides[idx].group +' - ' +idx}/>
+                  <ListItemText className={classes.listText} primary={slides[idx].group +' - ' +idx}/>
                 </ListItem>)
               }
           )}
