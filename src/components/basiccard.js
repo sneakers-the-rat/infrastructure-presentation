@@ -30,7 +30,7 @@ export default function BasicCard({
       minWidth: 275,
       padding: 20,
       // backdropFilter: "blur(30px)",
-      backgroundColor: "rgba(255, 255, 255, opacity)",
+      backgroundColor: `rgba(255, 255, 255, ${opacity})`,
 
     },
     title: {

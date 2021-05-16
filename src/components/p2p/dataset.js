@@ -89,6 +89,7 @@ export class Dataset extends React.Component {
       rotation: 0,
       text: this.props.name.toUpperCase(),
       attrs: {
+        key: 'header-label',
         textAnchor: 'start',
         id: 'dataset-label-header-' + this.props.name,
         className: 'dataset-label header-label',

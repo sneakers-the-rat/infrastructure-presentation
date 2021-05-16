@@ -6715,9 +6715,9 @@ react-svg@^13.0.3:
     prop-types "^15.7.2"
 
 react-swipeable@^6.1.0:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/react-swipeable/-/react-swipeable-6.1.0.tgz#558b08a797a749a33e98492af84f2ca84a23d146"
-  integrity sha512-vB6+bv1I5L9nfuM7quu41o/kK1f3a7cTQ3NHNWkOltg5uhBpnH6xvkQJeoPfKQ6K4pnifELXY65wzWwWBa+zGg==
+  version "6.1.2"
+  resolved "https://registry.yarnpkg.com/react-swipeable/-/react-swipeable-6.1.2.tgz#cdaec61e1ea449fe03ccb06f7f6bcddd6a252317"
+  integrity sha512-vfZtOZNivwd/aI+ZZH1Grx0eQBdbV1UI3pB9p65jbW5guHHdSIPpKsND6XmaiZXP5REOOc9Ckfr36ChswPqwsA==
 
 react-syntax-highlighter@^12.2.1:
   version "12.2.1"
@@ -7584,8 +7584,8 @@ spectacle-mdx-loader@^0.1.1:
     normalize-newline "^3.0.0"
 
 "spectacle@git+https://github.com/sneakers-the-rat/spectacle.git":
-  version "8.1.1"
-  resolved "git+https://github.com/sneakers-the-rat/spectacle.git#92bf28fba18fad9907308ba8f7fb5d26b38e6471"
+  version "8.1.2"
+  resolved "git+https://github.com/sneakers-the-rat/spectacle.git#584d115858d730e209ec72f5c9735e5bd697fddc"
   dependencies:
     broadcast-channel "^3.2.0"
     broadcastchannel-polyfill "^1.0.0"

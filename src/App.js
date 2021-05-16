@@ -71,18 +71,11 @@ const toc_slides_flat = Array.prototype.concat(...toc_slides.map((slide_group) =
     slide_group.slides.map(slide => ({slide:slide, group:slide_group.name}))
 )))
 
-const transition = {
-  from: {
-    opacity: 0
-  },
-  enter: {
-    opacity: 1
-  },
-  leave: {
-    opacity: 0
-  }
-}
-
+const transition = [
+  {display:'none'},
+  {display:'unset'},
+  {display:'none'}
+]
 
 let slide_num = 0;
 export const template = () => (
@@ -111,6 +104,7 @@ function Presentation(){
   // MDXCreateElement does in the debugger)
   return(
   <MDXProvider components={mdxComponentMap}>
+    <ThemeProvider theme={material_theme}>
     <Deck theme={spectacle_theme} template={template}>
       {/*{all_slides.map((slides, j) =>*/}
       {/*    slides.map((MDXSlide, i) => [MDXSlide, all_notes[j][i]]).*/}
@@ -131,21 +125,23 @@ function Presentation(){
       {toc_slides_flat.map((slide, i) =>
           // slides.map((MDXSlide, i) => [MDXSlide, all_notes[j][i]]).
           //     map(([MDXSlide, MDXNote], i) => (
-        <ThemeProvider theme={material_theme}>
+
           <HideSlide
             key={`slide-${i}`}
             slideNum={i}
             backgroundColor={'background'}
             bufferSlides={2}
+            transition={transition}
           >
-            <slide.slide/>
+            <slide.slide key={`innerslide-${i}`}/>
             {/*<Notes>*/}
               {/*<MDXNote/>*/}
             {/*</Notes>*/}
           </HideSlide>
-        </ThemeProvider>
+
       )}
     </Deck>
+    </ThemeProvider>
   </MDXProvider>)
 }
 

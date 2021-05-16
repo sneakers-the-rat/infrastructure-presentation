@@ -39,7 +39,8 @@ export class Peer extends React.Component {
       peerWindow: {
         scale: 0,
         position: [0,0]
-      }
+      },
+      visible:true
     }
 
     this.togglePeers = this.togglePeers.bind(this)
@@ -53,17 +54,19 @@ export class Peer extends React.Component {
     this.updateHaveBlocks();
     MADE_PEERS[this.props.name] = this;
   //   start polling for uploads
-    this.timer = setTimeout(this.uploadLoop, 1000/this.props.upload);
+    this.timer.current = setTimeout(this.uploadLoop, 1000/this.props.upload);
+    this.setState({visible:true})
   }
 
-  // componentWillUnmount(){
-  //   try {
-  //     this.timer.current.stop()
-  //   } catch {
-  //   // do nothing?
-  //     console.log('')
-  //   }
-  // }
+  componentWillUnmount(){
+    this.setState({visible:false})
+    try {
+      clearTimeout(this.timer.current)
+    } catch (e) {
+    // do nothing?
+      console.log(e, this.timer)
+    }
+  }
 
 
   generate(datasets){
@@ -197,7 +200,9 @@ export class Peer extends React.Component {
     } catch (e){
       // console.log('upload error', this.props.name, e)
     } finally{
-      this.timer = setTimeout(this.uploadLoop, 1000/this.props.upload)
+      if (this.state.visible === true) {
+        this.timer.current = setTimeout(this.uploadLoop, 1000 / this.props.upload)
+      }
     }
 
 

@@ -1,15 +1,16 @@
-import { Heading, Box, Text, Image, Grid } from 'spectacle'
+import { Heading, Box, Text, Image, Grid, Appear } from 'spectacle'
 import Paper from '@material-ui/core/Paper'
 import CanvasDraw from "react-canvas-draw";
 import VerticalLinearStepper from '../components/vertical_stepper'
 import ExptRequirements from '../img/task_requirements_2.png'
-import Parallax from '../img/plax.png'
+import Parallax from '../img/plax-01.svg'
 import Overview from '../img/overview.svg'
 import Analysis1 from '../img/analysis_1-01.svg'
 import anime from 'animejs'
 import SvgAnimator from '../components/svg_animator';
 import {PositionedHeading, Collapser} from '../components/basic';
 import {PositionedCard} from '../components/basiccard';
+import AutopilotLogo from '../img/autopilot_logo_banner.svg'
 
 
 <SvgAnimator
@@ -177,10 +178,41 @@ import {PositionedCard} from '../components/basiccard';
     id={'analysis-modular-card'} x={400} y={725} width={1/4}
     title={"Modular"}
     extraClass={'noshadow'}
-    opacity={1}
+    opacity={0.4}
     body={"Break analyses into input, processing, and output nodes"}
     appearStep={2}
 />
+
+
+<PositionedCard
+    id={'analysis-replicable-card'} x={150} y={50} width={1/4}
+    title={"Replicable"}
+    extraClass={'noshadow'}
+    opacity={0.4}
+    body={"Portable configuration separated from code"}
+    appearStep={3}
+/>
+
+<PositionedCard
+    id={'analysis-hooked-card'} x={1250} y={725} width={1/4}
+    title={"Pluggable"}
+    extraClass={'noshadow'}
+    opacity={0.4}
+    body={"Clear hooks for toolbuilders to integrate their work as plugins"}
+    appearStep={3}
+/>
+
+
+<PositionedCard
+    id={'analysis-containerized-card'} x={1000} y={50} width={7/24}
+    title={"Containerized"}
+    extraClass={'noshadow'}
+    opacity={0.4}
+    body={"Deploy and run on any computer(s) by containerizing dependencies"}
+    appearStep={3}
+/>
+
+
 
 
 
@@ -194,22 +226,72 @@ Notes: Overlay datajoint elements & bids apps are good starts!
 
 What kind of tool do we need for the next 10 years of neuroscience?
 
-* **Flexible** enough to handle infinitely variable naturalistic tasks
-* **Fast** enough for realtime control and huge data
-* **Accessible** enough for anyone to use and contribute to
-* **Reproducible** enough to support replication and provenance
+<VerticalLinearStepper
+steps={[
+  {
+    title: 'Flexible',
+    body: "enough to handle infinitely variable naturalistic tasks"
+  },
+  {
+    title: "Fast",
+    body: "Fast enough for realtime control and huge data streams"
+  },
+  {
+    title: "Accessible",
+    body: "Accessible enough for anyone to use and contribute to"
+  },
+  {
+    title: "Reproducible",
+    body: "Purpose-built to support experimental replication, provenance, and reproducibility"
+  },
+]}
+/>
 
-(Autopilot logo) here's an example from autopilot
+<Appear stepIndex={1}>
+<SvgAnimator
+  id={'autopilot-logo'}
+  svgUrl={AutopilotLogo}
+  steps={[[
+    {
+      targets: '#autopilot-logo .st2',
+      strokeDashoffset: [anime.setDashoffset, 0],
+      duration: () => (anime.random(1000, 3000)),
+      delay: () => (anime.random(1000, 3000)),
+      loop: true,
+      direction: 'alternate',
+      easing: 'easeInOutSine'
+    }
+  ]]}
+  style={{top:"350px", transform:"scale(0.5)", transformOrigin:'center'}}
+/>
+</Appear>
 
 ---
 
-checkboxes to tick off elements of experiment
+<SvgAnimator id={'autopilot-parallax'} svgUrl={Parallax}
+  steps={[
+      [
+        {
+          targets:'#autopilot-parallax #base',
+          opacity: [0,1],
+          duration: 1000
+        }
+      ],
+      [
+        {
+          targets:'#autopilot-parallax #base',
+          opacity: [0,1],
+          duration: 1000
+        }
+      ],
+  ]}
+/>
+
+Notes: checkboxes to tick off elements of experiment
 - cameras: control any hardware, any amount bc distributed
 - dlc: integrate with external libraries
 - computers: flexible task design
 
-
-<Image src={Parallax} maxWidth={"100%"} maxHeight={"100%"}></Image>
 
 ---
 
@@ -217,12 +299,6 @@ checkboxes to tick off elements of experiment
 
 - platform: control esoteric hardware with easy controls like platform.height = 100
 
-<div style={{zIndex: -1}}>
-  <iframe loading={"lazy"}
-          src="https://player.vimeo.com/video/543747956?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
-          frameBorder="0" allow="autoplay; fullscreen; picture-in-picture" allowFullScreen
-          style={{position: "absolute", top: 0, left: 0, width: "100%", height: "100%"}} title="hell_naw.mp4"></iframe>
-</div><script src="https://player.vimeo.com/api/player.js"></script>
 
 ---
 

@@ -200,7 +200,7 @@ export default function Federation(
 
   React.useEffect(() => {
 
-    return(() => (simulation.current.stop()))
+    return(() => ((simulation.current !== undefined) && simulation.current.stop()))
   }, [])
 
 
