@@ -135,7 +135,13 @@ import { distance } from '../components/utils';
           {targets: "#analysis-1 #module",
           scale:[1,1.5],
           duration:500,
-          delay: 500}],
+          delay: 500},
+          {
+            targets: "#analysis-replicable-card",
+            opacity: [0,1],
+            easing: 'easeInOutQuad',
+            duration:500
+          }],
       [
         {targets:'#analysis-1 #tools *',
           strokeDashoffset: {
@@ -149,8 +155,14 @@ import { distance } from '../components/utils';
             delay:500,
             duration: 500,
             easing: 'easeInOutQuad'
-          }
-        }],
+          }},
+        {
+          targets: "#analysis-hooked-card",
+          opacity: [0,1],
+          easing: 'easeInOutQuad',
+          duration:500
+        }
+        ],
       [
         {targets:'#analysis-1 #container *',
           strokeDashoffset: {
@@ -169,7 +181,13 @@ import { distance } from '../components/utils';
         {targets: "#analysis-1 #module",
           scale:[1.5, 1],
           duration:500,
-          delay: 0}]
+          delay: 0},
+        {
+          targets: "#analysis-containerized-card",
+          opacity: [0,1],
+          easing: 'easeInOutQuad',
+          duration:500
+        }]
     ]}
     id={'analysis-1'}
 />
@@ -200,7 +218,7 @@ import { distance } from '../components/utils';
     extraClass={'noshadow'}
     opacity={0.4}
     body={"Clear hooks for toolbuilders to integrate their work as plugins"}
-    appearStep={3}
+    appearStep={4}
 />
 
 
@@ -210,7 +228,7 @@ import { distance } from '../components/utils';
     extraClass={'noshadow'}
     opacity={0.4}
     body={"Deploy and run on any computer(s) by containerizing dependencies"}
-    appearStep={3}
+    appearStep={5}
 />
 
 
