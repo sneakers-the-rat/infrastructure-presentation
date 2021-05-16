@@ -10,8 +10,9 @@ import anime from 'animejs'
 import SvgAnimator from '../components/svg_animator';
 import {PositionedHeading, Collapser} from '../components/basic';
 import {PositionedCard} from '../components/basiccard';
-import AutopilotLogo from '../img/autopilot_logo_banner.svg'
-
+import AutopilotLogo from '../img/autopilot_logo_banner.svg';
+import TextAnimator from '../components/text/TextAnimator';
+import { distance } from '../components/utils';
 
 <SvgAnimator
     svgUrl={Overview}
@@ -272,20 +273,24 @@ steps={[
   steps={[
       [
         {
-          targets:'#autopilot-parallax #base',
+          targets:'#autopilot-parallax #Layer_1 *',
           opacity: [0,1],
-          duration: 1000
-        }
-      ],
-      [
-        {
-          targets:'#autopilot-parallax #base',
-          opacity: [0,1],
-          duration: 1000
+          strokeDashoffset: [anime.setDashoffset, 0],
+          duration: () => (anime.random(1000, 3000)),
+          delay: function(el){
+            let dist = (distance(el.getBBox(), {x:325, y:267})*5)+anime.random(-1000,1000);
+            return dist;
+          }
         }
       ],
   ]}
 />
+<Box height={"40px"}></Box>
+  <Heading fontFamily={"Source Serif Pro"} fontWeight={200} color={"tools"} fontSize={100}
+           fontStyle={"italic"} textAlign={"left"}>
+<TextAnimator stepIndex={2}>
+  p a r a l l a x i n
+</TextAnimator></Heading>
 
 Notes: checkboxes to tick off elements of experiment
 - cameras: control any hardware, any amount bc distributed
