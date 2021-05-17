@@ -93,6 +93,7 @@ export default function Federation(
   const [groups, setGroups] = React.useState([])
   const [groupLinks, setGroupLinks] = React.useState([])
   const [drawing, setDrawing] = React.useState(false)
+  const [justDragged, setJustDragged] = React.useState(false)
 
   const numberOfSteps = 2;
   const { activeStepIndex, isSlideActive } = React.useContext(SlideContext);
@@ -114,6 +115,8 @@ export default function Federation(
 
   const showLinksTemp = React.useRef([])
   const showNodesTemp = React.useRef([])
+  const mousedownNode = React.useRef()
+  const mouseupNode = React.useRef()
 
   const dragLine = React.useRef()
   const simulation = React.useRef()
@@ -138,7 +141,7 @@ export default function Federation(
 
     if (showNodesTemp.current.length>0) {
       simulation.current = d3.forceSimulation(showNodesTemp.current).
-          force("link", d3.forceLink([...showLinksTemp.current, ...groupLinks]).id(d => d.id)).
+          force("link", d3.forceLink(showLinksTemp.current).id(d => d.id)).
           force("charge", d3.forceManyBody().strength(d=>d.size*-20).distanceMin(d=>d.size*1.1).distanceMax(300))
           .force("x", d3.forceX(d => d.x))
           .force("y", d3.forceY(d => d.y))
@@ -197,6 +200,18 @@ export default function Federation(
               clampX((bbox.left+bbox.right)/2) + ', ' +
                 clampY((bbox.top+bbox.bottom)/2) + ')'
             ).attr('r', Math.max(bbox.right-bbox.left, bbox.bottom-bbox.top)/2*groupScale)
+
+            d3.selectAll('.federation-svg-drawnlink').
+                data(groupLinks).
+                filter(function(c){return(c.source.group === d.group)}).
+                attr('x1', clampX((bbox.left+bbox.right)/2)).
+                attr('y1', clampY((bbox.top+bbox.bottom)/2))
+
+            d3.selectAll('.federation-svg-drawnlink').
+                data(groupLinks).
+                filter(function(c){return(c.target.group === d.group)}).
+                attr('x2', clampX((bbox.left+bbox.right)/2)).
+                attr('y2', clampY((bbox.top+bbox.bottom)/2))
           })
 
 
@@ -208,57 +223,60 @@ export default function Federation(
 
       let selectedNode = null;
       let selectedLink = null;
-      let mousedownNode = null;
-      let mouseupNode = null;
+
       let moving = false;
 
       d3.selectAll('.federation-svg-group')
           .on('mousedown', (d) => {
         // select node
-        mousedownNode = d;
-        selectedNode = (mousedownNode === selectedNode) ? null : mousedownNode;
+        mousedownNode.current = d;
+        selectedNode = (mousedownNode.current === selectedNode) ? null : mousedownNode.current;
 
         moving = true;
         setDrawing(true);
         // reposition drag line
         d3.select(dragLine.current)
         .classed('hidden', false)
-        .attr('x1', mousedownNode.layerX)
-        .attr('y1', mousedownNode.layerY)
-        .attr('x2', mousedownNode.layerX)
-        .attr('y2', mousedownNode.layerY)
-        // .attr('d', `M${mousedownNode.x},${mousedownNode.y}L${mousedownNode.x},${mousedownNode.y}`);
+        .attr('x1', mousedownNode.current.layerX)
+        .attr('y1', mousedownNode.current.layerY)
+        .attr('x2', mousedownNode.current.layerX)
+        .attr('y2', mousedownNode.current.layerY)
+        // .attr('d', `M${mousedownNode.current.x},${mousedownNode.current.y}L${mousedownNode.current.x},${mousedownNode.current.y}`);
 
       })
       .on('mouseup', function (d) {
-        if (!mousedownNode) return;
+        if (!mousedownNode.current) return;
         // moving = false;
 
         // check for drag-to-self
-        mouseupNode = d;
-        if (mouseupNode === mousedownNode) {
-          mousedownNode = null;
-          mouseupNode = null;
+        mouseupNode.current = d;
+        if (mouseupNode.current === mousedownNode.current) {
           return;
         }
 
+        // get group objects
+        let sourceobj = groups.filter((g) => (g.group === d3.select(mousedownNode.current.target).attr('group')))[0];
+        let targetobj = groups.filter((g) => (g.group === d3.select(mouseupNode.current.target).attr('group')))[0];
+
+        if (sourceobj.group === targetobj.group){return}
         // add line
         setGroupLinks([
-          ...groupLinks,
           {
-            source: mousedownNode.target,
-            target: mouseupNode.target
-          }
+            source: sourceobj,
+            target: targetobj
+          },
+          ...groupLinks,
         ])
-        console.log('grouplink', mousedownNode, mouseupNode)
+        console.log('grouplink', d, sourceobj, targetobj, groupLinks)
 
-        mousedownNode = null;
-        mouseupNode = null;
+        mousedownNode.current = null;
+        mouseupNode.current = null;
+        setJustDragged(true)
       })
     }
 
     console.log('fedration svg', showNodesTemp, showLinksTemp, links)
-  }, [showGroup, nodes, links, groups])
+  }, [showGroup, nodes, links, groups, groupLinks])
 
   // TODO: Fix drag to be more like this https://observablehq.com/@d3/sticky-force-layout?collection=@d3/d3-force
   const drag = (simulation) => {
@@ -307,7 +325,7 @@ export default function Federation(
   const mouseUp = (event) => {
     if (drawing === true){
       d3.select(dragLine.current)
-          .classed('hidden', true)
+      .classed('hidden', true)
       setDrawing(false)
     }
   }
@@ -332,7 +350,10 @@ export default function Federation(
   }
 
   const addNode = (event) => {
-    if (drawing === true){return}
+    if (justDragged === true){
+      setJustDragged(false)
+      return
+    }
 
     let point = d3.pointer(event);
     console.log('addnode', event, point)
@@ -352,15 +373,16 @@ export default function Federation(
       }
     }).filter(item => item !== undefined)
 
-    console.log(newNode, links, newLinks)
+    // console.log(newNode, links, newLinks)
 
     // make group if doesnt exist
     if (!groups.map(group => group.name).includes(drawGroupIndex)){
       setGroups([...groups,
         {
-          'name':drawGroupIndex,
           x: event.nativeEvent.layerX,
           y:event.nativeEvent.layerY,
+          group: drawGroupIndex,
+          'name':drawGroupIndex,
           size: drawSize*groupScale,
           color: drawGroupColor,
           id: 'group-'+drawGroupIndex
@@ -376,7 +398,7 @@ export default function Federation(
   return(
     <>
       <svg id={"federation-svg"} width={width} height={height} viewBox={[0,0, width, height]} onMouseMove={mouseMove} onClick={addNode} onMouseUp={mouseUp}>
-      {placeholder}
+        {placeholder}
         {groupLinks.map((link, i) => (
             <line className={'federation-svg-drawnlink'} key={'drawnlink-'+i} {...link}/>
         ))}
