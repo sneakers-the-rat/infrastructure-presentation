@@ -10,6 +10,13 @@ import { SlideContext } from "spectacle";
 import Grow from '@material-ui/core/Grow';
 import Collapse from '@material-ui/core/Collapse'
 
+// export function BasicPaper(
+//     {
+//         children
+//     }
+// ){
+//
+// }
 
 export default function BasicCard({
     title="",

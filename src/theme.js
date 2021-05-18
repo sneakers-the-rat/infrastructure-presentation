@@ -15,7 +15,7 @@ export const spectacle_theme = {
     tertiary: '#1e2852',
     quaternary: '#ff3333',
     quinary: '#8bddfd',
-    background: '#EEEEEE',
+    background: '#f0f0f0',
     tools: '#CF005D',
     toolsLight: "#ef59a4",
     knowledge: '#45B6D9',

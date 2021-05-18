@@ -1,5 +1,45 @@
-# So whats up with ONICE...
+import { FlexBox, Grid, Box, Appear, Text, Heading } from 'spectacle'
+import Paper from '@material-ui/core/Paper';
+import { FinalText, FinalPaper, RedHead} from '../components/styled';
 
+# What Now...
+
+<Grid style={{height:"100%"}} gridTemplateColumns="1fr 1fr 1fr" gridColumnGap="20px">
+  <Appear>
+    <FlexBox style={{height:"100%"}} flexDirection={"column"}>
+      <RedHead>Funders/Institutes</RedHead>
+      <FinalPaper>
+        <FinalText>If you pay us, we will build it</FinalText>
+        <FinalText>Fund Integrating existing tools, eg. P2P Backends for eg. DANDI, DataJoint</FinalText>
+        <FinalText>Targeted funding for new tools that fill infrastructural gaps</FinalText>
+        <FinalText>Avoid another triple-dip industry</FinalText>
+      </FinalPaper>
+    </FlexBox>
+  </Appear>
+  <Appear>
+    <FlexBox style={{height:"100%"}} flexDirection={"column"}>
+      <RedHead>Developers</RedHead>
+      <FinalPaper>
+        <FinalText>UX and Community Systems First</FinalText>
+        <FinalText>Work with the social scientists, pirates, and hackers</FinalText>
+        <FinalText>Integrating tools into frameworks is holy.</FinalText>
+        <FinalText>Embrace decentralization, as all the largest digital projects are</FinalText>
+      </FinalPaper>
+    </FlexBox>
+  </Appear>
+  <Appear>
+    <FlexBox style={{height:"100%"}} flexDirection={"column"}>
+      <RedHead>Researchers</RedHead>
+      <FinalPaper>
+        <FinalText>Organize locally -- start by standardizing, sharing data, and building tools with nearby labs</FinalText>
+        <FinalText>Denormalize base-level programming engulfing the practice of science</FinalText>
+        <FinalText>PIs: Invest in & Advocate for infrastructure. The ROI is unimaginable.</FinalText>
+      </FinalPaper>
+    </FlexBox>
+  </Appear>
+</Grid>
+
+Notes: whatnow
 * infrastructure for the "rest of us"
 * yes conversion, and datajoint elements makes it even cooler
 * local semantic wiki to seed with basic knowledge

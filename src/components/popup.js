@@ -34,10 +34,10 @@ const useStyles = makeStyles((theme) => ({
 
   },
   paper: {
-    backgroundColor: "rgba(0,0,0,0.8)",
+    backgroundColor: "rgba(0,0,0,0.9)",
     border: "3px solid #ff702c",
     borderRadius: "10px",
-    color: "#ffffff",
+    color: "#f0f0f0",
     overflow: 'visible',
     // .boxShadow(@green-glow);
     maxWidth: "1400px",
