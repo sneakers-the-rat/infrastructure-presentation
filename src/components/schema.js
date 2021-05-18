@@ -1,6 +1,7 @@
 import React from 'react';
 import TextField from "@material-ui/core/TextField"
 import * as d3 from 'd3'
+import Draggable from 'react-draggable'
 
 
 export function SchemaTree(
@@ -81,8 +82,8 @@ export function SchemaTree(
 
     node.append("text")
     .attr("dy", "0.31em")
-    .attr("x", d => d.children ? -10 : 10)
-    .attr("text-anchor", d => d.children ? "end" : "start")
+    .attr("x", (d, i) => i===0 ? -15 : 15)
+    .attr("text-anchor", (d, i) => i===0 ? "end" : "start")
     .text(d => d.data.name)
     .attr('class', 'schema-label')
     .clone(true).lower()
@@ -236,7 +237,7 @@ export function SchemaContainer(
 
 
 
-  }, [links]);
+  }, [links, labels]);
 
 
   function mouseup() {
@@ -254,6 +255,14 @@ export function SchemaContainer(
     resetMouseVars();
   }
 
+  const labelChanged = (event) => {
+    if (event.target.value !== ""){
+      event.target.classList.add('notempty')
+    } else {
+      event.target.classList.remove('notempty')
+    }
+  }
+
 
   return(
       <>
@@ -266,9 +275,17 @@ export function SchemaContainer(
       </svg>
         <div id={"schema-edit-labels"}>
           {labels.map((label) => (
+              <Draggable
+                  key={label.key}
+                  cancel={'.MuiInputBase-input'}
+                  handle={"#schema-label-"+label.key}
+                  allowAnyClick={true}
+                  defaultPosition={{x:label.x, y:label.y}}>
               <TextField id={"schema-label-"+label.key} key={label.key}
-                         variant={"outlined"} size={'small'}
-                         className={'schema-edit-label'} style={{transform: "translate("+label.x+"px, " + label.y+"px)"}}/>
+                         size={'small'}
+                         onChange={labelChanged}
+                         className={'schema-edit-label empty'} style={{transform: "translate("+label.x+"px, " + label.y+"px)"}}/>
+              </Draggable>
           ))}
         </div>
         </>

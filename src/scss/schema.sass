@@ -19,8 +19,9 @@ svg.schema-svg
       stroke-width: 0
 
   line.schema-drawnlink
-    stroke: #ff0000
-    stroke-width: 2px
+    stroke: #d03c3c
+      width: 1px
+      dasharray: 20,10
 
 .schema-label
   font:
@@ -36,16 +37,35 @@ svg.schema-tree
   width: 1920px
   height: 1080px
   pointer-events: none
+  padding: 20px
 
   .MuiInputBase-root
     font:
       size: 20pt
-    max-width: 250px
+    max-width: 200px
+    background-color: transparent
+
+
+    .MuiInputBase-input
+      background-color: transparent
+
+      &.notempty
+        background-color: rgba(238,238,238,0.8)
+
+    & *
+      filter: none
+
+
+
+
 
   .schema-edit-label
     position: absolute
     transform-origin: center
     pointer-events: auto
+
+    &::after
+      filter: blur(5px)
 
 
 

@@ -51,6 +51,7 @@
     "path": "^0.12.7",
     "process": "^0.11.10",
     "react-chat-window": "^1.2.1",
+    "react-draggable": "^4.4.3",
     "sass-loader": "^11.0.1",
     "webpack": "^5.34.0",
     "webpack-cli": "^4.6.0",
