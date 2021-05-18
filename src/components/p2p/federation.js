@@ -127,7 +127,7 @@ export default function Federation(
 
   React.useEffect(() => {
     if (!isSlideActive && simulation.current !== undefined) {
-      console.log('dismountin');
+      // console.log('dismountin');
       simulation.current.stop()
     }
   },  [isSlideActive])
@@ -267,7 +267,7 @@ export default function Federation(
           },
           ...groupLinks,
         ])
-        console.log('grouplink', d, sourceobj, targetobj, groupLinks)
+        // console.log('grouplink', d, sourceobj, targetobj, groupLinks)
 
         mousedownNode.current = null;
         mouseupNode.current = null;
@@ -275,7 +275,7 @@ export default function Federation(
       })
     }
 
-    console.log('fedration svg', showNodesTemp, showLinksTemp, links)
+    // console.log('fedration svg', showNodesTemp, showLinksTemp, links)
   }, [showGroup, nodes, links, groups, groupLinks])
 
   // TODO: Fix drag to be more like this https://observablehq.com/@d3/sticky-force-layout?collection=@d3/d3-force
@@ -356,7 +356,7 @@ export default function Federation(
     }
 
     let point = d3.pointer(event);
-    console.log('addnode', event, point)
+    // console.log('addnode', event, point)
     let newNode = {x: event.nativeEvent.layerX,
       y:event.nativeEvent.layerY,
       group:drawGroupIndex,

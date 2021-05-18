@@ -166,7 +166,7 @@ export default function TOC(
           {Array(slideCount).fill(0).map(
               (_,idx) => {
                 return(<ListItem button onClick={() => {
-                  console.log('clicked', idx);
+                  // console.log('clicked', idx);
                   skipTo({
                     slideIndex: idx,
                     stepIndex: 0

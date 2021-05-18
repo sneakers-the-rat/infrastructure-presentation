@@ -76,7 +76,7 @@ export default function Popup(
   };
 
   React.useEffect(() => {
-    console.log(activeStepIndex, showStep, stepIndex, stepNum, isActive)
+    // console.log(activeStepIndex, showStep, stepIndex, stepNum, isActive)
 
     if (isSlideActive === false){
       setOpen(false);

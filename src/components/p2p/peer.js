@@ -64,7 +64,7 @@ export class Peer extends React.Component {
       clearTimeout(this.timer.current)
     } catch (e) {
     // do nothing?
-      console.log(e, this.timer)
+      // console.log(e, this.timer)
     }
   }
 

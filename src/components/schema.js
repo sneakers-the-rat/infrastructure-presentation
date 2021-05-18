@@ -37,9 +37,9 @@ export function SchemaTree(
   }
 
   React.useEffect(() => {
-    console.log(srcJson)
+    // console.log(srcJson)
     const root = tree(srcJson)
-    console.log('root', root, srcJson)
+    // console.log('root', root, srcJson)
 
     let x0 = Infinity;
     let x1 = -x0;
@@ -121,7 +121,7 @@ export function SchemaContainer(
   const [labels, setLabels] = React.useState([])
 
   const numberOfSteps = nSteps ? nSteps : children.length;
-  console.log('schema children', children)
+  // console.log('schema children', children)
 
   const { activeStepIndex, isSlideActive } = React.useContext(SlideContext);
   const { stepId, isActive, stepNum, placeholder } = useSteps(numberOfSteps, {stepIndex});
@@ -217,7 +217,7 @@ export function SchemaContainer(
       // unenlarge target node
       d3.select(this).attr('transform', '');
 
-      console.log('circlemouseup')
+      // console.log('circlemouseup')
     })
 
     d3.select(svg.current)
@@ -239,7 +239,7 @@ export function SchemaContainer(
 
       moving = false;
 
-      console.log('svgmouseup')
+      // console.log('svgmouseup')
     });
 
 
