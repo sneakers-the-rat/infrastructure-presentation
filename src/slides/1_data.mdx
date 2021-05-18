@@ -19,6 +19,8 @@ import Overview from '../img/overview.svg';
 import {PositionedHeading} from '../components/basic';
 import funky from 'react-syntax-highlighter/dist/cjs/styles/prism/funky'
 import {FormatAlignLeft} from '@material-ui/icons';
+import Popup from '../components/popup';
+import P2PCaveats from '../components/fragments/p2p_caveats';
 
 # Shared Data
 
@@ -220,6 +222,10 @@ That p2p system is literally the most basic one. extend it in a bunch of ways
   />
 </svg>
 
+<Popup title="p2p caveats">
+ <P2PCaveats/>
+</Popup>
+
 
 ---
 
@@ -375,18 +381,5 @@ Notes: federation notes
 <Federation/>
 
 Notes: text should appear in going like 'can we federate uwu with the -><- fingers'
-
----
-
-brief slide of caveats
-
-* not new! lots of previous times been proposed
-* need other stuff - total control over federation, data privacy,
-  versioning, etc.
-  - ipfs does this! libgen is on ipfs!
-
-
-Notes: whats missing
-  - frontend! how to get the freakin data!
 
 
