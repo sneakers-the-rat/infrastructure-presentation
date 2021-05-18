@@ -4,7 +4,8 @@ import VerticalLinearStepper from '../components/vertical_stepper';
 import TextAnimator from '../components/text/TextAnimator';
 import { IFrame } from '../components/basic';
 import NWBTree from '../assets/nwb_tree_noschemas.json'
-import {SchemaTree, SchemaContainer} from '../components/schema';
+import {SchemaTree, SchemaContainer} from '../components/schema'; import SvgAnimator from '../components/svg_animator';
+import SemanticEg from '../img/semantic_1-01.svg'
 
 # Shared Knowledge
 
@@ -174,7 +175,67 @@ Demonstrate triple pairs
 
 simple example of inferecne across three nodes.
 
+---
 
+<FlexBox flexDirection={'row'} justifyContent={'flex-start'} marginLeft={"50px"}>
+<Text fontFamily={'monospace'} fontSize={"60pt"} fontWeight={'bold'} style={{marginRight:"50px", color: "#ff0000", filter: "drop-shadow(30px 30px 0px #CCCCCC"}}>
+  A 2-real example
+</Text>
+  <FlexBox flexDirection={'column'} alignItems={'flex-start'}>
+<Text id='semantic-eg-description-1'  fontSize={"40pt"} fontFamily={"headerSerif"}>"Rumbly gets lonely during the day"</Text>
+<Text id='semantic-eg-description-2'  fontSize={"40pt"} fontFamily={"headerSerif"}>"jk she gets played with so much"</Text>
+  </FlexBox>
+</FlexBox>
+
+<SvgAnimator
+  stepIndex={1}
+  id={'semantic-example'}
+  svgUrl={SemanticEg}
+  steps={
+      [
+          [
+            {
+              targets:"#semantic-example #jonny",
+              opacity:[0,1],
+              easing: 'easeOutQuad'
+            }
+          ],
+        [
+          {
+            targets:"#semantic-example #job",
+            opacity:[0,1],
+            easing: 'easeOutQuad'
+          }
+        ],
+        [
+          {
+            targets:"#semantic-example #cat",
+            opacity:[0,1],
+            easing: 'easeOutQuad'
+          }
+        ],
+        [
+          {
+            targets:"#semantic-eg-description-1",
+            opacity:[0,1],
+            easing: 'easeOutQuad'
+          }
+        ],
+        [
+          {
+            targets:"#semantic-example #coop",
+            opacity:[0,1],
+            easing: 'easeOutQuad'
+          },
+          {
+            targets:"#semantic-eg-description-2",
+            opacity:[0,1],
+            easing: 'easeOutQuad'
+          }
+        ]
+      ]
+  }
+/>
 
 ---
 
