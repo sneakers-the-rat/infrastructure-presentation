@@ -1,4 +1,5 @@
 import React from 'react';
+import TextField from "@material-ui/core/TextField"
 import * as d3 from 'd3'
 
 
@@ -8,6 +9,8 @@ export function SchemaTree(
         id,
         width=1920,
         height=1080,
+        fillLight="#999",
+        fillDark="#555",
         x=0,
         y=0,
         rotation=0
@@ -72,7 +75,7 @@ export function SchemaTree(
     .attr("transform", d => `translate(${d.y},${d.x})`);
 
     node.append("circle")
-    .attr("fill", d => d.children ? "#555" : "#999")
+    .attr("fill", d => d.children ? fillDark : fillLight)
     .attr("r", 10)
     .attr('class', 'schema-node');
 
@@ -107,10 +110,12 @@ export function SchemaContainer(
   const drag = React.useRef();
   const dragLine = React.useRef();
   const circles = React.useRef();
+  const nLines = React.useRef(0);
 
   const linksRef = React.useRef([]);
 
   const [links, setLinks] = React.useState([])
+  const [labels, setLabels] = React.useState([])
 
   React.useEffect(() => {
 
@@ -185,12 +190,23 @@ export function SchemaContainer(
         }
         ])
 
+      setLabels([
+          ...labels,
+        {
+          x: (mousedownNode.layerX+mouseupNode.layerX)/2,
+          y: (mousedownNode.layerY+mouseupNode.layerY)/2,
+          key: nLines.current
+        }
+      ])
+      nLines.current += 1;
+
       mousedownNode = null;
       mouseupNode = null;
 
       // unenlarge target node
       d3.select(this).attr('transform', '');
 
+      console.log('circlemouseup')
     })
 
     d3.select(svg.current)
@@ -205,12 +221,14 @@ export function SchemaContainer(
       // .attr('d', `M${mousedownNode.x},${mousedownNode.y}L${d.x},${d.y}`);
     })
     .on('mouseup', (d) => {
-      if (!moving) return;
+      // if (!moving) return;
 
       d3.select(dragLine.current)
         .classed('hidden', true)
 
       moving = false;
+
+      console.log('svgmouseup')
     });
 
 
@@ -238,6 +256,7 @@ export function SchemaContainer(
 
 
   return(
+      <>
       <svg ref={svg} className={'schema-svg'} height={height} width={width}>
         {links.map((link, i) => (
           <line className={'schema-drawnlink'} key={'drawnlink-'+i} {...link}/>
@@ -245,6 +264,14 @@ export function SchemaContainer(
         {children}
         <line className={'link dragline hidden'} x1={0} x2={0} y1={0} y2={0} ref={dragLine}/>
       </svg>
+        <div id={"schema-edit-labels"}>
+          {labels.map((label) => (
+              <TextField id={"schema-label-"+label.key} key={label.key}
+                         variant={"outlined"} size={'small'}
+                         className={'schema-edit-label'} style={{transform: "translate("+label.x+"px, " + label.y+"px)"}}/>
+          ))}
+        </div>
+        </>
   )
 }
 

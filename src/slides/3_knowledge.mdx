@@ -4,6 +4,9 @@ import VerticalLinearStepper from '../components/vertical_stepper';
 import TextAnimator from '../components/text/TextAnimator';
 import { IFrame } from '../components/basic';
 import NWBTree from '../assets/nwb_tree_noschemas.json'
+import DataFormat from '../assets/data.json';
+import DataExtension from '../assets/data_extension.json';
+import Tool from '../assets/tool.json'
 import {SchemaTree, SchemaContainer} from '../components/schema'; import SvgAnimator from '../components/svg_animator';
 import SemanticEg from '../img/semantic_1-01.svg'
 
@@ -239,18 +242,21 @@ simple example of inferecne across three nodes.
 
 ---
 
-# We need a way to do this...
-
-In overlays:
-* Schema Negotiation - NWB extension example
-* Provenance - tracing the creation of knowledge
-*
-
-We need better tools for doing this!
-
+<Heading textAlign={'left'} color={"tools"} fontWeight={200} fontStyle={"italic"} fontSize={50}>
+  Have you ever had a dream
+</Heading>
+<Text fontFamily={'headerSerif'} fontSize={15}>
+that you, um, you had, your, you you could, you’ll do, you could you, you want so much
+</Text>
+<Box marginLeft={"100px"}>
+  <Heading lineHeight={0.9} textAlign={'left'} color={"tools"} fontWeight={200} fontStyle={"italic"} fontSize={50}>
+  you could link anything?
+</Heading>
+</Box>
 
 <SchemaContainer>
-  <SchemaTree y={250} srcJson={NWBTree}/>
+  <SchemaTree x={1300} y={400} width={500} height={500} fillDark={"#2f0987"} fillLight={"#784ed2"} srcJson={DataFormat}/>
+  <SchemaTree x={1300} y={700} width={500} height={500} fillDark={"#2f0987"} fillLight={"#784ed2"} srcJson={DataExtension}/>
 </SchemaContainer>
 
 ---
