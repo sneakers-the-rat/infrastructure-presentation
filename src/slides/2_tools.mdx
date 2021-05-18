@@ -4,7 +4,7 @@ import CanvasDraw from "react-canvas-draw";
 import VerticalLinearStepper from '../components/vertical_stepper'
 import ExptRequirements from '../img/task_requirements_2.png'
 import Parallax from '../img/plax-01.svg'
-import Overview from '../img/overview.svg'
+import Overview from '../img/overview-01.svg'
 import Analysis1 from '../img/analysis_1-01.svg'
 import anime from 'animejs'
 import SvgAnimator from '../components/svg_animator';
@@ -13,6 +13,8 @@ import {PositionedCard} from '../components/basiccard';
 import AutopilotLogo from '../img/autopilot_logo_banner.svg';
 import TextAnimator from '../components/text/TextAnimator';
 import { distance } from '../components/utils';
+import Popup from '../components/popup';
+import Datajoint from '../components/fragments/datajoint';
 
 <SvgAnimator
     svgUrl={Overview}
@@ -42,11 +44,35 @@ import { distance } from '../components/utils';
 />
 
 
-<PositionedHeading id={'overview-knowledge'} y={250} x={20}>Knowledge</PositionedHeading>
+<PositionedHeading
+    id={'overview-data'} y={25} x={40} fontSize={50} fontFamily={"Source Serif Pro"} fontWeight={200} fontStyle={'italic'}>
+  Semantic Wikis, <br/> Communication & <br/> Governance
+</PositionedHeading>
 
-<PositionedHeading id={'overview-tools'} y={600} x={20}>Tools</PositionedHeading>
+<PositionedHeading id={'overview-knowledge'} y={250} x={40} fontWeight={700}>
+  Knowledge
+</PositionedHeading>
 
-<PositionedHeading id={'overview-data'} y={950} x={20}>Data</PositionedHeading>
+<PositionedHeading id={'overview-data'} y={390} x={40} fontSize={50} fontFamily={"Source Serif Pro"} fontWeight={200} fontStyle={'italic'}>
+  Analytical & <br/> Experimental <br/> Frameworks
+</PositionedHeading>
+
+
+<PositionedHeading id={'overview-tools'} y={620} x={40} fontWeight={700}>
+  Tools
+</PositionedHeading>
+
+<PositionedHeading id={'overview-data'} y={750} x={40} fontSize={50} fontFamily={"Source Serif Pro"} fontWeight={200} fontStyle={'italic'}>
+  Peer-To-Peer<br/>Federated Databases
+</PositionedHeading>
+
+<PositionedHeading id={'overview-data'} y={970} x={40} fontWeight={700}>
+  Data
+</PositionedHeading>
+
+<PositionedHeading id={'overview-data-label'} x={115} y={600} light={false} fontSize={40}>
+  Universal Data Sharing
+</PositionedHeading>
 
 
 ---
@@ -187,7 +213,8 @@ import { distance } from '../components/utils';
           opacity: [0,1],
           easing: 'easeInOutQuad',
           duration:500
-        }]
+        }],
+        []
     ]}
     id={'analysis-1'}
 />
@@ -198,7 +225,7 @@ import { distance } from '../components/utils';
     title={"Modular"}
     extraClass={'noshadow'}
     opacity={0.4}
-    body={"Break analyses into input, processing, and output nodes"}
+    body={"Break analyses into reusable, composable components"}
     appearStep={2}
 />
 
@@ -231,7 +258,9 @@ import { distance } from '../components/utils';
     appearStep={5}
 />
 
-
+<Popup title="Analysis Tools!!!" showStep={6}>
+  <Datajoint/>
+</Popup>
 
 
 
@@ -243,7 +272,8 @@ Notes: Overlay datajoint elements & bids apps are good starts!
 
 # Experimental Framework
 
-What kind of tool do we need for the next 10 years of neuroscience?
+<Box width={2/3} marginLeft={"auto"} marginRight={"auto"}>
+  <Text>What kind of tool do we need for the next 10 years of neuroscience?</Text>
 
 <VerticalLinearStepper
 steps={[
@@ -265,8 +295,8 @@ steps={[
   },
 ]}
 />
+</Box>
 
-<Appear stepIndex={1}>
 <SvgAnimator
   id={'autopilot-logo'}
   svgUrl={AutopilotLogo}
@@ -274,16 +304,21 @@ steps={[
     {
       targets: '#autopilot-logo .st2',
       strokeDashoffset: [anime.setDashoffset, 0],
-      duration: () => (anime.random(1000, 3000)),
+      duration: () => (anime.random(0, 3000)),
       delay: () => (anime.random(1000, 3000)),
       loop: true,
       direction: 'alternate',
       easing: 'easeInOutSine'
+    },
+    {
+      targets: '#autopilot-logo',
+      opacity:[0,1],
+      duration: 200,
+      easing: 'easeInOutSine'
     }
   ]]}
-  style={{top:"350px", transform:"scale(0.5)", transformOrigin:'center'}}
+  style={{top:"360px", transform:"scale(0.5)", transformOrigin:'center'}}
 />
-</Appear>
 
 ---
 
@@ -334,9 +369,62 @@ u can use any part of the system by itself
 
 ---
 
-# Closing section
 
-return to diagram, draw in combinatoric benefits
+<SvgAnimator
+    svgUrl={Overview}
+    steps={[
+      [
+        {targets:'#rect-knowledge',
+          width:[0,750]},
+        {targets:"#overview-3 #knowledge *",
+          strokeDashoffset: [anime.setDashoffset, 0]
+        }
+      ]
+    ]}
+    id={'overview-3'}
+/>
+
+
+<PositionedHeading
+    id={'overview-data'} y={25} x={40} fontSize={50} fontFamily={"Source Serif Pro"} fontWeight={200} fontStyle={'italic'}>
+  Semantic Wikis, <br/> Communication & <br/> Governance
+</PositionedHeading>
+
+<PositionedHeading id={'overview-knowledge'} y={250} x={40} fontWeight={700}>
+  Knowledge
+</PositionedHeading>
+
+<PositionedHeading id={'overview-data'} y={390} x={40} fontSize={50} fontFamily={"Source Serif Pro"} fontWeight={200} fontStyle={'italic'}>
+  Analytical & <br/> Experimental <br/> Frameworks
+</PositionedHeading>
+
+
+<PositionedHeading id={'overview-tools'} y={620} x={40} fontWeight={700}>
+  Tools
+</PositionedHeading>
+
+<PositionedHeading id={'overview-data'} y={750} x={40} fontSize={50} fontFamily={"Source Serif Pro"} fontWeight={200} fontStyle={'italic'}>
+  Peer-To-Peer<br/>Federated Databases
+</PositionedHeading>
+
+<PositionedHeading id={'overview-data'} y={970} x={40} fontWeight={700}>
+  Data
+</PositionedHeading>
+
+<PositionedHeading id={'overview-data-label'} x={1065} y={510} light={false} fontSize={40} color={'#CF005D'}>
+  Collectivize the<br/>State of the Art
+</PositionedHeading>
+
+<PositionedHeading id={'overview-tools-label'} x={610} y={750} light={false} fontSize={40} color={'tools'}>
+  Data Management <br/>is Obsolete,<br/>
+  Deep Provenance
+</PositionedHeading>
+
+<PositionedHeading id={'overview-analysis-label'} x={1500} y={750} light={false} fontSize={40} color={'tools'}>
+  Meta-analyses<br/>are Free,<br/>
+  A Universal <br/>Folding@Home?
+</PositionedHeading>
+
 
 Notes: tools notes
 

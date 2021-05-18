@@ -52,6 +52,7 @@ export default function Popup(
   {
     title,
     stepIndex,
+      showStep,
     children
   }){
   const classes = useStyles()
@@ -63,7 +64,9 @@ export default function Popup(
     stepIndex,
   });
 
-  const showStep = Object.is(stepIndex, undefined) ? stepNum : stepIndex
+  if (Object.is(showStep, undefined)){
+    showStep = Object.is(stepIndex, undefined) ? stepNum : stepIndex
+  }
 
   const handleClickOpen = () => {
     setOpen(true);

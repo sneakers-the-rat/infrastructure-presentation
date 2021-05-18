@@ -286,16 +286,24 @@ If we pay attention to the people who study these things...
         {
           targets: '#federation-1 '+'#peer_2 *',
           opacity: [0, 1],
-          duration: anime.random(500, 1000),
-          delay: anime.random(0, 200),
+          duration: () => (anime.random(500, 1000)),
+          delay: () => (anime.random(0, 200)),
           easing: 'easeInOutCirc',
           loop: false
         },
         {
           targets: '#federation-1 '+'#peer_outlines *',
           opacity: [0, 1],
-          duration: anime.random(500, 1000),
-          delay: anime.random(0, 200),
+          duration: () => (anime.random(500, 1000)),
+          delay: () => (anime.random(0, 200)),
+          easing: 'easeInOutCirc',
+          loop: false
+        },
+        {
+          targets: '#federation-1 '+'#call_1 #phone, #phone-2',
+          opacity: [0, 1],
+          duration: 500,
+          delay: 0,
           easing: 'easeInOutCirc',
           loop: false
         }
@@ -337,6 +345,13 @@ If we pay attention to the people who study these things...
           easing: 'easeInOutQuad',
           direction: 'alternate',
           loop: 5
+        },
+        {
+          targets: "#federation-1 #call_1 #response_1, #response_2",
+          opacity: [0,1],
+          duration: 300,
+          delay: 100,
+          easing: 'easeInOutQuad',
         }
       ],
         [
@@ -347,14 +362,24 @@ If we pay attention to the people who study these things...
         ],
       [
           {
-            target: "#federation-1 #fedlayer *",
-            scale: [0, 1],
+            targets: "#federation-1 #fedlayer",
+            opacity: [0, 1],
             duration: 500,
             delay: 0,
-            easing: 'easeInQuad',
+            easing: 'easeInOutQuad',
             loop: false
           }
         ],
+      [
+        {
+          targets: "#federation-1 #fedlayer #linkline",
+          opacity: [0, 1],
+          duration: 500,
+          delay: 0,
+          easing: 'easeInOutQuad',
+          loop: false
+        }
+      ],
       [
         {
           targets: '#federation-1 #call_2 *',

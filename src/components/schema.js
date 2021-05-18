@@ -2,6 +2,7 @@ import React from 'react';
 import TextField from "@material-ui/core/TextField"
 import * as d3 from 'd3'
 import Draggable from 'react-draggable'
+import {SlideContext, useSteps} from 'spectacle';
 
 
 export function SchemaTree(
@@ -104,9 +105,10 @@ export function SchemaContainer(
         children,
         height,
         width,
+        nSteps,
+        stepIndex
     }
 ){
-
   const svg = React.useRef();
   const drag = React.useRef();
   const dragLine = React.useRef();
@@ -117,6 +119,14 @@ export function SchemaContainer(
 
   const [links, setLinks] = React.useState([])
   const [labels, setLabels] = React.useState([])
+
+  const numberOfSteps = nSteps ? nSteps : children.length;
+  console.log('schema children', children)
+
+  const { activeStepIndex, isSlideActive } = React.useContext(SlideContext);
+  const { stepId, isActive, stepNum, placeholder } = useSteps(numberOfSteps, {stepIndex});
+
+
 
   React.useEffect(() => {
 
@@ -191,14 +201,14 @@ export function SchemaContainer(
         }
         ])
 
-      setLabels([
-          ...labels,
-        {
-          x: (mousedownNode.layerX+mouseupNode.layerX)/2,
-          y: (mousedownNode.layerY+mouseupNode.layerY)/2,
-          key: nLines.current
-        }
-      ])
+      // setLabels([
+      //     ...labels,
+      //   {
+      //     x: (mousedownNode.layerX+mouseupNode.layerX)/2,
+      //     y: (mousedownNode.layerY+mouseupNode.layerY)/2,
+      //     key: nLines.current
+      //   }
+      // ])
       nLines.current += 1;
 
       mousedownNode = null;
@@ -237,7 +247,7 @@ export function SchemaContainer(
 
 
 
-  }, [links, labels]);
+  }, [links, labels, activeStepIndex]);
 
 
   function mouseup() {
@@ -266,11 +276,12 @@ export function SchemaContainer(
 
   return(
       <>
+        {placeholder}
       <svg ref={svg} className={'schema-svg'} height={height} width={width}>
         {links.map((link, i) => (
           <line className={'schema-drawnlink'} key={'drawnlink-'+i} {...link}/>
         ))}
-        {children}
+        {children.slice(0,activeStepIndex)}
         <line className={'link dragline hidden'} x1={0} x2={0} y1={0} y2={0} ref={dragLine}/>
       </svg>
         <div id={"schema-edit-labels"}>

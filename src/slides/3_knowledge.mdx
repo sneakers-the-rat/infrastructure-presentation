@@ -13,82 +13,55 @@ import WikiTheory from '../assets/wiki_theory.json'
 import WikiHardware from '../assets/wiki_hardware.json'
 import {SchemaTree, SchemaContainer} from '../components/schema'; import SvgAnimator from '../components/svg_animator';
 import SemanticEg from '../img/semantic_1-01.svg'
+import Overview from '../img/overview-01.svg'
+import {PositionedHeading} from '../components/basic';
 
-# Shared Knowledge
+# What's missing?
 
-<Quote>
-  "Providing tools and infrastructure mechanisms that support
-  the development and management of policies*
-  <TextAnimator>[and knowledge and schemas and everything else]</TextAnimator>
-  is an important part of creating social computing systems
-  that work."
-  - "dont look now weve created a bureaucracy"</Quote>
+We still need a way to...
+* find and link data
+* resolve schema/format conflicts
+* find, compare, and share analysis pipelines
+* share technical knowledge
+* assign credit for invisible scientific labor
+* collectively govern the creation & operation of our tools
 
+# We need community & communication systems
 
+We can learn from two of the largest decentralized knowledge communities:
 
+Internet Pirates
 
-Notes: shared knowledge notes
-
-* Reintroduce notion of labor inequity and lack of credit assignment
-* failure of contextual knowledge
-* distortion of scientific communication mediums
-* a means of assigning credit to labor and
-* the resistance of scientific infrastructure from platformatizing
-
-Return of pirate communities and learning from wikis
-Semantic wiki infrastructure as the third photoreceptor that
-multiplies the power of the previous two pillars.
-
-
-# Thinking expansively
-
-* A common lack in all these tools is that they don't really have a clear means for
-people to communicate about their use, to interact with the shared components.
-* Relatedly, our embrace of heterogeneity and federation has also left us with
-a bunch of disordered schemas, what to do?
-
-Here's three steps on a gradient for software
-* Traditional software library -- code is fixed, but you can create local files. like MS paint
-* Extensible software library -- certain features can be added in
-* Modular software library -- the basic components of the system can be swapped out
-* ??? -- natural final step is some way of discussing and governing the module combinations
-
-And in schemas
-* Traditional centralized schama -- there is one vocabulary
-* Extensible schema -- there is a core vocabulary and a way of making new terms
-* Modular schema -- core links can be replaced by links with comparable semantic structure
-* ??? -- a way of negotiating the links between data and meaning of terms
-
-
-My argument: investment in collaborative design and communication tools is the missing link
-
+Wikipedia
 
 
 ---
 
 <Grid gridTemplateColumns={"2fr 1fr"}>
-  <FlexBox flexDirection={'column'}>
+  <FlexBox flexDirection={'column'} alignItems={'flex-start'}>
     <Heading>What.cd</Heading>...
-    <Text>The most complete archive of music in human history</Text>
-    <Text>Created and curated by an anonymous, decentralized community for zero compensation.</Text>
+    <Text textAlign={'left'}>How did A Private Bittorrent Tracker,</Text>
+    <Text textAlign={'left'}>Created and Curated by entirely anonymous users</Text>
+    <Text textAlign={'left'}>With no money or special training</Text>
+    <Text textAlign={'left'}>Become the most complete archive of music in human history?</Text>
     <VerticalLinearStepper
         steps={[
           {
-            title: 'System Design',
-            body: 'Separation of interface from database allowed private torrent trackers to innovate on community structure for decades',
-          },
-          {
-            title: 'Explicit Structure & Rules',
+            title: 'Explicit Structure & Ratio Rules',
             body: 'Strong incentives for uploading and curating',
           },
           {
-            title: 'Affordances',
+            title: 'Affordances for Collective Curation',
             body: 'clear tools and guides for how to use all parts of the site, means for reporting/discussing changes, tagging, collections',
           },
           {
-            title: 'Community',
+            title: 'A Sense of Shared Ownership',
             body: 'lots of places where your contributions were credited, extensive forums, discussions, collections, vanity house, album of the week',
-          }
+          },
+          {
+            title: 'System Design Allows Iteration',
+            body: 'Separation of interface from database allowed private torrent trackers to innovate on community structure for decades',
+          },
         ]}
     />
   </FlexBox>
@@ -99,53 +72,45 @@ My argument: investment in collaborative design and communication tools is the m
 
 ---
 
-<Box width={2/3}>
+<Box width={2/3} marginLeft={'auto'} marginRight={'auto'} height={"100%"}>
   <Heading textAlign={'left'} lineHeight={1}>
     Before Wikipedia...
   </Heading>
-  <Collapser>
     <Heading fontSize={'h3'} textAlign={'left'} color={"tools"} fontWeight={200} fontStyle={"italic"}>
       there were meatball wikis
     </Heading>
-  </Collapser>
-</Box>
-
-
-<FlexBox height={"100%"}>
-  <FlexBox flexDirection={'column'} height={"100%"} width={1/2}>
-    <Text fontFamily={"Source Serif Pro"} fontSize={30}>Early experiments in radically decentralized control over the technological substrate of communities</Text>
+  <Text fontFamily={"Source Serif Pro"} fontSize={30}>Early experiments in radically decentralized control over the technology of communities</Text>
+  <Box flexDirection={'column'} height={"100%"}>
     <IFrame paper={false} flexGrow={4} src={"http://meatballwiki.org/wiki/StartingPoints"}/>
-  </FlexBox>
-    <FlexBox key={"meatball2container"} flexDirection={'column'} height={"100%"} width={1/2}>
-      <Appear stepIndex={1} id={"meatballappear"}>
-      <Text key={"meatball2text"} >
-      </Text>
-      <IFrame paper={false} key={"meatball2"} flexGrow={4} src={"http://meatballwiki.org/wiki/TourBus"}/>
-        </Appear>
-    </FlexBox>
-</FlexBox>
-
+  </Box>
+</Box>
 
 ---
 
-# Wikipedia...
+<Heading textAlign={'left'} lineHeight={1}>
+Wikipedia itself...
+</Heading>
 
+<Heading fontSize={'h3'} textAlign={'left'} color={"tools"} fontWeight={200} fontStyle={"italic"}>
 How do we organize all knowledge together?
+</Heading>
 
-<FlexBox height={"100%"}>
-  <FlexBox flexDirection={'column'} height={"100%"} width={1/2}>
-    <Text>Hub-and-spoke "WikiProjects"</Text>
+<Text>Hub-and-spoke "WikiProjects"</Text>
+
+<Grid height={"100%"} gridTemplateColumns={"1fr 1fr"} gridColumnGap={"30px"}>
     <IFrame paper={false} flexGrow={4} src={"https://en.wikipedia.org/wiki/Wikipedia:WikiProject_Council/Directory"}/>
-  </FlexBox>
-  <FlexBox key={"wiki2container"} flexDirection={'column'} height={"100%"} width={1/2}>
     <Appear stepIndex={1} id={"meatballappear"}>
-      <Quote>the true power of wikis lies in the fact that they are a platform that provides affordances which allow for a wide variety of rich, multifaceted organizational structures. - dont look now we made a bureaucracy </Quote>
-      <Quote>“If a rule prevents you from working with others to improve or maintain Wikipedia, ignore it” - ignore all rules policy</Quote>
-        <Quote>“Wikipedia is not a moot court, and rules are not the purpose of the community. ... Disagreements should be resolved through consensus-based discussion, rather than through tightly sticking to rules and procedures.” - wikipedia is not a bureaucracy</Quote>
-    <Quote></Quote>
+      <Quote fontSize={"2em"} fontFamily={"Source Serif Pro"} fontWeight={200} fontStyle={"italic"}>
+        the true power of wikis lies in the fact that they are a platform that <strong style={{fontWeight:700}}>provides affordances
+        which allow for a wide variety of rich, multifaceted organizational structures.</strong> [...]<br/>
+        "Providing tools and infrastructure mechanisms that support
+        the development and management of policies
+        is an important part of creating social computing systems
+        that work."<br/>
+        - dont look now we made a bureaucracy
+      </Quote>
       </Appear>
-  </FlexBox>
-</FlexBox>
+</Grid>
 
 
 Notes: cite butlerDonLookNow2008
@@ -154,33 +119,64 @@ Screenshot of wikipedia consensus flowchart?
 
 ---
 
-# Archives need communities
+<Box width={2/3} marginLeft={'auto'} marginRight={'auto'} height={"100%"}>
+  <Heading textAlign={'left'} lineHeight={1}>
+    Archives need communities
+  </Heading>
+  <Heading fontSize={'h3'} textAlign={'left'} color={"tools"} fontWeight={200} fontStyle={"italic"}>
+    Lessons from Pirates & Wikis
+  </Heading>
+  <VerticalLinearStepper
+      steps={[
+        {
+          title: 'Federated System Design',
+          body: 'Separation of interface from database allowed private torrent trackers to innovate on community structure for decades',
+        },
+        {
+          title: 'Explicit Structure: Rules & Processes',
+          body: 'Strong incentives for uploading and curating',
+        },
+        {
+          title: '(Uncoercive) Incentives & Credit Assignment',
+          body: 'Strong incentives for uploading and curating',
+        },
+        {
+          title: 'Community Control',
+          body: 'clear tools and guides for how to use all parts of the site, means for reporting/discussing changes, tagging, collections',
+        },
+        {
+          title: 'UX Tools that meet Communal Needs',
+          body: 'clear tools and guides for how to use all parts of the site, means for reporting/discussing changes, tagging, collections',
+        },
+        {
+          title: 'Healthy Norms & Moderation',
+          body: 'lots of places where your contributions were credited, extensive forums, discussions, collections, vanity house, album of the week',
+        }
+      ]}
+  />
+</Box>
 
-summary of ^^
-
-What kind of system would let us coordinate and govern an array of databases and tools?
 
 
-# whats missing
 
-* way to access and search for data in p2p network
-* way to index over and unify bids apps/datajoint pipelines
-* way to negotiate schema, between and within (eg. extensions)
-* way to share practical knowledge
-* way to govern these tools
 
 ---
 
 # The Semantic Web
 
-> The Semantic Web is an attempt, largely, to map large quantities of
-existing data onto a common language so that the data can be analyzed
-in ways never dreamed of by its creators.
-- https://www.w3.org/DesignIssues/Principles.html#PLP
+<Box width={2/3} marginRight={'auto'} marginLeft={'auto'}>
+<Quote  fontSize={"2em"} fontFamily={"Source Serif Pro"} fontWeight={200} fontStyle={"italic"}>
+  The Semantic Web is an attempt, largely, to <strong style={{fontWeight:700}}>map large quantities of
+existing data onto a common language</strong> so that the data can be analyzed
+in ways never dreamed of by its creators.<br/>
+- https://www.w3.org/DesignIssues/Principles.html
+</Quote>
+</Box>
 
-Demonstrate triple pairs
-
-simple example of inferecne across three nodes.
+<Box margin={"auto"}>
+<Heading>Subject :: Predicate :: Object</Heading>
+<Heading fontFamily={"Source Serif Pro"} fontWeight={200} fontStyle={"italic"}>Person :: HasName :: Jonny</Heading>
+</Box>
 
 ---
 
@@ -272,16 +268,93 @@ that you, um, you had, your, you you could, you’ll do, you could you, you want
 
 # Technical knowledge & Credit Assignment
 
-* https://wiki.auto-pi-lot.com/index.php/Autopilot_Wiki
-* https://open-behavior.auto-pi-lot.com/index.php/Main_Page
+<Box width={2/3} marginLeft={'auto'} marginRight={'auto'} height={"100%"}>
+  <Heading fontSize={'h3'} textAlign={'left'} color={"tools"} fontWeight={200} fontStyle={"italic"}>
+    Eg. the Autopilot Wiki - wiki.auto-pi-lot.com
+  </Heading>
+  <Box flexDirection={'column'} height={"100%"}>
+    <IFrame paper={false} flexGrow={4} src={"https://wiki.auto-pi-lot.com/index.php/Autopilot_Wiki"}/>
+  </Box>
+</Box>
 
 ---
 
 # Governance
 
-* https://iblwiki.auto-pi-lot.com/
+<Box width={2/3} marginLeft={'auto'} marginRight={'auto'} height={"100%"}>
+  <Heading textAlign={'left'} lineHeight={1}>
+    Governance
+  </Heading>
+  <Heading fontSize={'h3'} textAlign={'left'} color={"tools"} fontWeight={200} fontStyle={"italic"}>
+    Eg. a Demo Wiki for the IBL - iblwiki.auto-pi-lot.com
+  </Heading>
+  <Box flexDirection={'column'} height={"100%"}>
+    <IFrame paper={false} flexGrow={4} src={"https://iblwiki.auto-pi-lot.com/"}/>
+  </Box>
+</Box>
+
 
 ---
+
+
+<SvgAnimator
+    svgUrl={Overview}
+    steps={[
+    ]}
+    id={'overview-4'}
+/>
+
+
+<PositionedHeading
+    id={'overview-data'} y={25} x={40} fontSize={50} fontFamily={"Source Serif Pro"} fontWeight={200} fontStyle={'italic'}>
+  Semantic Wikis, <br/> Communication & <br/> Governance
+</PositionedHeading>
+
+<PositionedHeading id={'overview-knowledge'} y={250} x={40} fontWeight={700}>
+  Knowledge
+</PositionedHeading>
+
+<PositionedHeading id={'overview-data'} y={390} x={40} fontSize={50} fontFamily={"Source Serif Pro"} fontWeight={200} fontStyle={'italic'}>
+  Analytical & <br/> Experimental <br/> Frameworks
+</PositionedHeading>
+
+
+<PositionedHeading id={'overview-tools'} y={620} x={40} fontWeight={700}>
+  Tools
+</PositionedHeading>
+
+<PositionedHeading id={'overview-data'} y={750} x={40} fontSize={50} fontFamily={"Source Serif Pro"} fontWeight={200} fontStyle={'italic'}>
+  Peer-To-Peer<br/>Federated Databases
+</PositionedHeading>
+
+<PositionedHeading id={'overview-data'} y={970} x={40} fontWeight={700}>
+  Data
+</PositionedHeading>
+
+<PositionedHeading id={'overview-data-label'} x={1000} y={450} light={false} fontSize={60} fontWeight={600}>
+  A New Kind Of <br/>Scientific<br/> Consensus
+</PositionedHeading>
+
+<PositionedHeading id={'overview-tools-label'} x={610} y={750} light={false} fontSize={40}>
+  Data Management <br/>is Obsolete,<br/>
+  Deep Provenance
+</PositionedHeading>
+
+<PositionedHeading id={'overview-analysis-label'} x={1500} y={750} light={false} fontSize={40}>
+  Meta-analyses<br/>are Free,<br/>
+  A Universal <br/>Folding@Home?
+</PositionedHeading>
+
+<PositionedHeading id={'overview-analysis-label'} x={610} y={200} light={false} fontSize={40}>
+  Bridged Technical<br/>Knowledge & Practice,<br/>
+  Replication is<br/>Possible
+</PositionedHeading>
+
+<PositionedHeading id={'overview-analysis-label'} x={1500} y={200} light={false} fontSize={40}>
+  Dissolve the Paper as <br/>Locus of Interpretation,<br/>
+  Cumulative Theories<br/>Built on All Data
+</PositionedHeading>
+
 
 
 

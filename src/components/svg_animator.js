@@ -51,7 +51,7 @@ export default function SvgAnimator({
 
     // clean up when dismounted
     return () => {
-      console.log('cleaning svg animator', animeSelectors)
+      // console.log('cleaning svg animator', animeSelectors)
       animeSelectors.map(selector => anime.remove(selector))
     }
   }, [])
@@ -64,7 +64,7 @@ export default function SvgAnimator({
   // }, [injected])
 
   const reset = () => {
-    console.log('resetting svg', id)
+    // console.log('resetting svg', id)
     steps.reverse().forEach((step_opts) => {
       for (let step of step_opts) {
         anime.remove(step.targets);
@@ -75,7 +75,7 @@ export default function SvgAnimator({
         animeStep.seek(step.duration);
         animeStep.seek(0);
 
-        console.log(animeStep)
+        // console.log(animeStep)
 
       }
     });
