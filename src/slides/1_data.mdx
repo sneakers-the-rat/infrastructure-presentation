@@ -1,7 +1,7 @@
 import { Dataset } from '../components/p2p/dataset'
 import { Peer } from '../components/p2p/peer'
 import Swarm from '../components/p2p/swarm'
-import { Heading, Box, Text, Image, Grid, Quote, Appear, FlexBox } from 'spectacle'
+import { Heading, Box, Text, Link, Image, Grid, Quote, Appear, FlexBox, CodePane } from 'spectacle'
 import Paper from '@material-ui/core/Paper'
 import PirateBay from '../img/piratebay.png'
 import Card from '@material-ui/core/Card';
@@ -64,10 +64,32 @@ Notes: notes!
 <Text fontSize={30} fontFamily={'monospace'} style={{ marginBottom: '12px' }}>
   To start, we need our data to be FAIR...<br/>which means standardization... but that's still really hard!
 </Text>
-<Box width={4 / 9}>
-  (link to example of ONice conversion with really brief description of the approach)
-  (add annotation to diagram that the outlines are a schema/ontology and introduce that concept)
-</Box>
+<Text  fontSize={30} fontFamily={'monospace'}>Here's one take: </Text>
+<Link  fontSize={26} fontFamily={'monospace'} href={"https://onice-conversion.readthedocs.io/en/wehr/"}>https://onice-conversion.readthedocs.io/en/wehr/</Link>
+<Box width={4 / 9} id={"codebox"}>
+    <CodePane language={"python"} theme={funky} marginLeft={'auto'} width={"100%"} className={"onice-code"}
+              highlightRanges={[
+                [4,9], 6, [7, 9],
+                [11, 16], 13, 14
+              ]}>
+      {'from onice_conversion import NWBConverter, spec \n\
+converter = NWBConverter()\n\
+\n\
+# specify your data and metadata as you would in plain English!\n\
+# eg. I have my subject id embedded in one of my file names:\n\
+# \'my-favorite-file_SUB1012_2021-04-20.dat\'\n\
+converter.add_metadata(\n\
+  spec.Path(\'my-favorite-file_{subject_id}_{start_date}.dat\')\n\
+  )\n\
+  \n\
+# Extract data/metadata from other files!\n\
+converter.add_container(\'Position\', \n\
+  spec.Mat(\'positions.mat\', \'data\', \n\
+    (\'wherever\', \'they\', \'are\', [\'x\', \'y\', \'z\']))\n\
+  )\n\
+  \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\
+'}
+    </CodePane></Box>
 
 <svg width={1920} height={1080} className={'svg-fill'}>
   <Dataset
@@ -232,20 +254,14 @@ That p2p system is literally the most basic one. extend it in a bunch of ways
 
 # Databases Are Political
 
-So far we have one type of data format and one swarm of peers. so now we just need to get everybody
-on the same format and swarm right?
-
-noooo
-
-If we pay attention to the people who study these things...
-
 <Box width={2/3} marginLeft={"auto"} marginRight={"auto"}>
+  <Text>The plan *can't* just be to try to get everyone to use the same thing</Text>
   <Card elevation={1}>
     <CardContent>
-      <Quote fontSize={36}>
+      <Quote  fontSize={"2em"} fontFamily={"Source Serif Pro"} fontWeight={200} fontStyle={"italic"}>
         Participants describe the individual sequence database
         systems as if they were shadows, poor representations of a
-        widely-agreed-upon ideal. [...] Instead, <strong>each decision about the implementation of a particular
+        widely-agreed-upon ideal. [...] Instead, <strong style={{fontWeight:700}}>each decision about the implementation of a particular
         database system plants a stake for a community boundary.</strong>
         The databases are not so much imperfect copies of an ideal as
         they are arguments about what the ideal Database should be.
@@ -255,7 +271,7 @@ If we pay attention to the people who study these things...
         the set of tools, and even the social organization of the
         project had to be significantly changed. ...
         <br/><br/>While the database development projects had begun by working
-        together, in the end they were unable to collaborate. <strong>The system
+        together, in the end they were unable to collaborate. <strong style={{fontWeight:700}}>The system
         that was supposed to tie these groups together could not be
         shielded from the controversies that formed the boundaries between
         the communities of practice.</strong>

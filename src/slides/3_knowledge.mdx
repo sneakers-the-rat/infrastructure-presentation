@@ -1,4 +1,4 @@
-import { Appear, Grid, Box, FlexBox, Text, Heading, Image, Quote } from 'spectacle';
+import { Appear, Grid, Box, FlexBox, Text, Heading, Image, Link, Quote } from 'spectacle';
 import WhatKanye from '../img/kanye-what.png'
 import VerticalLinearStepper from '../components/vertical_stepper';
 import TextAnimator from '../components/text/TextAnimator';
@@ -107,8 +107,10 @@ How do we organize all knowledge together?
         the development and management of policies
         is an important part of creating social computing systems
         that work."<br/>
-        - dont look now we made a bureaucracy
       </Quote>
+      <Text fontSize={30}>-Butler, Joyce, & Pike (2008)
+        <Link fontSize={30} href={"https://doi.org/10.1145/1357054.1357227"}>
+          "Don't Look Now, But We've Created a Bureaucracy: The Nature and Roles of Policies and Rules in Wikipedia"</Link></Text>
       </Appear>
 </Grid>
 
@@ -278,8 +280,6 @@ that you, um, you had, your, you you could, you’ll do, you could you, you want
 </Box>
 
 ---
-
-# Governance
 
 <Box width={2/3} marginLeft={'auto'} marginRight={'auto'} height={"100%"}>
   <Heading textAlign={'left'} lineHeight={1}>

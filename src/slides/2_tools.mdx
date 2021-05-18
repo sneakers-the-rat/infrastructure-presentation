@@ -336,35 +336,49 @@ steps={[
           }
         }
       ],
+      [
+        {
+          targets: "#autopilot-parallax #cameras",
+          opacity: [0,1],
+          duration: 500,
+          easing: "easeInOutQuad"
+        }
+      ],
+    [
+      {
+        targets: "#autopilot-parallax #custom",
+        opacity: [0,1],
+        duration: 500,
+        easing: "easeInOutQuad"
+      }
+    ],
+    [
+      {
+        targets: "#autopilot-parallax #external",
+        opacity: [0,1],
+        duration: 500,
+        easing: "easeInOutQuad"
+      }
+    ],
+    [
+      {
+        targets: "#autopilot-parallax #imu",
+        opacity: [0,1],
+        duration: 500,
+        easing: "easeInOutQuad"
+      }
+    ]
   ]}
 />
 <Box height={"40px"}></Box>
   <Heading fontFamily={"Source Serif Pro"} fontWeight={200} color={"tools"} fontSize={100}
            fontStyle={"italic"} textAlign={"left"}>
-<TextAnimator stepIndex={2}>
-  p a r a l l a x i n
-</TextAnimator></Heading>
+  p a r a l l a x i n</Heading>
 
 Notes: checkboxes to tick off elements of experiment
 - cameras: control any hardware, any amount bc distributed
 - dlc: integrate with external libraries
 - computers: flexible task design
-
-
----
-
-# Integrate with custom components
-
-- platform: control esoteric hardware with easy controls like platform.height = 100
-
-
----
-
-# focus on imu
-
-figure to break down different parts of what goes into IMU
-
-u can use any part of the system by itself
 
 
 ---
