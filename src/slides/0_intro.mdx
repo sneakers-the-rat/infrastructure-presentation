@@ -409,22 +409,88 @@ say that we'll get to alternatives as we go
     [
       {targets:'#rect-data',
       width:[0,750]},
-      {targets:"#overview-1 #data *",
-        strokeDashoffset: [anime.setDashoffset, 0]
-      }
+      {
+        targets: "#overview-1 #data *",
+        strokeDashoffset: {
+          value: [anime.setDashoffset, 0],
+          duration: 500
+        },
+        opacity: {
+          value: [0, 1],
+          duration: 100
+        },
+      },
+      {
+        targets: '#overview-1 '+'#data-sparkles *',
+        strokeDashoffset: [anime.setDashoffset, 0],
+        duration: () => (anime.random(2000, 4000)),
+        delay: function(el){
+          let dist = distance(el.getBBox(), {x:981, y:782})*5;
+          return dist;
+        },
+        easing: 'easeInOutCirc',
+        direction: 'alternate',
+        loop: true
+      },
     ],
     [
       {targets:'#rect-tools',
         width:[0,750]},
-      {targets:"#overview-1 #tools *",
-        strokeDashoffset: [anime.setDashoffset, 0]
+      {
+        targets: "#overview-1 #tools *",
+        strokeDashoffset: {
+          value: [anime.setDashoffset, 0],
+          duration: 500
+        },
+        opacity: {
+          value: [0, 1],
+          duration: 100
+        }
+      },
+      {
+        targets: '#overview-1 '+'#tool-sparkles *',
+        strokeDashoffset: [anime.setDashoffset, 0],
+        duration: () => (anime.random(1000, 4000)),
+        delay: () => (anime.random(1000, 2000)),
+        easing: 'easeInOutQuad',
+        direction: 'alternate',
+        loop: true
+      },
+      {
+        targets: '#overview-1 '+'#analysis-sparkles *',
+        strokeDashoffset: [anime.setDashoffset, 0],
+        duration: () => (anime.random(1000, 3000)),
+        delay: () => (anime.random(1000, 3000)),
+        easing: 'easeInOutQuad',
+        direction: 'alternate',
+        loop: true
       }
     ],
     [
       {targets:'#rect-knowledge',
         width:[0,750]},
-      {targets:"#overview-1 #knowledge *",
-        strokeDashoffset: [anime.setDashoffset, 0]
+      {
+        targets: "#overview-1 #knowledge *",
+        strokeDashoffset: {
+          value: [anime.setDashoffset, 0],
+          duration: 500
+        },
+        opacity: {
+          value: [0, 1],
+          duration: 100
+        }
+      },
+      {
+        targets: '#overview-1 '+'#knowledge-sparkles *',
+        strokeDashoffset: [anime.setDashoffset, 0],
+        duration: () => (anime.random(1000, 4000)),
+        delay: function(el){
+          let dist = distance(el.getBBox(), {x:981, y:250})*5;
+          return dist;
+        },
+        easing: 'easeInOutCirc',
+        direction: 'alternate',
+        loop: true
       }
     ]
     ]}
