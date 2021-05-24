@@ -259,9 +259,9 @@ other softwarez to mention:
 <Box width={1} height={"40px"}/>
 
 <Grid gridTemplateColumns={'1fr 1fr'} gridColumnGap={"40px"} marginTop={"40px"}>
-  <Appear stepIndex={2}><Heading fontSize={"h3"} color={"tools"} fontWeight={200}>Personally...</Heading></Appear>
-  <Appear stepIndex={3}><Heading fontSize={"h3"} color={"tools"} fontWeight={200} >Systemically...</Heading></Appear>
-  <Appear stepIndex={2}><VerticalLinearStepper
+  <Appear stepIndex={2} id={'impacts-1'}><Heading fontSize={"h3"} color={"tools"} fontWeight={200}>Personally...</Heading></Appear>
+  <Appear stepIndex={3} id={'impacts-2'}><Heading fontSize={"h3"} color={"tools"} fontWeight={200} >Systemically...</Heading></Appear>
+  <Appear stepIndex={2} id={'impacts-3'}><VerticalLinearStepper
   steps={[
     {
       title: 'Everyone has to be a programmer now',
@@ -281,7 +281,7 @@ other softwarez to mention:
     }
   ]}
   /></Appear>
-  <Appear stepIndex={3}>
+  <Appear stepIndex={3} id={'impacts-4'}>
   <VerticalLinearStepper
       steps={[
         {
@@ -578,7 +578,7 @@ headerProps={{fontSize:80}}>
 </Quote>
 </Box>
 
-<Appear>
+<Appear id={'design-principles-1'}>
 <Box margin={"auto"} marginTop={"2em"} width={"65%"}>
 <VerticalLinearStepper
     steps={[

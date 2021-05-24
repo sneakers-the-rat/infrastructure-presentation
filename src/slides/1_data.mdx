@@ -67,7 +67,7 @@ Notes: notes!
 <Text  fontSize={30} fontFamily={'monospace'}>Here's one take: </Text>
 <Link  fontSize={26} fontFamily={'monospace'} href={"https://onice-conversion.readthedocs.io/en/wehr/"}>https://onice-conversion.readthedocs.io/en/wehr/</Link>
 <Box width={4 / 9} id={"codebox"}>
-    <CodePane language={"python"} theme={funky} marginLeft={'auto'} width={"100%"} className={"onice-code"}
+    <CodePane language={"python"} theme={funky} marginLeft={'auto'} width={"100%"} className={"onice-code"} id={'conversion-code-pane'}
               highlightRanges={[
                 [4,9], 6, [7, 9],
                 [11, 16], 13, 14, 30
@@ -86,9 +86,7 @@ converter.add_metadata(\n\
 converter.add_container(\'Position\', \n\
   spec.Mat(\'positions.mat\', \'data\', \n\
     (\'wherever\', \'they\', \'are\', [\'x\', \'y\', \'z\']))\n\
-  )\n\
-  a\na\na\na\na\na\na\na\na\naa\na\na\na\na\na\na\na\na\naa\na\na\na\na\na\na\na\na\na\n\n\n\n\n\n\n\n\n\
-'}
+  )\n'}
     </CodePane></Box>
 
 <svg width={1920} height={1080} className={'svg-fill'}>
@@ -178,7 +176,7 @@ converter.add_container(\'Position\', \n\
   />
 </svg>
 
-<Appear stepIndex={1}>
+<Appear stepIndex={1} id={'p2p-comparison-1'}>
 <svg style={{left:(1920/2), width:1920/2, height:1080}} className={'svg-fill'} id={"svg-root"}>
   <Swarm
       position={[450,650]}
